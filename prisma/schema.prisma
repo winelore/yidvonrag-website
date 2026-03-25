@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Wine {
+  id          String @id @default(uuid())
+  name        String
+  description String
+
+  color        String
+  sweetness    String
+  volume       Float
+  alcohol      String
+  grapeVariety String
+  country      String
+
+  inStock Boolean @default(true)
+}
