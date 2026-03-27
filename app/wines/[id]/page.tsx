@@ -51,7 +51,7 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                             <dd className="mt-1 text-base font-semibold text-gray-900">{wine.sweetness}</dd>
                         </div>
                         <div className="flex flex-col border-b border-gray-200 pb-3 sm:border-0 sm:pb-0">
-                            <dt className="text-sm font-medium text-gray-500">Об'єм</dt>
+                            <dt className="text-sm font-medium text-gray-500">Об&apos;єм</dt>
                             <dd className="mt-1 text-base font-semibold text-gray-900">{wine.volume} л</dd>
                         </div>
                         <div className="flex flex-col border-b border-gray-200 pb-3 sm:border-0 sm:pb-0">

@@ -6,12 +6,13 @@ const connectionString = `${process.env.DATABASE_URL}`
 
 const prismaClientSingleton = () => {
     const pool = new Pool({ connectionString })
-    // @ts-ignore
-    const adapter = new PrismaPg(pool)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const adapter = new PrismaPg(pool as any)
     return new PrismaClient({ adapter })
 }
 
 declare global {
+    // eslint-disable-next-line no-var
     var prismaGlobal: undefined | ReturnType<typeof prismaClientSingleton>
 }
 
