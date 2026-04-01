@@ -5,12 +5,17 @@ import prisma from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
 import { encrypt } from '@/lib/session'
 
-export async function loginAction(prevState: any, formData: FormData) {
+export type LoginState = {
+  error?: string;
+  success?: boolean;
+} | undefined;
+
+export async function loginAction(prevState: LoginState, formData: FormData) {
   const identifier = formData.get('identifier') as string
   const password = formData.get('password') as string
 
   if (!identifier || !password) {
-    return { error: 'Будь ласка, заповніть всі поля' }
+    return { error: 'Будь ласка, заповніть всі поля', success: false }
   }
 
   try {
@@ -24,13 +29,13 @@ export async function loginAction(prevState: any, formData: FormData) {
     })
 
     if (!user) {
-      return { error: 'Невірний логін або пароль' }
+      return { error: 'Невірний логін або пароль', success: false }
     }
 
     const isMatch = await bcrypt.compare(password, user.password)
 
     if (!isMatch) {
-      return { error: 'Невірний логін або пароль' }
+      return { error: 'Невірний логін або пароль', success: false }
     }
 
     const sessionData = await encrypt({ id: user.id, username: user.username })
@@ -43,9 +48,13 @@ export async function loginAction(prevState: any, formData: FormData) {
       path: '/',
     })
 
-    return { success: true }
-  } catch (error) {
-    console.error('Login action error:', error)
-    return { error: 'Сталася помилка при авторизації' }
+    return { success: true, error: '' }
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Login action error:', error.message)
+    } else {
+      console.error('Login action error:', String(error))
+    }
+    return { error: 'Сталася помилка при авторизації', success: false }
   }
 }
