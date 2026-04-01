@@ -21,3 +21,10 @@ model Wine {
 
   inStock Boolean @default(true)
 }
+
+model User {
+  id       String  @id @default(uuid())
+  username String  @unique
+  email    String? @unique
+  password String
+}
