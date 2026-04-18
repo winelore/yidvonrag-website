@@ -1,13 +1,20 @@
 import Image from "next/image";
 import prisma from "@/lib/prisma";
+import Link from "next/link";
+
 
 export default async function Home() {
-    // Звертаємося до бази даних і беремо перші 4 вина, які є в наявності
+    // 1. Отримуємо вина (хіти)
     const hits = await prisma.wine.findMany({
-        where: {
-            inStock: true,
-        },
+        where: { inStock: true },
         take: 4,
+    });
+
+    // 2. Отримуємо пости (спочатку найновіші)
+    const posts = await prisma.post.findMany({
+        orderBy: {
+            createdAt: 'desc'
+        }
     });
 
     return (
@@ -23,62 +30,76 @@ export default async function Home() {
                 </p>
             </section>
 
-            {/* Секція "Список Хітів" */}
-            <main className="max-w-7xl mx-auto px-8 py-16">
-                <div className="flex justify-between items-end mb-10">
-                    <div>
-                        <h2 className="text-3xl font-bold tracking-tight">Популярні вина</h2>
-                        <p className="text-gray-500 mt-2">Вибір наших клієнтів</p>
-                    </div>
-                    <a href="#" className="text-blue-600 hover:underline text-sm font-medium">
-                        Дивитися весь каталог →
-                    </a>
-                </div>
+            <main className="max-w-7xl mx-auto px-8 py-16 space-y-24">
 
-                {/* Сітка товарів */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {hits.map((wine) => (
-                        <div
-                            key={wine.id}
-                            className="group relative border border-black/[0.08] rounded-2xl p-4 transition-all hover:shadow-lg hover:border-transparent flex flex-col"
-                        >
-                            {/* Заглушка для фотографії */}
-                            <div className="aspect-square relative mb-4 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
-                                <Image
-                                    src="https://nextjs.org/icons/file.svg" // Тимчасова іконка
-                                    alt={wine.name}
-                                    width={60}
-                                    height={60}
-                                    className="opacity-20 group-hover:scale-110 transition-transform"
-                                />
-                            </div>
-
-                            <div className="flex-grow">
-                                <h3 className="font-semibold text-lg line-clamp-1">{wine.name}</h3>
-                                <p className="text-sm text-gray-500 mt-1">
-                                    {wine.country} • {wine.color} • {wine.sweetness}
-                                </p>
-                                <p className="text-xs text-gray-400 mt-2 line-clamp-2">
-                                    {wine.description}
-                                </p>
-                            </div>
-
-                            <button className="mt-4 w-full bg-black text-white py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-85">
-                                Додати в кошик
-                            </button>
+                {/* Секція "Список Хітів" */}
+                <section>
+                    <div className="flex justify-between items-end mb-10">
+                        <div>
+                            <h2 className="text-3xl font-bold tracking-tight">Популярні вина</h2>
+                            <p className="text-gray-500 mt-2">Вибір наших клієнтів</p>
                         </div>
-                    ))}
+                        <a href="#" className="text-blue-600 hover:underline text-sm font-medium">
+                            Дивитися весь каталог →
+                        </a>
+                    </div>
 
-                    {/* Якщо база пуста, показуємо повідомлення */}
-                    {hits.length === 0 && (
-                        <p className="text-gray-500 col-span-full text-center py-10">
-                            Наразі вина відсутні в базі даних.
-                        </p>
-                    )}
-                </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {hits.map((w) => (
+                            <div key={w.id} className="group relative border border-black/[0.08] rounded-2xl p-4 transition-all hover:shadow-lg flex flex-col">
+                                <div className="aspect-square relative mb-4 bg-gray-100 rounded-xl flex items-center justify-center">
+                                    <Image src="https://nextjs.org/icons/file.svg" alt={w.name} width={60} height={60} className="opacity-20" />
+                                </div>
+                                <div className="flex-grow">
+                                    <h3 className="font-semibold text-lg">{w.name}</h3>
+                                    <p className="text-sm text-gray-500">{w.country} • {w.color}</p>
+                                </div>
+                                <button className="mt-4 w-full bg-black text-white py-2 rounded-lg text-sm font-medium">Купити</button>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* Секція "Пости / Новини" */}
+                <section className="bg-gray-50 rounded-3xl p-8 sm:p-12">
+                    <div className="max-w-3xl mx-auto text-center mb-12">
+                        <h2 className="text-3xl font-bold">Останні оновлення</h2>
+                        <p className="text-gray-500 mt-2">Новини нашого блогу та сервісу</p>
+                    </div>
+
+                    <div className="space-y-6 max-w-3xl mx-auto">
+                        {posts.length > 0 ? (
+                            posts.map((p) => (
+                                <div key={p.id} className="bg-white border border-black/[0.05] p-6 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                                    {/* Додали заголовок */}
+                                    <h3 className="text-xl font-bold mb-2">{p.title}</h3>
+
+                                    {/* Обрізаємо текст до 3 рядків */}
+                                    <p className="text-gray-600 line-clamp-3">
+                                        {p.content}
+                                    </p>
+
+                                    <div className="mt-4 flex justify-between items-center">
+                                        <div className="text-xs text-gray-400">
+                                            {new Date(p.createdAt).toLocaleDateString('uk-UA')}
+                                        </div>
+                                        {/* Кнопка переходу на окрему сторінку */}
+                                        <Link href={`/posts/${p.id}`} className="text-blue-600 hover:underline text-sm font-medium">
+                                            Читати повністю →
+                                        </Link>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-2xl">
+                                <p className="text-gray-400">Тут поки порожньо. Скоро з'являться перші пости!</p>
+                            </div>
+                        )}
+                    </div>
+                </section>
+
             </main>
 
-            {/* Footer */}
             <footer className="border-t border-black/[0.08] py-10 text-center text-sm text-gray-500">
                 <p>© 2026 yidvonrag-website. Всі права захищені.</p>
             </footer>

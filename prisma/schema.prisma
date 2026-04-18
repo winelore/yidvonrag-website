@@ -28,3 +28,11 @@ model User {
   email    String? @unique
   password String
 }
+
+
+model Post {
+  id        String   @id @default(uuid())
+  title     String   // Додали заголовок
+  content   String   // поле TEXT
+  createdAt DateTime @default(now()) // дата створення, щоб сортувати пости
+}
