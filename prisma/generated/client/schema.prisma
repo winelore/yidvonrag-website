@@ -19,7 +19,8 @@ model Wine {
   grapeVariety String
   country      String
 
-  inStock Boolean @default(true)
+  inStock Boolean  @default(true)
+  images  String[] @default([])
 }
 
 model User {

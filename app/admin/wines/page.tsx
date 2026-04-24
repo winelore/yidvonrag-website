@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
+import Image from 'next/image'
 import { createWineAction } from './actions'
 
 export const dynamic = 'force-dynamic'
@@ -23,11 +24,22 @@ export default async function WinesPage() {
       <div className="flex flex-col gap-4">
         {wines.map(wine => (
           <div key={wine.id} className="rounded-2xl border border-black/[.08] dark:border-white/[.145] bg-white dark:bg-black p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors hover:border-black/[.15] dark:hover:border-white/[.25]">
-            <div>
-              <h2 className="text-xl font-semibold mb-1 text-foreground">{wine.name}</h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {wine.color || 'Колір не вказано'} | {wine.country || 'Країна не вказана'} | {wine.volume} л
-              </p>
+            <div className="flex items-center gap-4">
+              {wine.images && wine.images.length > 0 ? (
+                <div className="relative w-16 h-16 rounded-lg overflow-hidden border border-black/[.08] dark:border-white/[.145] shrink-0">
+                  <Image src={wine.images[0]} alt={wine.name} fill className="object-cover" />
+                </div>
+              ) : (
+                <div className="w-16 h-16 rounded-lg bg-gray-100 dark:bg-zinc-800 flex items-center justify-center shrink-0 border border-black/[.08] dark:border-white/[.145]">
+                  <span className="text-gray-400 text-[10px]">Немає фото</span>
+                </div>
+              )}
+              <div>
+                <h2 className="text-xl font-semibold mb-1 text-foreground">{wine.name}</h2>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {wine.color || 'Колір не вказано'} | {wine.country || 'Країна не вказана'} | {wine.volume} л
+                </p>
+              </div>
             </div>
             <Link 
               href={`/admin/wines/${wine.id}`}

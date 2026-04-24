@@ -20,6 +20,7 @@ model Wine {
   country      String
 
   inStock Boolean @default(true)
+  images  String[] @default([])
 }
 
 model User {

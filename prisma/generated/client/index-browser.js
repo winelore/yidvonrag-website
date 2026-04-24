@@ -130,7 +130,8 @@ exports.Prisma.WineScalarFieldEnum = {
   alcohol: 'alcohol',
   grapeVariety: 'grapeVariety',
   country: 'country',
-  inStock: 'inStock'
+  inStock: 'inStock',
+  images: 'images'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
