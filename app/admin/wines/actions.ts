@@ -35,6 +35,33 @@ export async function updateWineAction(id: string, formData: FormData) {
   const country = formData.get('country') as string
   const inStock = formData.get('inStock') === 'on'
 
+  const token = 'vercel_blob_rw_xqtNsojIRblvwdXW_ltX0i9Q0dYouL83aEKv9gRZGur2yT1';
+
+  const orderStr = formData.get('imageOrder') as string;
+  let finalImages: string[] = [];
+  
+  if (orderStr) {
+     const orderArray = JSON.parse(orderStr) as string[];
+     
+     for (const itemId of orderArray) {
+        if (itemId.startsWith('newFile_')) {
+           const file = formData.get(itemId) as File | null;
+           if (file && file.size > 0) {
+              const blob = await put(file.name, file, {
+                 access: 'public',
+                 token: token,
+                 addRandomSuffix: true,
+              });
+              finalImages.push(blob.url);
+           }
+        } else {
+           finalImages.push(itemId);
+        }
+     }
+  }
+
+  const oldWine = await prisma.wine.findUnique({ where: { id } });
+
   await prisma.wine.update({
     where: { id },
     data: {
@@ -46,13 +73,20 @@ export async function updateWineAction(id: string, formData: FormData) {
       alcohol,
       grapeVariety,
       country,
-      inStock
+      inStock,
+      images: finalImages
     }
   })
 
-  const file = formData.get('file') as File | null;
-  if (file && file.size > 0 && file.name !== 'undefined') {
-    await uploadImageAction(id, formData);
+  if (oldWine && oldWine.images) {
+     const deletedImages = oldWine.images.filter((url: string) => !finalImages.includes(url));
+     for (const delUrl of deletedImages) {
+        try {
+           await del(delUrl, { token });
+        } catch (e) {
+           console.error("Failed to delete blob", delUrl, e);
+        }
+     }
   }
 
   revalidatePath('/admin/wines')
@@ -62,16 +96,8 @@ export async function updateWineAction(id: string, formData: FormData) {
 
 export async function uploadImageAction(wineId: string, formData: FormData) {
   const file = formData.get('file') as File;
-  const token = process.env.BLOB_READ_WRITE_TOKEN;
-
-  // ТИМЧАСОВИЙ ЛОГ ДЛЯ ПЕРЕВІРКИ (подивись у термінал після натискання кнопки)
-  console.log('--- DEBUG ---');
-  console.log('Token exists:', !!token);
-  if (token) console.log('Token prefix:', token.substring(0, 15));
-  console.log('-------------');
 
   if (!file) throw new Error('Файл не знайдено');
-  if (!token) throw new Error('Токен BLOB_READ_WRITE_TOKEN не знайдено у файлі .env');
 
   if (!file.type.startsWith('image/')) {
     throw new Error('Дозволено завантажувати лише зображення');
@@ -79,7 +105,7 @@ export async function uploadImageAction(wineId: string, formData: FormData) {
 
   const blob = await put(file.name, file, {
     access: 'public',
-    token: token,
+    token: 'vercel_blob_rw_xqtNsojIRblvwdXW_ltX0i9Q0dYouL83aEKv9gRZGur2yT1',
     addRandomSuffix: true,
   });
 
@@ -97,10 +123,8 @@ export async function uploadImageAction(wineId: string, formData: FormData) {
 }
 
 export async function deleteImageAction(wineId: string, imageUrl: string) {
-  const token = process.env.BLOB_READ_WRITE_TOKEN;
-
   await del(imageUrl, {
-    token: token,
+    token: 'vercel_blob_rw_xqtNsojIRblvwdXW_ltX0i9Q0dYouL83aEKv9gRZGur2yT1'
   });
 
   const wine = await prisma.wine.findUnique({
