@@ -2,36 +2,29 @@ import Image from "next/image";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 
-
 export default async function Home() {
-    // 1. Отримуємо вина (хіти)
+    // Міняємо updatedAt на id, бо updatedAt поки немає в схемі
     const hits = await prisma.wine.findMany({
         where: { inStock: true },
+        orderBy: { id: 'desc' },
         take: 4,
     });
 
-    // 2. Отримуємо пости (спочатку найновіші)
     const posts = await prisma.post.findMany({
-        orderBy: {
-            createdAt: 'desc'
-        }
+        orderBy: { id: 'desc' }
     });
 
     return (
         <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)]">
-
             {/* Hero Section */}
             <section className="flex flex-col items-center justify-center text-center py-20 px-8 bg-gradient-to-b from-transparent to-black/[0.02]">
-                <h1 className="text-4xl sm:text-6xl font-bold mb-4">
-                    Ексклюзивна колекція вин
-                </h1>
+                <h1 className="text-4xl sm:text-6xl font-bold mb-4">Ексклюзивна колекція вин</h1>
                 <p className="text-lg text-gray-600 max-w-2xl">
                     Відкрийте для себе найкращі смаки з усього світу. Ми ретельно відбираємо кожну пляшку.
                 </p>
             </section>
 
             <main className="max-w-7xl mx-auto px-8 py-16 space-y-24">
-
                 {/* Секція "Список Хітів" */}
                 <section>
                     <div className="flex justify-between items-end mb-10">
@@ -46,37 +39,24 @@ export default async function Home() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {hits.map((wine) => (
-                            <div
-                                key={wine.id}
-                                className="group relative border border-black/[0.08] rounded-2xl p-4 transition-all hover:shadow-lg flex flex-col"
-                            >
+                            <div key={wine.id} className="group relative border border-black/[0.08] rounded-2xl p-4 transition-all hover:shadow-lg flex flex-col">
                                 <div className="aspect-square relative mb-4 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
                                     {wine.images && wine.images.length > 0 ? (
-                                        <Image 
-                                            src={wine.images[0]} 
-                                            alt={wine.name} 
-                                            fill 
+                                        <Image
+                                            src={wine.images[0]}
+                                            alt={wine.name}
+                                            fill
                                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                             className="object-cover group-hover:scale-105 transition-transform duration-300"
                                         />
                                     ) : (
-                                        <Image
-                                            src="https://nextjs.org/icons/file.svg"
-                                            alt={wine.name}
-                                            width={60}
-                                            height={60}
-                                            className="opacity-20 group-hover:scale-110 transition-transform"
-                                        />
+                                        <Image src="https://nextjs.org/icons/file.svg" alt={wine.name} width={60} height={60} className="opacity-20 group-hover:scale-110 transition-transform" />
                                     )}
                                 </div>
                                 <div className="flex-grow">
                                     <h3 className="font-semibold text-lg line-clamp-1">{wine.name}</h3>
-                                    <p className="text-sm text-gray-500 mt-1">
-                                        {wine.country} • {wine.color} • {wine.sweetness}
-                                    </p>
-                                    <p className="text-xs text-gray-400 mt-2 line-clamp-2">
-                                        {wine.description}
-                                    </p>
+                                    <p className="text-sm text-gray-500 mt-1">{wine.country} • {wine.color} • {wine.sweetness}</p>
+                                    <p className="text-xs text-gray-400 mt-2 line-clamp-2">{wine.description}</p>
                                 </div>
                                 <button className="mt-4 w-full bg-black text-white py-2 rounded-lg text-sm font-medium transition-opacity hover:opacity-85">
                                     Додати в кошик
@@ -86,7 +66,7 @@ export default async function Home() {
                     </div>
                 </section>
 
-                {/* Секція "Пости / Новини" */}
+                {/* Секція "Пости" */}
                 <section className="bg-gray-50 rounded-3xl p-8 sm:p-12">
                     <div className="max-w-3xl mx-auto text-center mb-12">
                         <h2 className="text-3xl font-bold">Останні оновлення</h2>
@@ -102,33 +82,21 @@ export default async function Home() {
                                             <Image src={p.images[0]} alt={p.title} fill className="object-cover hover:scale-105 transition-transform duration-300" />
                                         </div>
                                     )}
-                                    {/* Додали заголовок */}
                                     <h3 className="text-xl font-bold mb-2">{p.title}</h3>
-
-                                    {/* Обрізаємо текст до 3 рядків */}
-                                    <p className="text-gray-600 line-clamp-3">
-                                        {p.content}
-                                    </p>
-
+                                    <p className="text-gray-600 line-clamp-3">{p.content}</p>
                                     <div className="mt-4 flex justify-between items-center">
-                                        <div className="text-xs text-gray-400">
-                                            {new Date(p.createdAt).toLocaleDateString('uk-UA')}
-                                        </div>
-                                        {/* Кнопка переходу на окрему сторінку */}
-                                        <Link href={`/posts/${p.id}`} className="text-blue-600 hover:underline text-sm font-medium">
-                                            Читати повністю →
-                                        </Link>
+                                        <div className="text-xs text-gray-400">{new Date(p.createdAt).toLocaleDateString('uk-UA')}</div>
+                                        <Link href={`/posts/${p.id}`} className="text-blue-600 hover:underline text-sm font-medium">Читати повністю →</Link>
                                     </div>
                                 </div>
                             ))
                         ) : (
                             <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-2xl">
-                                <p className="text-gray-400">Тут поки порожньо. Скоро з&apos;являться перші пости!</p>
+                                <p className="text-gray-400">Тут поки порожньо.</p>
                             </div>
                         )}
                     </div>
                 </section>
-
             </main>
 
             <footer className="border-t border-black/[0.08] py-10 text-center text-sm text-gray-500">
