@@ -13,6 +13,9 @@ export default function Header() {
                 YIDVONRAG
             </Link>
             <nav className="flex gap-6 items-center">
+                <Link href="/wines" className="text-sm font-medium hover:text-blue-600 transition-colors">
+                    Всі вина
+                </Link>
                 <Link href="/cart" className="relative flex items-center justify-center p-2 rounded-full bg-gray-50 hover:bg-gray-100 transition">
                     <span className="text-xl">🛒</span>
                     {totalItems > 0 && (

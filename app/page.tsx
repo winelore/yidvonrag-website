@@ -28,6 +28,9 @@ export default async function Home() {
                 <p className="text-lg text-gray-600 max-w-2xl">
                     Відкрийте для себе найкращі смаки з усього світу. Ми ретельно відбираємо кожну пляшку.
                 </p>
+                <Link href="/wines" className="mt-8 bg-black text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-800 transition">
+                    Переглянути всі вина
+                </Link>
             </section>
 
             <main className="max-w-7xl mx-auto px-8 py-16 space-y-24">
@@ -39,7 +42,7 @@ export default async function Home() {
                             <h2 className="text-3xl font-bold tracking-tight">Популярні вина</h2>
                             <p className="text-gray-500 mt-2">Вибір наших клієнтів</p>
                         </div>
-                        <a href="#" className="text-blue-600 hover:underline text-sm font-medium">
+                        <a href="/wines" className="text-blue-600 hover:underline text-sm font-medium">
                             Дивитися весь каталог →
                         </a>
                     </div>
