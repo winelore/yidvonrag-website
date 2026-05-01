@@ -19,7 +19,8 @@ model Wine {
   grapeVariety String
   country      String
 
-  inStock Boolean @default(true)
+  inStock Boolean  @default(true)
+  images  String[] @default([])
 }
 
 model User {
@@ -31,7 +32,8 @@ model User {
 
 model Post {
   id        String   @id @default(uuid())
-  title     String // Додали заголовок
-  content   String // поле TEXT
-  createdAt DateTime @default(now()) // дата створення, щоб сортувати пости
+  title     String
+  content   String
+  images    String[] @default([])
+  createdAt DateTime @default(now())
 }

@@ -2,6 +2,7 @@ import prisma from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { updateWineAction } from '../actions'
+import { ImageGalleryManager } from './image-upload-input'
 
 export default async function EditWinePage({ params }: { params: { id: string } }) {
   const wine = await prisma.wine.findUnique({
@@ -23,7 +24,7 @@ export default async function EditWinePage({ params }: { params: { id: string } 
       <div className="rounded-2xl border border-black/[.08] dark:border-white/[.145] bg-white dark:bg-black p-8 shadow-sm">
         <h1 className="text-2xl font-bold mb-6 text-foreground">Редагувати вино</h1>
 
-        <form action={updateWineWithId} className="flex flex-col gap-6">
+        <form id="update-wine-form" action={updateWineWithId} className="flex flex-col gap-6">
 
           <div className="flex flex-col gap-1.5">
             <label htmlFor="name" className="text-sm font-medium text-foreground">Назва</label>
@@ -134,15 +135,21 @@ export default async function EditWinePage({ params }: { params: { id: string } 
             <label htmlFor="inStock" className="text-sm font-medium text-foreground cursor-pointer">В наявності</label>
           </div>
 
-          <div className="mt-6 flex flex-col sm:flex-row gap-4 pt-4 border-t border-black/[.08] dark:border-white/[.145]">
-            <button type="submit" className="w-full sm:w-auto rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm h-12 px-8">
-              Зберегти зміни
-            </button>
-            <Link href="/admin/wines" className="w-full sm:w-auto rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] text-sm h-12 px-8 text-foreground">
-              Скасувати
-            </Link>
+          <div className="border-t border-black/[.08] dark:border-white/[.145] pt-6 flex flex-col gap-4 mt-6">
+             <h2 className="text-sm font-medium text-foreground">Галерея зображень</h2>
+             <ImageGalleryManager initialImages={wine.images || []} />
           </div>
         </form>
+
+        {/* Submit Actions */}
+        <div className="mt-8 flex flex-col sm:flex-row gap-4 pt-6 border-t border-black/[.08] dark:border-white/[.145]">
+          <button type="submit" form="update-wine-form" className="w-full sm:w-auto rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm h-12 px-8">
+            Зберегти зміни
+          </button>
+          <Link href="/admin/wines" className="w-full sm:w-auto rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] text-sm h-12 px-8 text-foreground">
+            Скасувати
+          </Link>
+        </div>
       </div>
     </div>
   )

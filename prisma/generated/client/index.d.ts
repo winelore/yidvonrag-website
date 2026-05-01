@@ -1105,6 +1105,7 @@ export namespace Prisma {
     grapeVariety: number
     country: number
     inStock: number
+    images: number
     _all: number
   }
 
@@ -1154,6 +1155,7 @@ export namespace Prisma {
     grapeVariety?: true
     country?: true
     inStock?: true
+    images?: true
     _all?: true
   }
 
@@ -1254,6 +1256,7 @@ export namespace Prisma {
     grapeVariety: string
     country: string
     inStock: boolean
+    images: string[]
     _count: WineCountAggregateOutputType | null
     _avg: WineAvgAggregateOutputType | null
     _sum: WineSumAggregateOutputType | null
@@ -1286,6 +1289,7 @@ export namespace Prisma {
     grapeVariety?: boolean
     country?: boolean
     inStock?: boolean
+    images?: boolean
   }, ExtArgs["result"]["wine"]>
 
   export type WineSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1299,6 +1303,7 @@ export namespace Prisma {
     grapeVariety?: boolean
     country?: boolean
     inStock?: boolean
+    images?: boolean
   }, ExtArgs["result"]["wine"]>
 
   export type WineSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1312,6 +1317,7 @@ export namespace Prisma {
     grapeVariety?: boolean
     country?: boolean
     inStock?: boolean
+    images?: boolean
   }, ExtArgs["result"]["wine"]>
 
   export type WineSelectScalar = {
@@ -1325,9 +1331,10 @@ export namespace Prisma {
     grapeVariety?: boolean
     country?: boolean
     inStock?: boolean
+    images?: boolean
   }
 
-  export type WineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "color" | "sweetness" | "volume" | "alcohol" | "grapeVariety" | "country" | "inStock", ExtArgs["result"]["wine"]>
+  export type WineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "color" | "sweetness" | "volume" | "alcohol" | "grapeVariety" | "country" | "inStock" | "images", ExtArgs["result"]["wine"]>
 
   export type $WinePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Wine"
@@ -1343,6 +1350,7 @@ export namespace Prisma {
       grapeVariety: string
       country: string
       inStock: boolean
+      images: string[]
     }, ExtArgs["result"]["wine"]>
     composites: {}
   }
@@ -1776,6 +1784,7 @@ export namespace Prisma {
     readonly grapeVariety: FieldRef<"Wine", 'String'>
     readonly country: FieldRef<"Wine", 'String'>
     readonly inStock: FieldRef<"Wine", 'Boolean'>
+    readonly images: FieldRef<"Wine", 'String[]'>
   }
     
 
@@ -3162,6 +3171,7 @@ export namespace Prisma {
     id: number
     title: number
     content: number
+    images: number
     createdAt: number
     _all: number
   }
@@ -3185,6 +3195,7 @@ export namespace Prisma {
     id?: true
     title?: true
     content?: true
+    images?: true
     createdAt?: true
     _all?: true
   }
@@ -3265,6 +3276,7 @@ export namespace Prisma {
     id: string
     title: string
     content: string
+    images: string[]
     createdAt: Date
     _count: PostCountAggregateOutputType | null
     _min: PostMinAggregateOutputType | null
@@ -3289,6 +3301,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     content?: boolean
+    images?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["post"]>
 
@@ -3296,6 +3309,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     content?: boolean
+    images?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["post"]>
 
@@ -3303,6 +3317,7 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     content?: boolean
+    images?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["post"]>
 
@@ -3310,10 +3325,11 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     content?: boolean
+    images?: boolean
     createdAt?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "createdAt", ExtArgs["result"]["post"]>
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "images" | "createdAt", ExtArgs["result"]["post"]>
 
   export type $PostPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Post"
@@ -3322,6 +3338,7 @@ export namespace Prisma {
       id: string
       title: string
       content: string
+      images: string[]
       createdAt: Date
     }, ExtArgs["result"]["post"]>
     composites: {}
@@ -3749,6 +3766,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Post", 'String'>
     readonly title: FieldRef<"Post", 'String'>
     readonly content: FieldRef<"Post", 'String'>
+    readonly images: FieldRef<"Post", 'String[]'>
     readonly createdAt: FieldRef<"Post", 'DateTime'>
   }
     
@@ -4145,7 +4163,8 @@ export namespace Prisma {
     alcohol: 'alcohol',
     grapeVariety: 'grapeVariety',
     country: 'country',
-    inStock: 'inStock'
+    inStock: 'inStock',
+    images: 'images'
   };
 
   export type WineScalarFieldEnum = (typeof WineScalarFieldEnum)[keyof typeof WineScalarFieldEnum]
@@ -4165,6 +4184,7 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     content: 'content',
+    images: 'images',
     createdAt: 'createdAt'
   };
 
@@ -4280,6 +4300,7 @@ export namespace Prisma {
     grapeVariety?: StringFilter<"Wine"> | string
     country?: StringFilter<"Wine"> | string
     inStock?: BoolFilter<"Wine"> | boolean
+    images?: StringNullableListFilter<"Wine">
   }
 
   export type WineOrderByWithRelationInput = {
@@ -4293,6 +4314,7 @@ export namespace Prisma {
     grapeVariety?: SortOrder
     country?: SortOrder
     inStock?: SortOrder
+    images?: SortOrder
   }
 
   export type WineWhereUniqueInput = Prisma.AtLeast<{
@@ -4309,6 +4331,7 @@ export namespace Prisma {
     grapeVariety?: StringFilter<"Wine"> | string
     country?: StringFilter<"Wine"> | string
     inStock?: BoolFilter<"Wine"> | boolean
+    images?: StringNullableListFilter<"Wine">
   }, "id">
 
   export type WineOrderByWithAggregationInput = {
@@ -4322,6 +4345,7 @@ export namespace Prisma {
     grapeVariety?: SortOrder
     country?: SortOrder
     inStock?: SortOrder
+    images?: SortOrder
     _count?: WineCountOrderByAggregateInput
     _avg?: WineAvgOrderByAggregateInput
     _max?: WineMaxOrderByAggregateInput
@@ -4343,6 +4367,7 @@ export namespace Prisma {
     grapeVariety?: StringWithAggregatesFilter<"Wine"> | string
     country?: StringWithAggregatesFilter<"Wine"> | string
     inStock?: BoolWithAggregatesFilter<"Wine"> | boolean
+    images?: StringNullableListFilter<"Wine">
   }
 
   export type UserWhereInput = {
@@ -4399,6 +4424,7 @@ export namespace Prisma {
     id?: StringFilter<"Post"> | string
     title?: StringFilter<"Post"> | string
     content?: StringFilter<"Post"> | string
+    images?: StringNullableListFilter<"Post">
     createdAt?: DateTimeFilter<"Post"> | Date | string
   }
 
@@ -4406,6 +4432,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
+    images?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -4416,6 +4443,7 @@ export namespace Prisma {
     NOT?: PostWhereInput | PostWhereInput[]
     title?: StringFilter<"Post"> | string
     content?: StringFilter<"Post"> | string
+    images?: StringNullableListFilter<"Post">
     createdAt?: DateTimeFilter<"Post"> | Date | string
   }, "id">
 
@@ -4423,6 +4451,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
+    images?: SortOrder
     createdAt?: SortOrder
     _count?: PostCountOrderByAggregateInput
     _max?: PostMaxOrderByAggregateInput
@@ -4436,6 +4465,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Post"> | string
     title?: StringWithAggregatesFilter<"Post"> | string
     content?: StringWithAggregatesFilter<"Post"> | string
+    images?: StringNullableListFilter<"Post">
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
   }
 
@@ -4450,6 +4480,7 @@ export namespace Prisma {
     grapeVariety: string
     country: string
     inStock?: boolean
+    images?: WineCreateimagesInput | string[]
   }
 
   export type WineUncheckedCreateInput = {
@@ -4463,6 +4494,7 @@ export namespace Prisma {
     grapeVariety: string
     country: string
     inStock?: boolean
+    images?: WineCreateimagesInput | string[]
   }
 
   export type WineUpdateInput = {
@@ -4476,6 +4508,7 @@ export namespace Prisma {
     grapeVariety?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
+    images?: WineUpdateimagesInput | string[]
   }
 
   export type WineUncheckedUpdateInput = {
@@ -4489,6 +4522,7 @@ export namespace Prisma {
     grapeVariety?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
+    images?: WineUpdateimagesInput | string[]
   }
 
   export type WineCreateManyInput = {
@@ -4502,6 +4536,7 @@ export namespace Prisma {
     grapeVariety: string
     country: string
     inStock?: boolean
+    images?: WineCreateimagesInput | string[]
   }
 
   export type WineUpdateManyMutationInput = {
@@ -4515,6 +4550,7 @@ export namespace Prisma {
     grapeVariety?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
+    images?: WineUpdateimagesInput | string[]
   }
 
   export type WineUncheckedUpdateManyInput = {
@@ -4528,6 +4564,7 @@ export namespace Prisma {
     grapeVariety?: StringFieldUpdateOperationsInput | string
     country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
+    images?: WineUpdateimagesInput | string[]
   }
 
   export type UserCreateInput = {
@@ -4583,6 +4620,7 @@ export namespace Prisma {
     id?: string
     title: string
     content: string
+    images?: PostCreateimagesInput | string[]
     createdAt?: Date | string
   }
 
@@ -4590,6 +4628,7 @@ export namespace Prisma {
     id?: string
     title: string
     content: string
+    images?: PostCreateimagesInput | string[]
     createdAt?: Date | string
   }
 
@@ -4597,6 +4636,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    images?: PostUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4604,6 +4644,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    images?: PostUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4611,6 +4652,7 @@ export namespace Prisma {
     id?: string
     title: string
     content: string
+    images?: PostCreateimagesInput | string[]
     createdAt?: Date | string
   }
 
@@ -4618,6 +4660,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    images?: PostUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4625,6 +4668,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
+    images?: PostUpdateimagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4659,6 +4703,14 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
   export type WineCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -4670,6 +4722,7 @@ export namespace Prisma {
     grapeVariety?: SortOrder
     country?: SortOrder
     inStock?: SortOrder
+    images?: SortOrder
   }
 
   export type WineAvgOrderByAggregateInput = {
@@ -4822,6 +4875,7 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     content?: SortOrder
+    images?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -4853,6 +4907,10 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type WineCreateimagesInput = {
+    set: string[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -4869,8 +4927,22 @@ export namespace Prisma {
     set?: boolean
   }
 
+  export type WineUpdateimagesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type PostCreateimagesInput = {
+    set: string[]
+  }
+
+  export type PostUpdateimagesInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type DateTimeFieldUpdateOperationsInput = {

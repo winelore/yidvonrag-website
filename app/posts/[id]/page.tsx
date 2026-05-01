@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 // Next.js автоматично передає параметри з URL (наш [id]) сюди
 export default async function PostPage({ params }: { params: { id: string } }) {
@@ -29,6 +30,16 @@ export default async function PostPage({ params }: { params: { id: string } }) {
                     <div className="text-sm text-gray-500 mb-10 pb-10 border-b border-black/[0.08]">
                         Опубліковано: {new Date(post.createdAt).toLocaleDateString('uk-UA')}
                     </div>
+
+                    {post.images && post.images.length > 0 && (
+                        <div className="mb-10 space-y-4">
+                            {post.images.map((img, i) => (
+                                <div key={i} className="relative w-full h-80 rounded-2xl overflow-hidden">
+                                    <Image src={img} alt={`${post.title} - фото ${i + 1}`} fill className="object-cover" />
+                                </div>
+                            ))}
+                        </div>
+                    )}
 
                     <div className="text-lg text-gray-800 leading-relaxed whitespace-pre-wrap">
                         {post.content}
