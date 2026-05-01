@@ -20,6 +20,8 @@ model Wine {
   country      String
 
   inStock Boolean @default(true)
+
+  price Float @default(0)
 }
 
 model User {

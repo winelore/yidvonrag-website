@@ -20,6 +20,8 @@ model Wine {
   country      String
 
   inStock Boolean @default(true)
+
+  price Float @default(0)
 }
 
 model User {
@@ -29,10 +31,9 @@ model User {
   password String
 }
 
-
 model Post {
   id        String   @id @default(uuid())
-  title     String   // Додали заголовок
-  content   String   // поле TEXT
+  title     String // Додали заголовок
+  content   String // поле TEXT
   createdAt DateTime @default(now()) // дата створення, щоб сортувати пости
 }

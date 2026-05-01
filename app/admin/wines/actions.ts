@@ -12,6 +12,7 @@ export async function createWineAction() {
       color: "",
       sweetness: "",
       volume: 0.75,
+      price: 0,
       alcohol: "",
       grapeVariety: "",
       country: "",
@@ -29,6 +30,7 @@ export async function updateWineAction(id: string, formData: FormData) {
   const sweetness = formData.get('sweetness') as string
   const volumeStr = formData.get('volume') as string
   const volume = parseFloat(volumeStr) || 0;
+  const price = parseFloat(formData.get('price') as string) || 0;
   const alcohol = formData.get('alcohol') as string
   const grapeVariety = formData.get('grapeVariety') as string
   const country = formData.get('country') as string
@@ -42,6 +44,7 @@ export async function updateWineAction(id: string, formData: FormData) {
       color,
       sweetness,
       volume,
+      price,
       alcohol,
       grapeVariety,
       country,

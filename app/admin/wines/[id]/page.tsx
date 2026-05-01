@@ -2,6 +2,8 @@ import prisma from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { updateWineAction } from '../actions'
+import AddToCartButton from "@/components/AddToCartButton";
+// import AddToCartButton from "@/components/AddToCartButton";
 
 export default async function EditWinePage({ params }: { params: { id: string } }) {
   const wine = await prisma.wine.findUnique({
@@ -34,6 +36,35 @@ export default async function EditWinePage({ params }: { params: { id: string } 
               defaultValue={wine.name}
               required
               className="h-12 w-full rounded-lg border border-black/[.15] dark:border-white/[.15] bg-transparent px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+            />
+          </div>
+          <header className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-gray-100 pb-8">
+            <div>
+              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">
+                {wine.name}
+              </h1>
+              <span className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold tracking-wide uppercase ${
+                  wine.inStock ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"
+              }`}>
+                            {wine.inStock ? "В наявності" : "Немає в наявності"}
+                        </span>
+            </div>
+
+            <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 min-w-[250px] flex flex-col items-center sm:items-end">
+              <div className="text-3xl font-black text-blue-600 mb-4">{wine.price} ₴</div>
+              <AddToCartButton wine={wine} />
+            </div>
+          </header>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="price" className="text-sm font-medium text-foreground">Ціна (₴)</label>
+            <input
+                type="number"
+                step="0.01"
+                id="price"
+                name="price"
+                defaultValue={wine.price}
+                required
+                className="h-12 w-full rounded-lg border border-black/[.15] dark:border-white/[.15] bg-transparent px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
             />
           </div>
 
