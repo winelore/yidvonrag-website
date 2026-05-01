@@ -38,7 +38,7 @@ export async function updateWineAction(id: string, formData: FormData) {
   const token = 'vercel_blob_rw_xqtNsojIRblvwdXW_ltX0i9Q0dYouL83aEKv9gRZGur2yT1';
 
   const orderStr = formData.get('imageOrder') as string;
-  let finalImages: string[] = [];
+  const finalImages: string[] = [];
   
   if (orderStr) {
      const orderArray = JSON.parse(orderStr) as string[];
