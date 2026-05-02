@@ -26,6 +26,14 @@ export default function AdminDashboard() {
                     <h2 className="text-xl font-semibold text-foreground">Управління постами</h2>
                     <p className="text-sm text-gray-500 dark:text-gray-400">Створення, редагування та публікація записів у блозі.</p>
                 </Link>
+                {/* Кнопка для сторінки Про нас */}
+                <Link
+                    href="/admin/about"
+                    className="rounded-2xl border border-black/[.08] dark:border-white/[.145] bg-white dark:bg-black p-6 shadow-sm hover:border-black/[.15] dark:hover:border-white/[.25] transition-colors flex flex-col gap-2"
+                >
+                    <h2 className="text-xl font-semibold text-foreground">Про нас</h2>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Редагування головного тексту про історію виноробні.</p>
+                </Link>
             </div>
 
             <form action={async () => {
