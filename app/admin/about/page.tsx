@@ -13,8 +13,7 @@ export default async function AdminAboutPage() {
             </Link>
 
             <div className="rounded-2xl border border-black/[.08] dark:border-white/[.145] bg-white dark:bg-black p-8 shadow-sm">
-                <h1 className="text-2xl font-bold mb-6 text-foreground">Сторінка "Про нас"</h1>
-
+                <h1 className="text-2xl font-bold mb-6 text-foreground">Сторінка &quot;Про нас&quot;</h1>
                 <form action={updateAboutAction} className="flex flex-col gap-6">
                     <div className="flex flex-col gap-1.5">
                         <label htmlFor="content" className="text-sm font-medium text-foreground">Текст про виноробню</label>
