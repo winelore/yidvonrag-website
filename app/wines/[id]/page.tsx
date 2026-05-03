@@ -1,15 +1,25 @@
 import ReactMarkdown from "react-markdown";
 import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
+import { createReviewAction } from "./actions";
+import ReviewForm from "@/app/wines/[id]/ReviewForm";
 
 export default async function WineDetailsPage({ params }: { params: { id: string } }) {
     const wine = await prisma.wine.findUnique({
         where: { id: params.id },
+        include: {
+            reviews: {
+                where: { isApproved: true },
+                orderBy: { createdAt: 'desc' }
+            }
+        }
     });
 
     if (!wine) {
         notFound();
     }
+
+    const submitReview = createReviewAction.bind(null, wine.id);
 
     return (
         <main className="min-h-screen bg-white text-gray-900 py-12 px-4 sm:px-6 lg:px-8">
@@ -69,6 +79,50 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                     </dl>
                 </section>
 
+                <section className="bg-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
+                    <h2 className="text-xl font-bold text-gray-900 mb-6 uppercase tracking-wider">
+                        Відгуки
+                    </h2>
+
+                    <ReviewForm wineId={wine.id} />
+
+                    {/* Список схвалених відгуків */}
+                    <div className="space-y-10 mt-12">
+                        {wine.reviews.length === 0 ? (
+                            <p className="text-gray-500 text-center py-10 border-2 border-dashed border-gray-100 rounded-xl">
+                                Ще немає відгуків. Будьте першим!
+                            </p>
+                        ) : (
+                            wine.reviews.map(review => (
+                                <div
+                                    key={review.id}
+                                    className="border-b border-gray-100 pb-10 last:border-0 last:pb-0 transition-all"
+                                >
+                                    <div className="flex justify-between items-center mb-4">
+                    <span className="font-bold text-lg text-gray-900">
+                        {review.authorName}
+                    </span>
+                                        <span className="text-yellow-500 text-sm tracking-widest">
+                        {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
+                    </span>
+                                    </div>
+
+                                    {review.text ? (
+                                        <p className="text-gray-600 leading-relaxed italic px-2 border-l-2 border-gray-100">
+                                            "{review.text}"
+                                        </p>
+                                    ) : (
+                                        <p></p>
+                                    )}
+
+                                    <div className="mt-3 text-[10px] text-gray-300 uppercase tracking-widest">
+                                        {new Date(review.createdAt).toLocaleDateString('uk-UA')}
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </section>
             </div>
         </main>
     );
