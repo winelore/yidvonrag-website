@@ -2,7 +2,6 @@ import Image from "next/image";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 
-
 export default async function Home() {
     // 1. Отримуємо вина (хіти)
     const hits = await prisma.wine.findMany({
@@ -20,14 +19,38 @@ export default async function Home() {
     return (
         <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)]">
 
+            {/* НОВЕ: Шапка сайту (Header) */}
+            <header className="flex justify-between items-center py-6 px-8 max-w-7xl mx-auto w-full">
+                {/* Логотип або назва */}
+                <Link href="/" className="text-2xl font-black tracking-tighter uppercase">
+                    Yidvonrag
+                </Link>
+
+                {/* Навігація */}
+                <nav className="flex items-center gap-8">
+                    <Link href="/" className="text-sm font-medium hover:text-gray-500 transition-colors">
+                        Головна
+                    </Link>
+                    <Link href="/about" className="text-sm font-medium hover:text-gray-500 transition-colors">
+                        Про нас
+                    </Link>
+                </nav>
+            </header>
+
             {/* Hero Section */}
-            <section className="flex flex-col items-center justify-center text-center py-20 px-8 bg-gradient-to-b from-transparent to-black/[0.02]">
-                <h1 className="text-4xl sm:text-6xl font-bold mb-4">
+            <section className="flex flex-col items-center justify-center text-center py-16 sm:py-24 px-8 bg-gradient-to-b from-transparent to-black/[0.02]">
+                <h1 className="text-4xl sm:text-6xl font-bold mb-6">
                     Ексклюзивна колекція вин
                 </h1>
                 <p className="text-lg text-gray-600 max-w-2xl">
                     Відкрийте для себе найкращі смаки з усього світу. Ми ретельно відбираємо кожну пляшку.
                 </p>
+                {/* Додав ще одну кнопку під текст для зручності */}
+                <div className="mt-8 flex gap-4">
+                    <Link href="/about" className="rounded-full border border-black/[0.15] px-6 py-3 text-sm font-medium hover:bg-gray-50 transition-colors">
+                        Дізнатися більше
+                    </Link>
+                </div>
             </section>
 
             <main className="max-w-7xl mx-auto px-8 py-16 space-y-24">
@@ -52,10 +75,10 @@ export default async function Home() {
                             >
                                 <div className="aspect-square relative mb-4 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
                                     {wine.images && wine.images.length > 0 ? (
-                                        <Image 
-                                            src={wine.images[0]} 
-                                            alt={wine.name} 
-                                            fill 
+                                        <Image
+                                            src={wine.images[0]}
+                                            alt={wine.name}
+                                            fill
                                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                             className="object-cover group-hover:scale-105 transition-transform duration-300"
                                         />
@@ -102,10 +125,8 @@ export default async function Home() {
                                             <Image src={p.images[0]} alt={p.title} fill className="object-cover hover:scale-105 transition-transform duration-300" />
                                         </div>
                                     )}
-                                    {/* Додали заголовок */}
                                     <h3 className="text-xl font-bold mb-2">{p.title}</h3>
 
-                                    {/* Обрізаємо текст до 3 рядків */}
                                     <p className="text-gray-600 line-clamp-3">
                                         {p.content}
                                     </p>
@@ -114,7 +135,6 @@ export default async function Home() {
                                         <div className="text-xs text-gray-400">
                                             {new Date(p.createdAt).toLocaleDateString('uk-UA')}
                                         </div>
-                                        {/* Кнопка переходу на окрему сторінку */}
                                         <Link href={`/posts/${p.id}`} className="text-blue-600 hover:underline text-sm font-medium">
                                             Читати повністю →
                                         </Link>
@@ -131,7 +151,12 @@ export default async function Home() {
 
             </main>
 
-            <footer className="border-t border-black/[0.08] py-10 text-center text-sm text-gray-500">
+            {/* ОНОВЛЕНО: Footer з посиланнями */}
+            <footer className="border-t border-black/[0.08] py-12 text-center text-sm text-gray-500">
+                <div className="flex justify-center gap-8 mb-6">
+                    <Link href="/" className="hover:text-black transition-colors font-medium">Головна</Link>
+                    <Link href="/about" className="hover:text-black transition-colors font-medium">Про нас</Link>
+                </div>
                 <p>© 2026 yidvonrag-website. Всі права захищені.</p>
             </footer>
         </div>

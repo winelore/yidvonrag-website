@@ -37,3 +37,9 @@ model Post {
   images    String[] @default([])
   createdAt DateTime @default(now())
 }
+
+model About {
+  id        String   @id @default(cuid())
+  content   String
+  updatedAt DateTime @updatedAt
+}
