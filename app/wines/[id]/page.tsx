@@ -1,7 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
-import { createReviewAction } from "./actions";
 import ReviewForm from "@/app/wines/[id]/ReviewForm";
 
 export default async function WineDetailsPage({ params }: { params: { id: string } }) {
