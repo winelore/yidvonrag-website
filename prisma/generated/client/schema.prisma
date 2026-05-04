@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Wine {
+  id          String @id @default(uuid())
+  name        String
+  description String
+
+  color        String
+  sweetness    String
+  volume       Float
+  alcohol      String
+  grapeVariety String
+  country      String
+
+  inStock Boolean  @default(true)
+  images  String[] @default([])
+  reviews Review[]
+}
+
+model User {
+  id       String  @id @default(uuid())
+  username String  @unique
+  email    String? @unique
+  password String
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  images    String[] @default([])
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id         String   @id @default(uuid())
+  authorName String
+  rating     Int
+  text       String?
+  isApproved Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  wineId     String
+  wine       Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade)
+}
