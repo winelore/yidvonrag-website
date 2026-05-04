@@ -159,6 +159,12 @@ exports.Prisma.ReviewScalarFieldEnum = {
   wineId: 'wineId'
 };
 
+exports.Prisma.AboutScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -179,7 +185,8 @@ exports.Prisma.ModelName = {
   Wine: 'Wine',
   User: 'User',
   Post: 'Post',
-  Review: 'Review'
+  Review: 'Review',
+  About: 'About'
 };
 
 /**

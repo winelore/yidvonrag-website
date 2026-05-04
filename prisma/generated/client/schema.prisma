@@ -49,3 +49,9 @@ model Review {
   wineId     String
   wine       Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade)
 }
+
+model About {
+  id        String   @id @default(cuid())
+  content   String
+  updatedAt DateTime @updatedAt
+}
