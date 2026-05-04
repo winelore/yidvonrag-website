@@ -40,12 +40,18 @@ model Post {
 }
 
 model Review {
-  id         String   @id @default(uuid())
-  authorName String
-  rating     Int
-  text       String?
-  isApproved Boolean  @default(false)
-  createdAt  DateTime @default(now())
-  wineId     String
-  wine       Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade)
+  id          String   @id @default(uuid())
+  authorName  String
+  rating      Int
+  text        String?
+  isApproved  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  wineId      String
+  wine        Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade)
+}
+
+model About {
+  id        String   @id @default(cuid())
+  content   String
+  updatedAt DateTime @updatedAt
 }
