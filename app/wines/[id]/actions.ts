@@ -3,7 +3,7 @@
 import prisma from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 
-export async function createReviewAction(prevState: any, formData: FormData) {
+export async function createReviewAction(prevState: unknown, formData: FormData) {
     const wineId = formData.get('wineId') as string
     const authorName = formData.get('authorName') as string
     const rating = parseInt(formData.get('rating') as string, 10)
@@ -21,7 +21,8 @@ export async function createReviewAction(prevState: any, formData: FormData) {
 
         revalidatePath(`/wines/${wineId}`)
         return { success: true, message: "Відгук надіслано на модерацію. Дякуємо!" }
-    } catch (e) {
+    } catch (error) {
+        console.error(error);
         return { success: false, message: "Помилка при відправці. Спробуйте ще раз." }
     }
 }

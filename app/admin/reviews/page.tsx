@@ -47,7 +47,7 @@ export default async function AdminReviewsPage() {
                             </h2>
                             {review.text ? (
                                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 line-clamp-3">
-                                    "{review.text}"
+                                    &quot;{review.text}&quot;
                                 </p>
                             ) : (
                                 <p className="text-sm text-gray-400 italic mt-2">Без текстового коментаря</p>

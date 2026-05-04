@@ -19,8 +19,6 @@ export default async function WineDetailsPage({ params }: { params: { id: string
         notFound();
     }
 
-    const submitReview = createReviewAction.bind(null, wine.id);
-
     return (
         <main className="min-h-screen bg-white text-gray-900 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto space-y-10">
@@ -109,7 +107,7 @@ export default async function WineDetailsPage({ params }: { params: { id: string
 
                                     {review.text ? (
                                         <p className="text-gray-600 leading-relaxed italic px-2 border-l-2 border-gray-100">
-                                            "{review.text}"
+                                            &quot;{review.text}&quot;
                                         </p>
                                     ) : (
                                         <p></p>

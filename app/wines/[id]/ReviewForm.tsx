@@ -30,7 +30,7 @@ export default function ReviewForm({ wineId }: { wineId: string }) {
             <h3 className="font-semibold text-lg">Залишити відгук</h3>
 
             <div>
-                <label className="block text-sm font-medium mb-1">Ім'я та Прізвище</label>
+                <label className="block text-sm font-medium mb-1">Ім&apos;я та Прізвище</label>
                 <input name="authorName" required className="w-full border rounded-md p-2" />
             </div>
 
