@@ -45,20 +45,49 @@ export default async function Home() {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {hits.map((w) => (
-                            <Link href={`/wines/${w.id}`} key={w.id} className="group relative border border-black/[0.08] rounded-2xl p-4 transition-all hover:shadow-lg flex flex-col">
-                                <div className="aspect-square relative mb-4 bg-gray-100 rounded-xl flex items-center justify-center">
-                                    <Image src="https://nextjs.org/icons/file.svg" alt={w.name} width={60} height={60} className="opacity-20" />
+                        {hits.map((wine) => (
+                            <div key={wine.id} className="group relative border border-black/[0.08] rounded-2xl p-4 transition-all hover:shadow-lg flex flex-col bg-white">
+
+                                {/* Клікабельна частина картки (картинка і текст) */}
+                                <Link href={`/wines/${wine.id}`} className="flex flex-col flex-grow">
+                                    <div className="aspect-square relative mb-4 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
+                                        {/* @ts-expect-error - ігноруємо для безпеки, якщо типи ще не оновились */}
+                                        {wine.images && wine.images.length > 0 ? (
+                                            <Image
+                                                src={wine.images[0]}
+                                                alt={wine.name}
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                            />
+                                        ) : (
+                                            <Image
+                                                src="https://nextjs.org/icons/file.svg"
+                                                alt={wine.name}
+                                                width={60}
+                                                height={60}
+                                                className="opacity-20 group-hover:scale-110 transition-transform"
+                                            />
+                                        )}
+                                    </div>
+                                    <div className="flex-grow">
+                                        <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-blue-600 transition-colors">{wine.name}</h3>
+                                        <p className="text-sm text-gray-500 mt-1">
+                                            {wine.country} • {wine.color} • {wine.sweetness}
+                                        </p>
+                                        <p className="text-xs text-gray-400 mt-2 line-clamp-2">
+                                            {wine.description}
+                                        </p>
+                                        {/* Ціна з гілки DEV-10 */}
+                                        <p className="font-bold mt-3 text-blue-600 text-lg">{wine.price} ₴</p>
+                                    </div>
+                                </Link>
+
+                                {/* Кнопка додавання в кошик (не всередині Link) */}
+                                <div className="mt-4">
+                                    <AddToCartButton wine={wine} />
                                 </div>
-                                <div className="flex-grow">
-                                    <h3 className="font-semibold text-lg">{w.name}</h3>
-                                    <p className="text-sm text-gray-500">{w.country} • {w.color}</p>
-                                    <p className="font-bold mt-2 text-blue-600">{w.price} ₴</p>
-                                </div>
-                                <div className="mt-auto">
-                                    <AddToCartButton wine={w} />
-                                </div>
-                            </Link>
+                            </div>
                         ))}
                     </div>
                 </section>

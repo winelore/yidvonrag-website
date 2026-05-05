@@ -19,9 +19,10 @@ model Wine {
   grapeVariety String
   country      String
 
-  inStock Boolean @default(true)
-
-  price Float @default(0)
+  inStock Boolean  @default(true)
+  price   Float    @default(0)
+  images  String[] @default([])
+  reviews Review[]
 }
 
 model User {
@@ -33,7 +34,25 @@ model User {
 
 model Post {
   id        String   @id @default(uuid())
-  title     String // Додали заголовок
-  content   String // поле TEXT
-  createdAt DateTime @default(now()) // дата створення, щоб сортувати пости
+  title     String
+  content   String
+  images    String[] @default([])
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id         String   @id @default(uuid())
+  authorName String
+  rating     Int
+  text       String?
+  isApproved Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  wineId     String
+  wine       Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade)
+}
+
+model About {
+  id        String   @id @default(cuid())
+  content   String
+  updatedAt DateTime @updatedAt
 }
