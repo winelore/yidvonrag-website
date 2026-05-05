@@ -21,6 +21,7 @@ model Wine {
 
   inStock Boolean @default(true)
   images  String[] @default([])
+  reviews      Review[]
 }
 
 model User {
@@ -36,6 +37,17 @@ model Post {
   content   String
   images    String[] @default([])
   createdAt DateTime @default(now())
+}
+
+model Review {
+  id          String   @id @default(uuid())
+  authorName  String
+  rating      Int
+  text        String?
+  isApproved  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  wineId      String
+  wine        Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade)
 }
 
 model About {

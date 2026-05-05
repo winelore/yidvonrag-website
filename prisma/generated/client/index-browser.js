@@ -149,6 +149,16 @@ exports.Prisma.PostScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  authorName: 'authorName',
+  rating: 'rating',
+  text: 'text',
+  isApproved: 'isApproved',
+  createdAt: 'createdAt',
+  wineId: 'wineId'
+};
+
 exports.Prisma.AboutScalarFieldEnum = {
   id: 'id',
   content: 'content',
@@ -175,6 +185,7 @@ exports.Prisma.ModelName = {
   Wine: 'Wine',
   User: 'User',
   Post: 'Post',
+  Review: 'Review',
   About: 'About'
 };
 
