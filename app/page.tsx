@@ -1,15 +1,19 @@
 import Image from "next/image";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
-import AddToCartButton from "@/components/AddToCartButton";
+
 
 export default async function Home() {
     // 1. Отримуємо вина (хіти)
     const hits = await prisma.wine.findMany({
         where: { inStock: true },
         take: 4,
+        include: {
+            reviews: {
+                where: { isApproved: true }
+            }
+        }
     });
-
     // 2. Отримуємо пости (спочатку найновіші)
     const posts = await prisma.post.findMany({
         orderBy: {
@@ -28,9 +32,6 @@ export default async function Home() {
                 <p className="text-lg text-gray-600 max-w-2xl">
                     Відкрийте для себе найкращі смаки з усього світу. Ми ретельно відбираємо кожну пляшку.
                 </p>
-                <Link href="/wines" className="mt-8 bg-black text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-800 transition">
-                    Переглянути всі вина
-                </Link>
             </section>
 
             <main className="max-w-7xl mx-auto px-8 py-16 space-y-24">
@@ -42,27 +43,43 @@ export default async function Home() {
                             <h2 className="text-3xl font-bold tracking-tight">Популярні вина</h2>
                             <p className="text-gray-500 mt-2">Вибір наших клієнтів</p>
                         </div>
-                        <a href="/wines" className="text-blue-600 hover:underline text-sm font-medium">
+                        <a href="#" className="text-blue-600 hover:underline text-sm font-medium">
                             Дивитися весь каталог →
                         </a>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {hits.map((w) => (
-                            <Link href={`/wines/${w.id}`} key={w.id} className="group relative border border-black/[0.08] rounded-2xl p-4 transition-all hover:shadow-lg flex flex-col">
-                                <div className="aspect-square relative mb-4 bg-gray-100 rounded-xl flex items-center justify-center">
-                                    <Image src="https://nextjs.org/icons/file.svg" alt={w.name} width={60} height={60} className="opacity-20" />
+                        {hits.map((w) => {
+                            // НОВЕ: Рахуємо середній рейтинг
+                            const avgRating = w.reviews && w.reviews.length > 0
+                                ? (w.reviews.reduce((sum, r) => sum + r.rating, 0) / w.reviews.length).toFixed(1)
+                                : null;
+
+                            return (
+                                <div key={w.id} className="group relative border border-black/[0.08] rounded-2xl p-4 transition-all hover:shadow-lg flex flex-col">
+                                    <div className="aspect-square relative mb-4 bg-gray-100 rounded-xl flex items-center justify-center">
+                                        <Image src="https://nextjs.org/icons/file.svg" alt={w.name} width={60} height={60} className="opacity-20" />
+                                    </div>
+                                    <div className="flex-grow">
+                                        <h3 className="font-semibold text-lg">{w.name}</h3>
+
+                                        {/* НОВЕ: Відображення рейтингу */}
+                                        {avgRating ? (
+                                            <div className="flex items-center gap-1 mt-1 mb-1 text-sm">
+                                                <span className="text-yellow-500">★</span>
+                                                <span className="font-medium text-gray-700">{avgRating}</span>
+                                                <span className="text-gray-400 text-xs">({w.reviews.length})</span>
+                                            </div>
+                                        ) : (
+                                            <div className="mt-1 mb-1 text-xs text-gray-400">Немає відгуків</div>
+                                        )}
+
+                                        <p className="text-sm text-gray-500">{w.country} • {w.color}</p>
+                                    </div>
+                                    <button className="mt-4 w-full bg-black text-white py-2 rounded-lg text-sm font-medium">Купити</button>
                                 </div>
-                                <div className="flex-grow">
-                                    <h3 className="font-semibold text-lg">{w.name}</h3>
-                                    <p className="text-sm text-gray-500">{w.country} • {w.color}</p>
-                                    <p className="font-bold mt-2 text-blue-600">{w.price} ₴</p>
-                                </div>
-                                <div className="mt-auto">
-                                    <AddToCartButton wine={w} />
-                                </div>
-                            </Link>
-                        ))}
+                            );
+                        })}
                     </div>
                 </section>
 
