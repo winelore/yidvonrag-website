@@ -22,6 +22,7 @@ model Wine {
   inStock Boolean  @default(true)
   images  String[] @default([])
   reviews Review[]
+  price   Float    @default(0)
 }
 
 model User {
