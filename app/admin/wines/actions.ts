@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache'
 import { put, del } from '@vercel/blob'
 
 const BLOB_TOKEN = 'vercel_blob_rw_xqtNsojIRblvwdXW_ltX0i9Q0dYouL83aEKv9gRZGur2yT1';
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
 export async function createWineAction() {
   const newWine = await prisma.wine.create({
@@ -51,6 +52,9 @@ export async function updateWineAction(id: string, formData: FormData) {
         if (itemId.startsWith('newFile_')) {
           const file = formData.get(itemId) as File | null;
           if (file && file.size > 0) {
+            if (file.size > MAX_FILE_SIZE) {
+              return { error: `Файл ${file.name} занадто великий. Максимальний розмір — 5 MB.` };
+            }
             const blob = await put(file.name, file, {
               access: 'public',
               token: BLOB_TOKEN,
@@ -111,6 +115,10 @@ export async function updateWineAction(id: string, formData: FormData) {
 export async function uploadImageAction(wineId: string, formData: FormData) {
   const file = formData.get('file') as File;
   if (!file || !file.type.startsWith('image/')) return;
+
+  if (file.size > MAX_FILE_SIZE) {
+    return { error: `Файл ${file.name} занадто великий. Максимальний розмір — 5 MB.` };
+  }
 
   const blob = await put(file.name, file, {
     access: 'public',

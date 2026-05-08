@@ -5,6 +5,8 @@ import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { put, del } from '@vercel/blob'
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+
 export async function createPostAction() {
     // Створюємо шаблонний пост
     const newPost = await prisma.post.create({
@@ -34,6 +36,9 @@ export async function updatePostAction(id: string, formData: FormData) {
             if (itemId.startsWith('newFile_')) {
                 const file = formData.get(itemId) as File | null;
                 if (file && file.size > 0) {
+                    if (file.size > MAX_FILE_SIZE) {
+                        return { error: `Файл ${file.name} занадто великий. Максимальний розмір — 5 MB.` };
+                    }
                     const blob = await put(file.name, file, {
                         access: 'public',
                         token: token,

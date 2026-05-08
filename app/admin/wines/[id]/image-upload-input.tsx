@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
+import toast from 'react-hot-toast'
 
 function HiddenFileInput({ file, inputName }: { file: File, inputName: string }) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -26,11 +27,27 @@ export function ImageGalleryManager({ initialImages }: { initialImages: string[]
     initialImages.map(url => ({ id: url, type: 'existing', url }))
   )
 
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files) return
 
-    const newItems: ImageItem[] = Array.from(files).map(file => ({
+    const validFiles: File[] = []
+    for (const file of Array.from(files)) {
+      if (file.size > MAX_FILE_SIZE) {
+        toast.error(`Файл "${file.name}" занадто великий. Максимальний розмір — 5 MB.`)
+        continue
+      }
+      validFiles.push(file)
+    }
+
+    if (validFiles.length === 0) {
+      e.target.value = ''
+      return
+    }
+
+    const newItems: ImageItem[] = validFiles.map(file => ({
       id: `newFile_${Math.random().toString(36).substring(2, 10)}`,
       type: 'new',
       file,
