@@ -62,7 +62,7 @@ export default async function Home() {
                             <h2 className="text-3xl font-bold tracking-tight">Популярні вина</h2>
                             <p className="text-gray-500 mt-2">Вибір наших клієнтів</p>
                         </div>
-                        <Link href="#" className="text-blue-600 hover:underline text-sm font-medium">
+                        <Link href="/wines" className="text-blue-600 hover:underline text-sm font-medium">
                             Дивитися весь каталог →
                         </Link>
                     </div>
