@@ -1274,10 +1274,12 @@ export namespace Prisma {
 
   export type WineAvgAggregateOutputType = {
     volume: number | null
+    price: number | null
   }
 
   export type WineSumAggregateOutputType = {
     volume: number | null
+    price: number | null
   }
 
   export type WineMinAggregateOutputType = {
@@ -1291,6 +1293,7 @@ export namespace Prisma {
     grapeVariety: string | null
     country: string | null
     inStock: boolean | null
+    price: number | null
   }
 
   export type WineMaxAggregateOutputType = {
@@ -1304,6 +1307,7 @@ export namespace Prisma {
     grapeVariety: string | null
     country: string | null
     inStock: boolean | null
+    price: number | null
   }
 
   export type WineCountAggregateOutputType = {
@@ -1318,16 +1322,19 @@ export namespace Prisma {
     country: number
     inStock: number
     images: number
+    price: number
     _all: number
   }
 
 
   export type WineAvgAggregateInputType = {
     volume?: true
+    price?: true
   }
 
   export type WineSumAggregateInputType = {
     volume?: true
+    price?: true
   }
 
   export type WineMinAggregateInputType = {
@@ -1341,6 +1348,7 @@ export namespace Prisma {
     grapeVariety?: true
     country?: true
     inStock?: true
+    price?: true
   }
 
   export type WineMaxAggregateInputType = {
@@ -1354,6 +1362,7 @@ export namespace Prisma {
     grapeVariety?: true
     country?: true
     inStock?: true
+    price?: true
   }
 
   export type WineCountAggregateInputType = {
@@ -1368,6 +1377,7 @@ export namespace Prisma {
     country?: true
     inStock?: true
     images?: true
+    price?: true
     _all?: true
   }
 
@@ -1469,6 +1479,7 @@ export namespace Prisma {
     country: string
     inStock: boolean
     images: string[]
+    price: number
     _count: WineCountAggregateOutputType | null
     _avg: WineAvgAggregateOutputType | null
     _sum: WineSumAggregateOutputType | null
@@ -1502,6 +1513,7 @@ export namespace Prisma {
     country?: boolean
     inStock?: boolean
     images?: boolean
+    price?: boolean
     reviews?: boolean | Wine$reviewsArgs<ExtArgs>
     _count?: boolean | WineCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["wine"]>
@@ -1518,6 +1530,7 @@ export namespace Prisma {
     country?: boolean
     inStock?: boolean
     images?: boolean
+    price?: boolean
   }, ExtArgs["result"]["wine"]>
 
   export type WineSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1532,6 +1545,7 @@ export namespace Prisma {
     country?: boolean
     inStock?: boolean
     images?: boolean
+    price?: boolean
   }, ExtArgs["result"]["wine"]>
 
   export type WineSelectScalar = {
@@ -1546,9 +1560,10 @@ export namespace Prisma {
     country?: boolean
     inStock?: boolean
     images?: boolean
+    price?: boolean
   }
 
-  export type WineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "color" | "sweetness" | "volume" | "alcohol" | "grapeVariety" | "country" | "inStock" | "images", ExtArgs["result"]["wine"]>
+  export type WineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "color" | "sweetness" | "volume" | "alcohol" | "grapeVariety" | "country" | "inStock" | "images" | "price", ExtArgs["result"]["wine"]>
   export type WineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviews?: boolean | Wine$reviewsArgs<ExtArgs>
     _count?: boolean | WineCountOutputTypeDefaultArgs<ExtArgs>
@@ -1573,6 +1588,7 @@ export namespace Prisma {
       country: string
       inStock: boolean
       images: string[]
+      price: number
     }, ExtArgs["result"]["wine"]>
     composites: {}
   }
@@ -2008,6 +2024,7 @@ export namespace Prisma {
     readonly country: FieldRef<"Wine", 'String'>
     readonly inStock: FieldRef<"Wine", 'Boolean'>
     readonly images: FieldRef<"Wine", 'String[]'>
+    readonly price: FieldRef<"Wine", 'Float'>
   }
     
 
@@ -6548,7 +6565,8 @@ export namespace Prisma {
     grapeVariety: 'grapeVariety',
     country: 'country',
     inStock: 'inStock',
-    images: 'images'
+    images: 'images',
+    price: 'price'
   };
 
   export type WineScalarFieldEnum = (typeof WineScalarFieldEnum)[keyof typeof WineScalarFieldEnum]
@@ -6707,6 +6725,7 @@ export namespace Prisma {
     country?: StringFilter<"Wine"> | string
     inStock?: BoolFilter<"Wine"> | boolean
     images?: StringNullableListFilter<"Wine">
+    price?: FloatFilter<"Wine"> | number
     reviews?: ReviewListRelationFilter
   }
 
@@ -6722,6 +6741,7 @@ export namespace Prisma {
     country?: SortOrder
     inStock?: SortOrder
     images?: SortOrder
+    price?: SortOrder
     reviews?: ReviewOrderByRelationAggregateInput
   }
 
@@ -6740,6 +6760,7 @@ export namespace Prisma {
     country?: StringFilter<"Wine"> | string
     inStock?: BoolFilter<"Wine"> | boolean
     images?: StringNullableListFilter<"Wine">
+    price?: FloatFilter<"Wine"> | number
     reviews?: ReviewListRelationFilter
   }, "id">
 
@@ -6755,6 +6776,7 @@ export namespace Prisma {
     country?: SortOrder
     inStock?: SortOrder
     images?: SortOrder
+    price?: SortOrder
     _count?: WineCountOrderByAggregateInput
     _avg?: WineAvgOrderByAggregateInput
     _max?: WineMaxOrderByAggregateInput
@@ -6777,6 +6799,7 @@ export namespace Prisma {
     country?: StringWithAggregatesFilter<"Wine"> | string
     inStock?: BoolWithAggregatesFilter<"Wine"> | boolean
     images?: StringNullableListFilter<"Wine">
+    price?: FloatWithAggregatesFilter<"Wine"> | number
   }
 
   export type UserWhereInput = {
@@ -6999,6 +7022,7 @@ export namespace Prisma {
     country: string
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
+    price?: number
     reviews?: ReviewCreateNestedManyWithoutWineInput
   }
 
@@ -7014,6 +7038,7 @@ export namespace Prisma {
     country: string
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
+    price?: number
     reviews?: ReviewUncheckedCreateNestedManyWithoutWineInput
   }
 
@@ -7029,6 +7054,7 @@ export namespace Prisma {
     country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
     reviews?: ReviewUpdateManyWithoutWineNestedInput
   }
 
@@ -7044,6 +7070,7 @@ export namespace Prisma {
     country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
     reviews?: ReviewUncheckedUpdateManyWithoutWineNestedInput
   }
 
@@ -7059,6 +7086,7 @@ export namespace Prisma {
     country: string
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
+    price?: number
   }
 
   export type WineUpdateManyMutationInput = {
@@ -7073,6 +7101,7 @@ export namespace Prisma {
     country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
   }
 
   export type WineUncheckedUpdateManyInput = {
@@ -7087,6 +7116,7 @@ export namespace Prisma {
     country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
   }
 
   export type UserCreateInput = {
@@ -7366,10 +7396,12 @@ export namespace Prisma {
     country?: SortOrder
     inStock?: SortOrder
     images?: SortOrder
+    price?: SortOrder
   }
 
   export type WineAvgOrderByAggregateInput = {
     volume?: SortOrder
+    price?: SortOrder
   }
 
   export type WineMaxOrderByAggregateInput = {
@@ -7383,6 +7415,7 @@ export namespace Prisma {
     grapeVariety?: SortOrder
     country?: SortOrder
     inStock?: SortOrder
+    price?: SortOrder
   }
 
   export type WineMinOrderByAggregateInput = {
@@ -7396,10 +7429,12 @@ export namespace Prisma {
     grapeVariety?: SortOrder
     country?: SortOrder
     inStock?: SortOrder
+    price?: SortOrder
   }
 
   export type WineSumOrderByAggregateInput = {
     volume?: SortOrder
+    price?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -7978,6 +8013,7 @@ export namespace Prisma {
     country: string
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
+    price?: number
   }
 
   export type WineUncheckedCreateWithoutReviewsInput = {
@@ -7992,6 +8028,7 @@ export namespace Prisma {
     country: string
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
+    price?: number
   }
 
   export type WineCreateOrConnectWithoutReviewsInput = {
@@ -8022,6 +8059,7 @@ export namespace Prisma {
     country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
   }
 
   export type WineUncheckedUpdateWithoutReviewsInput = {
@@ -8036,6 +8074,7 @@ export namespace Prisma {
     country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
   }
 
   export type ReviewCreateManyWineInput = {
