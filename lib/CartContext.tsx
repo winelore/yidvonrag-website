@@ -12,15 +12,16 @@ type CartItem = {
 type CartContextType = {
     items: CartItem[];
     addToCart: (item: Omit<CartItem, 'quantity'>) => void;
+    removeFromCart: (id: string) => void;
+    updateQuantity: (id: string, quantity: number) => void;
     totalPrice: number;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-    const [items, setItems] = useState<CartItem[]>([]);
+    const[items, setItems] = useState<CartItem[]>([]);
 
-    // Зберігаємо в LocalStorage
     useEffect(() => {
         const savedCart = localStorage.getItem('wine-cart');
         if (savedCart) setItems(JSON.parse(savedCart));
@@ -36,15 +37,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             if (existing) {
                 return prev.map(i => i.id === newItem.id ? { ...i, quantity: i.quantity + 1 } : i);
             }
-            return[...prev, { ...newItem, quantity: 1 }];
+            return [...prev, { ...newItem, quantity: 1 }];
         });
-        alert(`Додано в кошик: ${newItem.name}`); // Для простоти показуємо алерт
+    };
+
+    const removeFromCart = (id: string) => {
+        setItems(prev => prev.filter(item => item.id !== id));
+    };
+
+    const updateQuantity = (id: string, quantity: number) => {
+        setItems(prev => prev.map(item => item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item));
     };
 
     const totalPrice = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
     return (
-        <CartContext.Provider value={{ items, addToCart, totalPrice }}>
+        <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQuantity, totalPrice }}>
             {children}
         </CartContext.Provider>
     );
