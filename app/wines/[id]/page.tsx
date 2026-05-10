@@ -2,6 +2,8 @@ import ReactMarkdown from "react-markdown";
 import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
 import ReviewForm from "@/app/wines/[id]/ReviewForm";
+import AddToCartButton from "@/app/components/AddToCartButton";
+import Image from "next/image";
 
 export default async function WineDetailsPage({ params }: { params: { id: string } }) {
     const wine = await prisma.wine.findUnique({
@@ -18,25 +20,57 @@ export default async function WineDetailsPage({ params }: { params: { id: string
         notFound();
     }
 
+    const avgRating = wine.reviews && wine.reviews.length > 0
+        ? (wine.reviews.reduce((sum, r) => sum + r.rating, 0) / wine.reviews.length).toFixed(1)
+        : null;
+
     return (
         <main className="min-h-screen bg-white text-gray-900 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto space-y-10">
 
                 {/* Header: Name and Status */}
                 <header className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-gray-100 pb-8">
-                    <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900">
-                        {wine.name}
-                    </h1>
-                    <span
-                        className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold tracking-wide uppercase ${
-                            wine.inStock
-                                ? "bg-green-50 text-green-700 border border-green-200"
-                                : "bg-red-50 text-red-700 border border-red-200"
-                        }`}
-                    >
-            {wine.inStock ? "В наявності" : "Немає в наявності"}
-          </span>
+                    <div className="flex-1">
+                        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">
+                            {wine.name}
+                        </h1>
+
+                        {/* Відображення рейтингу */}
+                        {avgRating ? (
+                            <div className="flex items-center gap-2 text-lg mb-4">
+                                <span className="text-yellow-500">★</span>
+                                <span className="font-bold">{avgRating}</span>
+                                <span className="text-gray-500 text-sm">({wine.reviews.length} відгуків)</span>
+                            </div>
+                        ) : (
+                            <div className="text-sm text-gray-400 mb-4">Немає відгуків</div>
+                        )}
+
+                        <span
+                            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold tracking-wide uppercase ${
+                                wine.inStock
+                                    ? "bg-green-50 text-green-700 border border-green-200"
+                                    : "bg-red-50 text-red-700 border border-red-200"
+                            }`}
+                        >
+                            {wine.inStock ? "В наявності" : "Немає в наявності"}
+                        </span>
+                    </div>
+
+                    {/* Блок з ціною та кнопкою кошика */}
+                    <div className="flex flex-col items-start sm:items-end min-w-[200px] bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                        <div className="text-sm text-gray-500 mb-1">Ціна за пляшку</div>
+                        <div className="text-4xl font-black text-gray-900 mb-4">${wine.price}</div>
+                        {wine.inStock && (
+                            <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
+                        )}
+                    </div>
                 </header>
+                {wine.images && wine.images.length > 0 && (
+                    <section className="relative w-full aspect-[2/1] sm:aspect-[3/1] bg-gray-100 rounded-3xl overflow-hidden shadow-sm border border-gray-100">
+                        <Image src={wine.images[0]} alt={wine.name} fill className="object-cover" />
+                    </section>
+                )}
 
                 {/* Markdown Description */}
                 <section className="prose prose-lg prose-gray max-w-none">
