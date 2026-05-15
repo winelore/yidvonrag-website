@@ -57,7 +57,7 @@ export default async function Home() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {hits.map((wine) => {
-                            // РАХУЄМО СЕРЕДНІЙ РЕЙТИНГ
+                            // РАХУЄМО СЕРЕДНІЙ РЕЙТИНГ
                             const avgRating = wine.reviews && wine.reviews.length > 0
                                 ? (wine.reviews.reduce((sum, r) => sum + r.rating, 0) / wine.reviews.length).toFixed(1)
                                 : null;
@@ -67,47 +67,55 @@ export default async function Home() {
                                     key={wine.id}
                                     className="group relative border border-black/[0.08] rounded-2xl p-4 transition-all hover:shadow-lg flex flex-col"
                                 >
-                                    <div className="aspect-square relative mb-4 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
-                                        {wine.images && wine.images.length > 0 ? (
-                                            <Image
-                                                src={wine.images[0]}
-                                                alt={wine.name}
-                                                fill
-                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                                className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                            />
-                                        ) : (
-                                            <Image
-                                                src="https://nextjs.org/icons/file.svg"
-                                                alt={wine.name}
-                                                width={60}
-                                                height={60}
-                                                className="opacity-20 group-hover:scale-110 transition-transform"
-                                            />
-                                        )}
-                                    </div>
-                                    <div className="flex-grow">
-                                        <h3 className="font-semibold text-lg line-clamp-1">{wine.name}</h3>
+                                    {/* ОГОРТКА-ПОСИЛАННЯ ДЛЯ КАРТИНКИ ТА ТЕКСТУ */}
+                                    <Link href={`/wines/${wine.id}`} className="flex flex-col flex-grow cursor-pointer">
+                                        <div className="aspect-square relative mb-4 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
+                                            {wine.images && wine.images.length > 0 ? (
+                                                <Image
+                                                    src={wine.images[0]}
+                                                    alt={wine.name}
+                                                    fill
+                                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                                />
+                                            ) : (
+                                                <Image
+                                                    src="https://nextjs.org/icons/file.svg"
+                                                    alt={wine.name}
+                                                    width={60}
+                                                    height={60}
+                                                    className="opacity-20 group-hover:scale-110 transition-transform"
+                                                />
+                                            )}
+                                        </div>
+                                        <div className="flex-grow">
+                                            {/* Додано hover:text-blue-600 для візуального ефекту при наведенні */}
+                                            <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-blue-600 transition-colors">{wine.name}</h3>
 
-                                        {/* ВІДОБРАЖЕННЯ ЗІРОЧОК */}
-                                        {avgRating ? (
-                                            <div className="flex items-center gap-1 mt-1 mb-1 text-sm">
-                                                <span className="text-yellow-500">★</span>
-                                                <span className="font-medium text-gray-700">{avgRating}</span>
-                                                <span className="text-gray-400 text-xs">({wine.reviews.length})</span>
-                                            </div>
-                                        ) : (
-                                            <div className="mt-1 mb-1 text-xs text-gray-400">Немає відгуків</div>
-                                        )}
+                                            {/* ВІДОБРАЖЕННЯ ЗІРОЧОК */}
+                                            {avgRating ? (
+                                                <div className="flex items-center gap-1 mt-1 mb-1 text-sm">
+                                                    <span className="text-yellow-500">★</span>
+                                                    <span className="font-medium text-gray-700">{avgRating}</span>
+                                                    <span className="text-gray-400 text-xs">({wine.reviews.length})</span>
+                                                </div>
+                                            ) : (
+                                                <div className="mt-1 mb-1 text-xs text-gray-400">Немає відгуків</div>
+                                            )}
 
-                                        <p className="text-sm text-gray-500 mt-1">
-                                            {wine.country} • {wine.color} • {wine.sweetness}
-                                        </p>
-                                        <p className="text-xs text-gray-400 mt-2 line-clamp-2">
-                                            {wine.description}
-                                        </p>
+                                            <p className="text-sm text-gray-500 mt-1">
+                                                {wine.country} • {wine.color} • {wine.sweetness}
+                                            </p>
+                                            <p className="text-xs text-gray-400 mt-2 line-clamp-2">
+                                                {wine.description}
+                                            </p>
+                                        </div>
+                                    </Link>
+
+                                    {/* КНОПКА ДОДАВАННЯ В КОШИК ЗАЛИШАЄТЬСЯ ЗОВНІ ПОСИЛАННЯ */}
+                                    <div className="mt-4">
+                                        <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
                                     </div>
-                                    <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
                                 </div>
                             );
                         })}
