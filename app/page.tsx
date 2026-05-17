@@ -2,6 +2,7 @@ import Image from "next/image";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import AddToCartButton from "@/app/components/AddToCartButton";
+import Footer from "@/app/components/Footer";
 
 export default async function Home() {
     // 1. Отримуємо вина (хіти)
@@ -164,13 +165,8 @@ export default async function Home() {
 
             </main>
 
-            {/* ОНОВЛЕНО: Footer з посиланнями */}
             <footer className="border-t border-black/[0.08] py-12 text-center text-sm text-gray-500">
-                <div className="flex justify-center gap-8 mb-6">
-                    <Link href="/" className="hover:text-black transition-colors font-medium">Головна</Link>
-                    <Link href="/about" className="hover:text-black transition-colors font-medium">Про нас</Link>
-                </div>
-                <p>© 2026 yidvonrag-website. Всі права захищені.</p>
+                <Footer />
             </footer>
         </div>
     );
