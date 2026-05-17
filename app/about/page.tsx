@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
+import Footer from "@/app/components/Footer";
 
 export default async function AboutPage() {
     // Дістаємо наш текст з бази даних
@@ -35,7 +36,7 @@ export default async function AboutPage() {
             </main>
 
             <footer className="border-t border-black/[0.08] py-12 mt-20 text-center text-sm text-gray-500">
-                <p>© 2026 yidvonrag-website. Всі права захищені.</p>
+                <Footer />
             </footer>
 
         </div>
