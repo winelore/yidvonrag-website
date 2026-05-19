@@ -8,7 +8,7 @@ export function AdminForm({
   id, 
   className 
 }: { 
-  action: (formData: FormData) => Promise<any>, 
+  action: (formData: FormData) => Promise<{ error?: string } | void>, 
   children: React.ReactNode,
   id?: string,
   className?: string
@@ -19,9 +19,9 @@ export function AdminForm({
       if (result && result.error) {
         toast.error(result.error)
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       // Якщо це помилка редіректу від Next.js - просто прокидаємо її далі
-      if (e.message === 'NEXT_REDIRECT') {
+      if (e instanceof Error && e.message === 'NEXT_REDIRECT') {
         throw e
       }
       console.error('Action error:', e)

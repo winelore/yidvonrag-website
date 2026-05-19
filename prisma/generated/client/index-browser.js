@@ -131,7 +131,8 @@ exports.Prisma.WineScalarFieldEnum = {
   grapeVariety: 'grapeVariety',
   country: 'country',
   inStock: 'inStock',
-  images: 'images'
+  images: 'images',
+  price: 'price'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -147,6 +148,22 @@ exports.Prisma.PostScalarFieldEnum = {
   content: 'content',
   images: 'images',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.ReviewScalarFieldEnum = {
+  id: 'id',
+  authorName: 'authorName',
+  rating: 'rating',
+  text: 'text',
+  isApproved: 'isApproved',
+  createdAt: 'createdAt',
+  wineId: 'wineId'
+};
+
+exports.Prisma.AboutScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -168,7 +185,9 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   Wine: 'Wine',
   User: 'User',
-  Post: 'Post'
+  Post: 'Post',
+  Review: 'Review',
+  About: 'About'
 };
 
 /**
