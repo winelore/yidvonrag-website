@@ -156,7 +156,7 @@ export default async function Home() {
                             ))
                         ) : (
                             <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-2xl">
-                                <p className="text-gray-400">Тут поки порожньо. Скоро з&apos;являться перші пости!</p>
+                                <p className="text-gray-400">Новини та статті скоро з&apos;являться.</p>
                             </div>
                         )}
                     </div>
@@ -170,7 +170,7 @@ export default async function Home() {
                     <Link href="/" className="hover:text-black transition-colors font-medium">Головна</Link>
                     <Link href="/about" className="hover:text-black transition-colors font-medium">Про нас</Link>
                 </div>
-                <p>© 2026 yidvonrag-website. Всі права захищені.</p>
+                <p>© 2026 Олександр Гарновді. Всі права захищені.</p>
             </footer>
         </div>
     );

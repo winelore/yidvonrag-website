@@ -28,14 +28,14 @@ export default async function AboutPage() {
                         about.content
                     ) : (
                         <div className="p-8 border-2 border-dashed border-gray-200 rounded-2xl text-center">
-                            <p className="italic text-gray-500">Тут пусто!</p>
+                            <p className="italic text-gray-500">Інформація про нас оновлюється.</p>
                         </div>
                     )}
                 </div>
             </main>
 
             <footer className="border-t border-black/[0.08] py-12 mt-20 text-center text-sm text-gray-500">
-                <p>© 2026 yidvonrag-website. Всі права захищені.</p>
+                <p>© 2026 Олександр Гарновді. Всі права захищені.</p>
             </footer>
 
         </div>

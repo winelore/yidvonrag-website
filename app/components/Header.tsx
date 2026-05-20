@@ -10,7 +10,7 @@ export default function Header() {
     return (
         <header className="flex justify-between items-center py-6 px-8 max-w-7xl mx-auto w-full border-b border-gray-100">
             <Link href="/" className="text-2xl font-black tracking-tighter uppercase">
-                Yidvonrag
+                Олександр Гарновді
             </Link>
 
             <nav className="flex items-center gap-8">
