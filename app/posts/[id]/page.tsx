@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Image from "next/image";
+import ImageCarousel from "@/app/components/ImageCarousel";
 
 // Next.js автоматично передає параметри з URL (наш [id]) сюди
 export default async function PostPage({ params }: { params: { id: string } }) {
@@ -32,12 +33,8 @@ export default async function PostPage({ params }: { params: { id: string } }) {
                     </div>
 
                     {post.images && post.images.length > 0 && (
-                        <div className="mb-10 space-y-4">
-                            {post.images.map((img, i) => (
-                                <div key={i} className="relative w-full h-80 rounded-2xl overflow-hidden">
-                                    <Image src={img} alt={`${post.title} - фото ${i + 1}`} fill className="object-cover" />
-                                </div>
-                            ))}
+                        <div className="mb-10">
+                            <ImageCarousel images={post.images} alt={post.title} containerClassName="h-[300px] sm:h-[450px]" />
                         </div>
                     )}
 

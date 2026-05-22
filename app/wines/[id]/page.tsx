@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import ReactMarkdown from "react-markdown";
 import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
 import ReviewForm from "@/app/wines/[id]/ReviewForm";
 import AddToCartButton from "@/app/components/AddToCartButton";
-import Image from "next/image";
+
+import ImageCarousel from "@/app/components/ImageCarousel";
 
 export default async function WineDetailsPage({ params }: { params: { id: string } }) {
     const wine = await prisma.wine.findUnique({
@@ -47,11 +49,10 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                         )}
 
                         <span
-                            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold tracking-wide uppercase ${
-                                wine.inStock
-                                    ? "bg-green-50 text-green-700 border border-green-200"
-                                    : "bg-red-50 text-red-700 border border-red-200"
-                            }`}
+                            className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold tracking-wide uppercase ${wine.inStock
+                                ? "bg-green-50 text-green-700 border border-green-200"
+                                : "bg-red-50 text-red-700 border border-red-200"
+                                }`}
                         >
                             {wine.inStock ? "В наявності" : "Немає в наявності"}
                         </span>
@@ -67,8 +68,8 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                     </div>
                 </header>
                 {wine.images && wine.images.length > 0 && (
-                    <section className="relative w-full aspect-[2/1] sm:aspect-[3/1] bg-gray-100 rounded-3xl overflow-hidden shadow-sm border border-gray-100">
-                        <Image src={wine.images[0]} alt={wine.name} fill className="object-cover" />
+                    <section className="mb-10">
+                        <ImageCarousel images={wine.images} alt={wine.name} containerClassName="h-[400px] sm:h-[600px] w-full" />
                     </section>
                 )}
 
@@ -130,12 +131,12 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                                     className="border-b border-gray-100 pb-10 last:border-0 last:pb-0 transition-all"
                                 >
                                     <div className="flex justify-between items-center mb-4">
-                    <span className="font-bold text-lg text-gray-900">
-                        {review.authorName}
-                    </span>
+                                        <span className="font-bold text-lg text-gray-900">
+                                            {review.authorName}
+                                        </span>
                                         <span className="text-yellow-500 text-sm tracking-widest">
-                        {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
-                    </span>
+                                            {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
+                                        </span>
                                     </div>
 
                                     {review.text ? (
