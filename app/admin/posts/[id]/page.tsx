@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { updatePostAction } from '../actions'
 import DeleteButton from './DeleteButton'
 import { ImageGalleryManager } from '../../wines/[id]/image-upload-input'
+import { FormSubmitButton } from '../../components/FormSubmitButton'
+import { AdminForm } from '../../components/AdminForm'
 
 export default async function EditPostPage({ params }: { params: { id: string } }) {
     const post = await prisma.post.findUnique({
@@ -25,7 +27,7 @@ export default async function EditPostPage({ params }: { params: { id: string } 
             <div className="rounded-2xl border border-black/[.08] dark:border-white/[.145] bg-white dark:bg-black p-8 shadow-sm">
                 <h1 className="text-2xl font-bold mb-6 text-foreground">Редагувати пост</h1>
 
-                <form id="update-post-form" action={updatePostWithId} className="flex flex-col gap-6">
+                <AdminForm id="update-post-form" action={updatePostWithId} className="flex flex-col gap-6">
 
                     <div className="flex flex-col gap-1.5">
                         <label htmlFor="title" className="text-sm font-medium text-foreground">Заголовок</label>
@@ -56,26 +58,25 @@ export default async function EditPostPage({ params }: { params: { id: string } 
                         <ImageGalleryManager initialImages={post.images || []} />
                     </div>
 
-                </form>
+                    <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-black/[.08] dark:border-white/[.145]">
 
-                <div className="mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 border-t border-black/[.08] dark:border-white/[.145]">
+                        {/* Ліва група: Зберегти і Скасувати */}
+                        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                            <FormSubmitButton className="w-full sm:w-auto rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm h-12 px-8">
+                                Зберегти зміни
+                            </FormSubmitButton>
+                            <Link href="/admin/posts" className="w-full sm:w-auto rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] text-sm h-12 px-8 text-foreground">
+                                Скасувати
+                            </Link>
+                        </div>
 
-                    {/* Ліва група: Зберегти і Скасувати */}
-                    <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                        <button type="submit" form="update-post-form" className="w-full sm:w-auto rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm h-12 px-8">
-                            Зберегти зміни
-                        </button>
-                        <Link href="/admin/posts" className="w-full sm:w-auto rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] text-sm h-12 px-8 text-foreground">
-                            Скасувати
-                        </Link>
+                        {/* Права група: Видалення поста */}
+                        <div className="w-full sm:w-auto">
+                            <DeleteButton postId={post.id} />
+                        </div>
+
                     </div>
-
-                    {/* Права група: Видалення поста */}
-                    <div className="w-full sm:w-auto">
-                        <DeleteButton postId={post.id} />
-                    </div>
-
-                </div>
+                </AdminForm>
             </div>
         </div>
     )

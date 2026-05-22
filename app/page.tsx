@@ -3,10 +3,12 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import AddToCartButton from "@/app/components/AddToCartButton";
 
+
 export default async function Home() {
-    // 1. Отримуємо вина (хіти)
+    // Міняємо updatedAt на id, бо updatedAt поки немає в схемі
     const hits = await prisma.wine.findMany({
         where: { inStock: true },
+        orderBy: { id: 'desc' },
         take: 4,
         include: {
             reviews: {
@@ -15,16 +17,15 @@ export default async function Home() {
         }
     });
 
+    console.log(hits);
+
     // 2. Отримуємо пости (спочатку найновіші)
     const posts = await prisma.post.findMany({
-        orderBy: {
-            createdAt: 'desc'
-        }
+        orderBy: { id: 'desc' }
     });
 
     return (
         <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)]">
-
             {/* Hero Section */}
             <section className="flex flex-col items-center justify-center text-center py-16 sm:py-24 px-8 bg-gradient-to-b from-transparent to-black/[0.02]">
                 <h1 className="text-4xl sm:text-6xl font-bold mb-6">
@@ -42,7 +43,6 @@ export default async function Home() {
             </section>
 
             <main className="max-w-7xl mx-auto px-8 py-16 space-y-24">
-
                 {/* Секція "Список Хітів" */}
                 <section>
                     <div className="flex justify-between items-end mb-10">
@@ -122,7 +122,7 @@ export default async function Home() {
                     </div>
                 </section>
 
-                {/* Секція "Пости / Новини" */}
+                {/* Секція "Пости" */}
                 <section className="bg-gray-50 rounded-3xl p-8 sm:p-12">
                     <div className="max-w-3xl mx-auto text-center mb-12">
                         <h2 className="text-3xl font-bold">Останні оновлення</h2>
@@ -139,18 +139,10 @@ export default async function Home() {
                                         </div>
                                     )}
                                     <h3 className="text-xl font-bold mb-2">{p.title}</h3>
-
-                                    <p className="text-gray-600 line-clamp-3">
-                                        {p.content}
-                                    </p>
-
+                                    <p className="text-gray-600 line-clamp-3">{p.content}</p>
                                     <div className="mt-4 flex justify-between items-center">
-                                        <div className="text-xs text-gray-400">
-                                            {new Date(p.createdAt).toLocaleDateString('uk-UA')}
-                                        </div>
-                                        <Link href={`/posts/${p.id}`} className="text-blue-600 hover:underline text-sm font-medium">
-                                            Читати повністю →
-                                        </Link>
+                                        <div className="text-xs text-gray-400">{new Date(p.createdAt).toLocaleDateString('uk-UA')}</div>
+                                        <Link href={`/posts/${p.id}`} className="text-blue-600 hover:underline text-sm font-medium">Читати повністю →</Link>
                                     </div>
                                 </div>
                             ))
@@ -161,7 +153,6 @@ export default async function Home() {
                         )}
                     </div>
                 </section>
-
             </main>
 
             {/* ОНОВЛЕНО: Footer з посиланнями */}
