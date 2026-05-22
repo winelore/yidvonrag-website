@@ -18,7 +18,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "Yidvonrag | Ексклюзивна колекція вин",
+    title: "Олександр Гарновді | Ексклюзивна колекція вин",
     description: "Відкрийте для себе найкращі смаки з усього світу.",
 };
 
