@@ -59,7 +59,7 @@ export default function SearchInput() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onFocus={() => query.length >= 2 && setIsOpen(true)}
-                    placeholder="Search wine (e.g., France, Red)..."
+                    placeholder="Пошук вина (напр., Франція, Червоне)..."
                     // Swapped red highlights for a sleek dark gray focus effect
                     className="w-full px-5 py-3 pl-12 text-gray-900 placeholder-gray-400 bg-white border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:border-gray-800 focus:ring-1 focus:ring-gray-800 transition-all duration-200"
                 />
@@ -108,7 +108,7 @@ export default function SearchInput() {
                     ) : (
                         // No results found fallback view
                         <div className="px-5 py-4 text-center text-sm text-gray-500">
-                            No results found 😔
+                            Нічого не знайдено 😔
                         </div>
                     )}
                 </div>

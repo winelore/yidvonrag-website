@@ -65,11 +65,11 @@ export default async function Home() {
                             return (
                                 <div
                                     key={wine.id}
-                                    className="group relative border border-black/[0.08] rounded-2xl p-4 transition-all hover:shadow-lg flex flex-col"
+                                    className="group relative border border-black/[0.08] rounded-2xl overflow-hidden transition-all hover:shadow-lg flex flex-col bg-white"
                                 >
                                     {/* ОГОРТКА-ПОСИЛАННЯ ДЛЯ КАРТИНКИ ТА ТЕКСТУ */}
                                     <Link href={`/wines/${wine.id}`} className="flex flex-col flex-grow cursor-pointer">
-                                        <div className="aspect-square relative mb-4 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
+                                        <div className="w-full aspect-square relative bg-gray-100 flex items-center justify-center overflow-hidden">
                                             {wine.images && wine.images.length > 0 ? (
                                                 <Image
                                                     src={wine.images[0]}
@@ -88,7 +88,7 @@ export default async function Home() {
                                                 />
                                             )}
                                         </div>
-                                        <div className="flex-grow">
+                                        <div className="flex-grow px-4 pt-4 pb-2">
                                             {/* Додано hover:text-blue-600 для візуального ефекту при наведенні */}
                                             <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-blue-600 transition-colors">{wine.name}</h3>
 
@@ -113,7 +113,8 @@ export default async function Home() {
                                     </Link>
 
                                     {/* КНОПКА ДОДАВАННЯ В КОШИК ЗАЛИШАЄТЬСЯ ЗОВНІ ПОСИЛАННЯ */}
-                                    <div className="mt-4">
+                                    <div className="px-4 pb-4 pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                        <div className="font-bold text-lg text-gray-900">${wine.price}</div>
                                         <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
                                     </div>
                                 </div>

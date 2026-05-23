@@ -23,16 +23,16 @@ export default async function WinesCatalogPage() {
                         : null;
 
                     return (
-                        <div key={wine.id} className="group border border-black/[0.08] rounded-2xl p-4 transition-all hover:shadow-lg flex flex-col">
-                            <Link href={`/wines/${wine.id}`}>
-                                <div className="aspect-square relative mb-4 bg-gray-100 rounded-xl overflow-hidden">
+                        <div key={wine.id} className="group border border-black/[0.08] rounded-2xl overflow-hidden transition-all hover:shadow-lg flex flex-col bg-white">
+                            <Link href={`/wines/${wine.id}`} className="flex flex-col flex-grow">
+                                <div className="w-full aspect-square relative bg-gray-100 overflow-hidden">
                                     {wine.images && wine.images.length > 0 ? (
                                         <Image src={wine.images[0]} alt={wine.name} fill className="object-cover group-hover:scale-105 transition-transform" />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center text-gray-300">Немає фото</div>
                                     )}
                                 </div>
-                                <div className="flex-grow">
+                                <div className="flex-grow px-4 pt-4 pb-2">
                                     <h3 className="font-semibold text-lg line-clamp-1">{wine.name}</h3>
                                     {avgRating ? (
                                         <div className="flex items-center gap-1 mt-1 text-sm">
@@ -46,7 +46,10 @@ export default async function WinesCatalogPage() {
                                     <p className="text-sm text-gray-500 mt-1">{wine.country} • {wine.color}</p>
                                 </div>
                             </Link>
-                            <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
+                            <div className="px-4 pb-4 pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div className="font-bold text-lg text-gray-900">${wine.price}</div>
+                                <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
+                            </div>
                         </div>
                     );
                 })}
