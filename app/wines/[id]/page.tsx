@@ -31,7 +31,7 @@ export default async function WineDetailsPage({ params }: { params: { id: string
             <div className="max-w-3xl mx-auto space-y-10">
 
                 {/* Header: Name and Status */}
-                <header className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-gray-100 pb-8">
+                <header className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-gray-100 pb-8 mt-6">
                     <div className="flex-1">
                         <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">
                             {wine.name}

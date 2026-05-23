@@ -88,7 +88,7 @@ export default async function Home() {
                                                 />
                                             )}
                                         </div>
-                                        <div className="flex-grow p-4 pb-0">
+                                        <div className="flex-grow px-4 pt-4 pb-2">
                                             {/* Додано hover:text-blue-600 для візуального ефекту при наведенні */}
                                             <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-blue-600 transition-colors">{wine.name}</h3>
 
@@ -113,7 +113,8 @@ export default async function Home() {
                                     </Link>
 
                                     {/* КНОПКА ДОДАВАННЯ В КОШИК ЗАЛИШАЄТЬСЯ ЗОВНІ ПОСИЛАННЯ */}
-                                    <div className="p-4 pt-4">
+                                    <div className="px-4 pb-4 pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                        <div className="font-bold text-lg text-gray-900">${wine.price}</div>
                                         <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
                                     </div>
                                 </div>
