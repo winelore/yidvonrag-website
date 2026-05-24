@@ -164,10 +164,7 @@ export default async function Home() {
                 </section>
 
             </main>
-
-            <footer className="border-t border-black/[0.08] py-12 text-center text-sm text-gray-500">
                 <Footer />
-            </footer>
         </div>
     );
 }
