@@ -11,10 +11,10 @@ export default function Footer() {
             <div className="mb-6 space-y-2 text-gray-600">
                 <p>📍 вул. Виноградна, 1, Ужгород, Закарпатська обл.</p>
                 <p>📞 +38 (099) 123-45-67</p>
-                <p>✉️ hello@yidvonrag.com</p>
+                <p>✉️ hello@Garnovdi.com</p>
             </div>
 
-            <p>© 2026 yidvonrag-website. Всі права захищені.</p>
+            <p>© 2026 Garnovdi-website. Всі права захищені.</p>
         </footer>
     );
 }
