@@ -4,10 +4,12 @@ import Link from "next/link";
 import AddToCartButton from "@/app/components/AddToCartButton";
 import Footer from "@/app/components/Footer";
 
+
 export default async function Home() {
-    // 1. Отримуємо вина (хіти)
+    // Міняємо updatedAt на id, бо updatedAt поки немає в схемі
     const hits = await prisma.wine.findMany({
         where: { inStock: true },
+        orderBy: { id: 'desc' },
         take: 4,
         include: {
             reviews: {
@@ -16,16 +18,15 @@ export default async function Home() {
         }
     });
 
+    console.log(hits);
+
     // 2. Отримуємо пости (спочатку найновіші)
     const posts = await prisma.post.findMany({
-        orderBy: {
-            createdAt: 'desc'
-        }
+        orderBy: { id: 'desc' }
     });
 
     return (
         <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)]">
-
             {/* Hero Section */}
             <section className="flex flex-col items-center justify-center text-center py-16 sm:py-24 px-8 bg-gradient-to-b from-transparent to-black/[0.02]">
                 <h1 className="text-4xl sm:text-6xl font-bold mb-6">
@@ -43,7 +44,6 @@ export default async function Home() {
             </section>
 
             <main className="max-w-7xl mx-auto px-8 py-16 space-y-24">
-
                 {/* Секція "Список Хітів" */}
                 <section>
                     <div className="flex justify-between items-end mb-10">
@@ -66,11 +66,11 @@ export default async function Home() {
                             return (
                                 <div
                                     key={wine.id}
-                                    className="group relative border border-black/[0.08] rounded-2xl p-4 transition-all hover:shadow-lg flex flex-col"
+                                    className="group relative border border-black/[0.08] rounded-2xl overflow-hidden transition-all hover:shadow-lg flex flex-col bg-white"
                                 >
                                     {/* ОГОРТКА-ПОСИЛАННЯ ДЛЯ КАРТИНКИ ТА ТЕКСТУ */}
                                     <Link href={`/wines/${wine.id}`} className="flex flex-col flex-grow cursor-pointer">
-                                        <div className="aspect-square relative mb-4 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
+                                        <div className="w-full aspect-square relative bg-gray-100 flex items-center justify-center overflow-hidden">
                                             {wine.images && wine.images.length > 0 ? (
                                                 <Image
                                                     src={wine.images[0]}
@@ -89,7 +89,7 @@ export default async function Home() {
                                                 />
                                             )}
                                         </div>
-                                        <div className="flex-grow">
+                                        <div className="flex-grow px-4 pt-4 pb-2">
                                             {/* Додано hover:text-blue-600 для візуального ефекту при наведенні */}
                                             <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-blue-600 transition-colors">{wine.name}</h3>
 
@@ -114,7 +114,8 @@ export default async function Home() {
                                     </Link>
 
                                     {/* КНОПКА ДОДАВАННЯ В КОШИК ЗАЛИШАЄТЬСЯ ЗОВНІ ПОСИЛАННЯ */}
-                                    <div className="mt-4">
+                                    <div className="px-4 pb-4 pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                        <div className="font-bold text-lg text-gray-900">${wine.price}</div>
                                         <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
                                     </div>
                                 </div>
@@ -123,7 +124,7 @@ export default async function Home() {
                     </div>
                 </section>
 
-                {/* Секція "Пости / Новини" */}
+                {/* Секція "Пости" */}
                 <section className="bg-gray-50 rounded-3xl p-8 sm:p-12">
                     <div className="max-w-3xl mx-auto text-center mb-12">
                         <h2 className="text-3xl font-bold">Останні оновлення</h2>
@@ -140,29 +141,20 @@ export default async function Home() {
                                         </div>
                                     )}
                                     <h3 className="text-xl font-bold mb-2">{p.title}</h3>
-
-                                    <p className="text-gray-600 line-clamp-3">
-                                        {p.content}
-                                    </p>
-
+                                    <p className="text-gray-600 line-clamp-3">{p.content}</p>
                                     <div className="mt-4 flex justify-between items-center">
-                                        <div className="text-xs text-gray-400">
-                                            {new Date(p.createdAt).toLocaleDateString('uk-UA')}
-                                        </div>
-                                        <Link href={`/posts/${p.id}`} className="text-blue-600 hover:underline text-sm font-medium">
-                                            Читати повністю →
-                                        </Link>
+                                        <div className="text-xs text-gray-400">{new Date(p.createdAt).toLocaleDateString('uk-UA')}</div>
+                                        <Link href={`/posts/${p.id}`} className="text-blue-600 hover:underline text-sm font-medium">Читати повністю →</Link>
                                     </div>
                                 </div>
                             ))
                         ) : (
                             <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-2xl">
-                                <p className="text-gray-400">Тут поки порожньо. Скоро з&apos;являться перші пости!</p>
+                                <p className="text-gray-400">Новини та статті скоро з&apos;являться.</p>
                             </div>
                         )}
                     </div>
                 </section>
-
             </main>
                 <Footer />
         </div>

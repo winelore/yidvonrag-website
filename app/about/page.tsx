@@ -29,13 +29,12 @@ export default async function AboutPage() {
                         about.content
                     ) : (
                         <div className="p-8 border-2 border-dashed border-gray-200 rounded-2xl text-center">
-                            <p className="italic text-gray-500">Тут пусто!</p>
+                            <p className="italic text-gray-500">Інформація про нас оновлюється.</p>
                         </div>
                     )}
                 </div>
             </main>
                 <Footer />
-
         </div>
     )
 }
