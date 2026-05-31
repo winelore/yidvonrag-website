@@ -166,6 +166,22 @@ exports.Prisma.AboutScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  amount: 'amount',
+  status: 'status',
+  invoiceId: 'invoiceId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.OrderItemScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  wineId: 'wineId',
+  quantity: 'quantity',
+  price: 'price'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -187,7 +203,9 @@ exports.Prisma.ModelName = {
   User: 'User',
   Post: 'Post',
   Review: 'Review',
-  About: 'About'
+  About: 'About',
+  Order: 'Order',
+  OrderItem: 'OrderItem'
 };
 
 /**

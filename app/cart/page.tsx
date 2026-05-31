@@ -2,9 +2,41 @@
 
 import { useCart } from "@/lib/CartContext";
 import Link from "next/link";
+import {useState} from "react";
 
 export default function CartPage() {
     const { items, totalPrice, updateQuantity, removeFromCart } = useCart();
+    const [loading, setLoading] = useState(false);
+
+    const handleCheckout = async () => {
+        if (items.length === 0) return;
+
+        try {
+            setLoading(true);
+
+            // Відправляємо кошик на наш бекенд
+            const res = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                // Наше API очікує об'єкт з властивістю cartItems
+                body: JSON.stringify({ cartItems: items })
+            });
+
+            const data = await res.json();
+
+            // Якщо монобанк віддав посилання - переходимо на нього
+            if (data.pageUrl) {
+                window.location.href = data.pageUrl;
+            } else {
+                alert(data.error || "Помилка створення платежу");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Помилка з'єднання з сервером");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     if (items.length === 0) {
         return (
@@ -62,8 +94,11 @@ export default function CartPage() {
                         <p className="text-gray-500 text-sm mb-1">Разом до оплати</p>
                         <p className="text-4xl font-black">${totalPrice.toFixed(2)}</p>
                     </div>
-                    <button className="bg-black text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition w-full sm:w-auto shadow-lg hover:shadow-xl hover:-translate-y-0.5">
-                        Оформити замовлення
+                    <button
+                        onClick={handleCheckout}
+                        disabled={loading}
+                        className="bg-black text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition w-full sm:w-auto shadow-lg hover:shadow-xl hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                        {loading ? "Формуємо платіж..." : "Оформити замовлення"}
                     </button>
                 </div>
             </div>
