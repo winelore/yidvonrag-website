@@ -14,7 +14,7 @@ export default function Footer() {
                 <p>✉️ hello@Garnovdi.com</p>
             </div>
 
-            <p>© 2026 Олександр Гарновді. Всі права захищені.</p>
+            <p>© 2026 Олександр Гарновдій. Всі права захищені.</p>
         </footer>
     );
 }

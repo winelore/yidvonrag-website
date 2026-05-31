@@ -18,7 +18,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "Олександр Гарновді | Ексклюзивна колекція вин",
+    title: "Винна мануфактура Штифко",
     description: "Відкрийте для себе найкращі смаки з усього світу.",
 };
 
