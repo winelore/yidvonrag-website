@@ -107,7 +107,7 @@ export default async function Home() {
                                             <p className="text-sm text-gray-500 mt-1">
                                                 {wine.country} • {wine.color} • {wine.sweetness}
                                             </p>
-                                            <p className="text-xs text-gray-400 mt-2 line-clamp-2">
+                                            <p className="text-xs text-gray-400 mt-2 line-clamp-2 text-justify">
                                                 {wine.description}
                                             </p>
                                         </div>
@@ -140,8 +140,8 @@ export default async function Home() {
                                             <Image src={p.images[0]} alt={p.title} fill className="object-cover hover:scale-105 transition-transform duration-300" />
                                         </div>
                                     )}
-                                    <h3 className="text-xl font-bold mb-2">{p.title}</h3>
-                                    <p className="text-gray-600 line-clamp-3">{p.content}</p>
+                                    <h3 className="text-xl font-bold mb-2 text-balance">{p.title}</h3>
+                                    <p className="text-gray-600 line-clamp-3 text-justify">{p.content}</p>
                                     <div className="mt-4 flex justify-between items-center">
                                         <div className="text-xs text-gray-400">{new Date(p.createdAt).toLocaleDateString('uk-UA')}</div>
                                         <Link href={`/posts/${p.id}`} className="text-blue-600 hover:underline text-sm font-medium">Читати повністю →</Link>

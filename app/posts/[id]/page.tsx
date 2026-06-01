@@ -38,7 +38,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
                         </div>
                     )}
 
-                    <div className="text-lg text-gray-800 leading-relaxed whitespace-pre-wrap">
+                    <div className="text-lg text-gray-800 leading-relaxed whitespace-pre-wrap text-balance">
                         {post.content}
                     </div>
                 </article>

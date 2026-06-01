@@ -24,11 +24,11 @@ export default async function AboutPage() {
                 </h1>
 
                 {/* Текст з бази даних */}
-                <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed whitespace-pre-wrap">
+                <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed whitespace-pre-wrap text-justify">
                     {about?.content ? (
                         about.content
                     ) : (
-                        <div className="p-8 border-2 border-dashed border-gray-200 rounded-2xl text-center">
+                        <div className="p-8 border-2 border-dashed border-gray-200 rounded-2xl text-center text-balance">
                             <p className="italic text-gray-500">Інформація про нас оновлюється.</p>
                         </div>
                     )}
