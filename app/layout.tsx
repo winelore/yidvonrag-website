@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import { CartProvider } from "@/lib/CartContext";
 import Header from "@/app/components/Header";
 import AgeGate from "@/app/components/AgeGate";
+import PaymentNotification from "@/app/components/PaymentNotification";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -35,6 +36,7 @@ export default function RootLayout({
         <CartProvider>
             <AgeGate />
             <Header />
+            <PaymentNotification />
             {children}
             <Toaster position="bottom-right" />
         </CartProvider>
