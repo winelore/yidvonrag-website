@@ -1,6 +1,5 @@
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
-import { createPostAction } from './actions'
 
 export const dynamic = 'force-dynamic'
 
@@ -15,11 +14,9 @@ export default async function PostsPage() {
                 <h1 className="text-3xl font-bold text-foreground">Список постів</h1>
 
                 {/* Кнопка створення викликає екшен, який створює шаблон і перекидає на редагування */}
-                <form action={createPostAction}>
-                    <button type="submit" className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm h-12 px-6">
-                        Додати новий пост
-                    </button>
-                </form>
+                <Link href="/admin/posts/new" className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm h-12 px-6">
+                    Додати новий пост
+                </Link>
             </div>
 
             <div className="flex flex-col gap-4">
