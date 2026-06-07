@@ -6815,6 +6815,11 @@ export namespace Prisma {
     amount: number | null
     status: string | null
     invoiceId: string | null
+    customerName: string | null
+    customerSurname: string | null
+    customerPhone: string | null
+    customerCity: string | null
+    customerBranch: string | null
     createdAt: Date | null
   }
 
@@ -6823,6 +6828,11 @@ export namespace Prisma {
     amount: number | null
     status: string | null
     invoiceId: string | null
+    customerName: string | null
+    customerSurname: string | null
+    customerPhone: string | null
+    customerCity: string | null
+    customerBranch: string | null
     createdAt: Date | null
   }
 
@@ -6831,6 +6841,11 @@ export namespace Prisma {
     amount: number
     status: number
     invoiceId: number
+    customerName: number
+    customerSurname: number
+    customerPhone: number
+    customerCity: number
+    customerBranch: number
     createdAt: number
     _all: number
   }
@@ -6849,6 +6864,11 @@ export namespace Prisma {
     amount?: true
     status?: true
     invoiceId?: true
+    customerName?: true
+    customerSurname?: true
+    customerPhone?: true
+    customerCity?: true
+    customerBranch?: true
     createdAt?: true
   }
 
@@ -6857,6 +6877,11 @@ export namespace Prisma {
     amount?: true
     status?: true
     invoiceId?: true
+    customerName?: true
+    customerSurname?: true
+    customerPhone?: true
+    customerCity?: true
+    customerBranch?: true
     createdAt?: true
   }
 
@@ -6865,6 +6890,11 @@ export namespace Prisma {
     amount?: true
     status?: true
     invoiceId?: true
+    customerName?: true
+    customerSurname?: true
+    customerPhone?: true
+    customerCity?: true
+    customerBranch?: true
     createdAt?: true
     _all?: true
   }
@@ -6960,6 +6990,11 @@ export namespace Prisma {
     amount: number
     status: string
     invoiceId: string | null
+    customerName: string | null
+    customerSurname: string | null
+    customerPhone: string | null
+    customerCity: string | null
+    customerBranch: string | null
     createdAt: Date
     _count: OrderCountAggregateOutputType | null
     _avg: OrderAvgAggregateOutputType | null
@@ -6987,6 +7022,11 @@ export namespace Prisma {
     amount?: boolean
     status?: boolean
     invoiceId?: boolean
+    customerName?: boolean
+    customerSurname?: boolean
+    customerPhone?: boolean
+    customerCity?: boolean
+    customerBranch?: boolean
     createdAt?: boolean
     items?: boolean | Order$itemsArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
@@ -6997,6 +7037,11 @@ export namespace Prisma {
     amount?: boolean
     status?: boolean
     invoiceId?: boolean
+    customerName?: boolean
+    customerSurname?: boolean
+    customerPhone?: boolean
+    customerCity?: boolean
+    customerBranch?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["order"]>
 
@@ -7005,6 +7050,11 @@ export namespace Prisma {
     amount?: boolean
     status?: boolean
     invoiceId?: boolean
+    customerName?: boolean
+    customerSurname?: boolean
+    customerPhone?: boolean
+    customerCity?: boolean
+    customerBranch?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["order"]>
 
@@ -7013,10 +7063,15 @@ export namespace Prisma {
     amount?: boolean
     status?: boolean
     invoiceId?: boolean
+    customerName?: boolean
+    customerSurname?: boolean
+    customerPhone?: boolean
+    customerCity?: boolean
+    customerBranch?: boolean
     createdAt?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "status" | "invoiceId" | "createdAt", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "status" | "invoiceId" | "customerName" | "customerSurname" | "customerPhone" | "customerCity" | "customerBranch" | "createdAt", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | Order$itemsArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
@@ -7034,6 +7089,11 @@ export namespace Prisma {
       amount: number
       status: string
       invoiceId: string | null
+      customerName: string | null
+      customerSurname: string | null
+      customerPhone: string | null
+      customerCity: string | null
+      customerBranch: string | null
       createdAt: Date
     }, ExtArgs["result"]["order"]>
     composites: {}
@@ -7463,6 +7523,11 @@ export namespace Prisma {
     readonly amount: FieldRef<"Order", 'Float'>
     readonly status: FieldRef<"Order", 'String'>
     readonly invoiceId: FieldRef<"Order", 'String'>
+    readonly customerName: FieldRef<"Order", 'String'>
+    readonly customerSurname: FieldRef<"Order", 'String'>
+    readonly customerPhone: FieldRef<"Order", 'String'>
+    readonly customerCity: FieldRef<"Order", 'String'>
+    readonly customerBranch: FieldRef<"Order", 'String'>
     readonly createdAt: FieldRef<"Order", 'DateTime'>
   }
     
@@ -9088,6 +9153,11 @@ export namespace Prisma {
     amount: 'amount',
     status: 'status',
     invoiceId: 'invoiceId',
+    customerName: 'customerName',
+    customerSurname: 'customerSurname',
+    customerPhone: 'customerPhone',
+    customerCity: 'customerCity',
+    customerBranch: 'customerBranch',
     createdAt: 'createdAt'
   };
 
@@ -9511,6 +9581,11 @@ export namespace Prisma {
     amount?: FloatFilter<"Order"> | number
     status?: StringFilter<"Order"> | string
     invoiceId?: StringNullableFilter<"Order"> | string | null
+    customerName?: StringNullableFilter<"Order"> | string | null
+    customerSurname?: StringNullableFilter<"Order"> | string | null
+    customerPhone?: StringNullableFilter<"Order"> | string | null
+    customerCity?: StringNullableFilter<"Order"> | string | null
+    customerBranch?: StringNullableFilter<"Order"> | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     items?: OrderItemListRelationFilter
   }
@@ -9520,6 +9595,11 @@ export namespace Prisma {
     amount?: SortOrder
     status?: SortOrder
     invoiceId?: SortOrderInput | SortOrder
+    customerName?: SortOrderInput | SortOrder
+    customerSurname?: SortOrderInput | SortOrder
+    customerPhone?: SortOrderInput | SortOrder
+    customerCity?: SortOrderInput | SortOrder
+    customerBranch?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     items?: OrderItemOrderByRelationAggregateInput
   }
@@ -9532,6 +9612,11 @@ export namespace Prisma {
     amount?: FloatFilter<"Order"> | number
     status?: StringFilter<"Order"> | string
     invoiceId?: StringNullableFilter<"Order"> | string | null
+    customerName?: StringNullableFilter<"Order"> | string | null
+    customerSurname?: StringNullableFilter<"Order"> | string | null
+    customerPhone?: StringNullableFilter<"Order"> | string | null
+    customerCity?: StringNullableFilter<"Order"> | string | null
+    customerBranch?: StringNullableFilter<"Order"> | string | null
     createdAt?: DateTimeFilter<"Order"> | Date | string
     items?: OrderItemListRelationFilter
   }, "id">
@@ -9541,6 +9626,11 @@ export namespace Prisma {
     amount?: SortOrder
     status?: SortOrder
     invoiceId?: SortOrderInput | SortOrder
+    customerName?: SortOrderInput | SortOrder
+    customerSurname?: SortOrderInput | SortOrder
+    customerPhone?: SortOrderInput | SortOrder
+    customerCity?: SortOrderInput | SortOrder
+    customerBranch?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: OrderCountOrderByAggregateInput
     _avg?: OrderAvgOrderByAggregateInput
@@ -9557,6 +9647,11 @@ export namespace Prisma {
     amount?: FloatWithAggregatesFilter<"Order"> | number
     status?: StringWithAggregatesFilter<"Order"> | string
     invoiceId?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    customerName?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    customerSurname?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    customerPhone?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    customerCity?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    customerBranch?: StringNullableWithAggregatesFilter<"Order"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Order"> | Date | string
   }
 
@@ -9954,6 +10049,11 @@ export namespace Prisma {
     amount: number
     status?: string
     invoiceId?: string | null
+    customerName?: string | null
+    customerSurname?: string | null
+    customerPhone?: string | null
+    customerCity?: string | null
+    customerBranch?: string | null
     createdAt?: Date | string
     items?: OrderItemCreateNestedManyWithoutOrderInput
   }
@@ -9963,6 +10063,11 @@ export namespace Prisma {
     amount: number
     status?: string
     invoiceId?: string | null
+    customerName?: string | null
+    customerSurname?: string | null
+    customerPhone?: string | null
+    customerCity?: string | null
+    customerBranch?: string | null
     createdAt?: Date | string
     items?: OrderItemUncheckedCreateNestedManyWithoutOrderInput
   }
@@ -9972,6 +10077,11 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerName?: NullableStringFieldUpdateOperationsInput | string | null
+    customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
+    customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    customerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    customerBranch?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUpdateManyWithoutOrderNestedInput
   }
@@ -9981,6 +10091,11 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerName?: NullableStringFieldUpdateOperationsInput | string | null
+    customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
+    customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    customerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    customerBranch?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     items?: OrderItemUncheckedUpdateManyWithoutOrderNestedInput
   }
@@ -9990,6 +10105,11 @@ export namespace Prisma {
     amount: number
     status?: string
     invoiceId?: string | null
+    customerName?: string | null
+    customerSurname?: string | null
+    customerPhone?: string | null
+    customerCity?: string | null
+    customerBranch?: string | null
     createdAt?: Date | string
   }
 
@@ -9998,6 +10118,11 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerName?: NullableStringFieldUpdateOperationsInput | string | null
+    customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
+    customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    customerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    customerBranch?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -10006,6 +10131,11 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerName?: NullableStringFieldUpdateOperationsInput | string | null
+    customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
+    customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    customerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    customerBranch?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -10416,6 +10546,11 @@ export namespace Prisma {
     amount?: SortOrder
     status?: SortOrder
     invoiceId?: SortOrder
+    customerName?: SortOrder
+    customerSurname?: SortOrder
+    customerPhone?: SortOrder
+    customerCity?: SortOrder
+    customerBranch?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -10428,6 +10563,11 @@ export namespace Prisma {
     amount?: SortOrder
     status?: SortOrder
     invoiceId?: SortOrder
+    customerName?: SortOrder
+    customerSurname?: SortOrder
+    customerPhone?: SortOrder
+    customerCity?: SortOrder
+    customerBranch?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -10436,6 +10576,11 @@ export namespace Prisma {
     amount?: SortOrder
     status?: SortOrder
     invoiceId?: SortOrder
+    customerName?: SortOrder
+    customerSurname?: SortOrder
+    customerPhone?: SortOrder
+    customerCity?: SortOrder
+    customerBranch?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -11098,6 +11243,11 @@ export namespace Prisma {
     amount: number
     status?: string
     invoiceId?: string | null
+    customerName?: string | null
+    customerSurname?: string | null
+    customerPhone?: string | null
+    customerCity?: string | null
+    customerBranch?: string | null
     createdAt?: Date | string
   }
 
@@ -11106,6 +11256,11 @@ export namespace Prisma {
     amount: number
     status?: string
     invoiceId?: string | null
+    customerName?: string | null
+    customerSurname?: string | null
+    customerPhone?: string | null
+    customerCity?: string | null
+    customerBranch?: string | null
     createdAt?: Date | string
   }
 
@@ -11167,6 +11322,11 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerName?: NullableStringFieldUpdateOperationsInput | string | null
+    customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
+    customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    customerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    customerBranch?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11175,6 +11335,11 @@ export namespace Prisma {
     amount?: FloatFieldUpdateOperationsInput | number
     status?: StringFieldUpdateOperationsInput | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
+    customerName?: NullableStringFieldUpdateOperationsInput | string | null
+    customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
+    customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    customerCity?: NullableStringFieldUpdateOperationsInput | string | null
+    customerBranch?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

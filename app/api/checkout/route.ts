@@ -10,7 +10,8 @@ type CartItemInput = {
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { cartItems } = body;
+        // 1. Тепер дістаємо і кошик, і дані клієнта з запиту
+        const { cartItems, customerInfo } = body;
 
         if (!cartItems || cartItems.length === 0) {
             return NextResponse.json({ error: 'Немає товарів для оплати' }, { status: 400 });
@@ -40,10 +41,16 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Помилка розрахунку суми' }, { status: 400 });
         }
 
+        // 2. Зберігаємо замовлення РАЗОМ із даними клієнта
         const order = await prisma.order.create({
             data: {
                 amount: totalAmount,
                 status: 'PENDING',
+                customerName: customerInfo?.name || null,
+                customerSurname: customerInfo?.surname || null,
+                customerPhone: customerInfo?.phone || null,
+                customerCity: customerInfo?.city || null,
+                customerBranch: customerInfo?.branch || null,
                 items: {
                     create: orderItemsData
                 }
