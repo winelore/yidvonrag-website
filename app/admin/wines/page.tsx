@@ -1,7 +1,6 @@
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
 import Image from 'next/image'
-import { createWineAction } from './actions'
 
 export const dynamic = 'force-dynamic'
 
@@ -14,11 +13,9 @@ export default async function WinesPage() {
     <div className="p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)] max-w-5xl mx-auto">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
         <h1 className="text-3xl font-bold text-foreground">Список вин</h1>
-        <form action={createWineAction}>
-          <button type="submit" className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm h-12 px-6">
-            Додати нове вино
-          </button>
-        </form>
+          <Link href="/admin/wines/new" className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm h-12 px-6">
+              Додати нове вино
+          </Link>
       </div>
 
       <div className="flex flex-col gap-4">
@@ -41,12 +38,14 @@ export default async function WinesPage() {
                 </p>
               </div>
             </div>
-            <Link 
-              href={`/admin/wines/${wine.id}`}
-              className="rounded-full border border-solid border-black/[.15] dark:border-white/[.15] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] text-sm h-10 px-6 text-foreground shrink-0"
-            >
-              Редагувати
-            </Link>
+              <div className="flex items-center gap-3 shrink-0 mt-4 sm:mt-0 w-full sm:w-auto justify-end">
+                  <Link
+                      href={`/admin/wines/${wine.id}`}
+                      className="rounded-full border border-solid border-black/[.15] dark:border-white/[.15] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] text-sm h-10 px-6 text-foreground shrink-0"
+                  >
+                      Редагувати
+                  </Link>
+              </div>
           </div>
         ))}
         {wines.length === 0 && (

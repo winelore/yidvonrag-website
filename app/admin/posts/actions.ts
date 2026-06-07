@@ -7,17 +7,49 @@ import { put, del } from '@vercel/blob'
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
-export async function createPostAction() {
-    // Створюємо шаблонний пост
-    const newPost = await prisma.post.create({
-        data: {
-            title: "Новий пост",
-            content: "",
-        }
-    })
 
-    // Перекидаємо на сторінку редагування цього ж поста
-    redirect(`/admin/posts/${newPost.id}`)
+export async function submitNewPostAction(formData: FormData) {
+    const title = formData.get('title') as string;
+    const content = formData.get('content') as string;
+    const token = 'vercel_blob_rw_xqtNsojIRblvwdXW_ltX0i9Q0dYouL83aEKv9gRZGur2yT1';
+
+    const orderStr = formData.get('imageOrder') as string;
+    const finalImages: string[] = [];
+
+    // Обробляємо нові зображення
+    if (orderStr && orderStr.trim() !== "") {
+        try {
+            const orderArray = JSON.parse(orderStr) as string[];
+            for (const itemId of orderArray) {
+                if (itemId.startsWith('newFile_')) {
+                    const file = formData.get(itemId) as File | null;
+                    if (file && file.size > 0) {
+                        const blob = await put(file.name, file, {
+                            access: 'public',
+                            token: token,
+                            addRandomSuffix: true,
+                        });
+                        finalImages.push(blob.url);
+                    }
+                }
+            }
+        } catch (e) {
+            console.error("Помилка обробки зображень при створенні:", e);
+        }
+    }
+
+    // Створюємо запис у базі тільки з реальними даними
+    await prisma.post.create({
+        data: {
+            title,
+            content,
+            images: finalImages
+        }
+    });
+
+    revalidatePath('/admin/posts');
+    revalidatePath('/');
+    redirect('/admin/posts');
 }
 
 export async function updatePostAction(id: string, formData: FormData) {

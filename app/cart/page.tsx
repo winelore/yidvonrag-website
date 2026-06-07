@@ -5,7 +5,7 @@ import Link from "next/link";
 import {useState} from "react";
 
 export default function CartPage() {
-    const { items, totalPrice, updateQuantity, removeFromCart } = useCart();
+    const { items, totalPrice, updateQuantity, removeFromCart, isLoaded } = useCart();
     const [loading, setLoading] = useState(false);
 
     const handleCheckout = async () => {
@@ -37,6 +37,43 @@ export default function CartPage() {
             setLoading(false);
         }
     };
+
+    if (!isLoaded) {
+        return (
+            <main className="max-w-4xl mx-auto px-8 py-16 min-h-screen">
+                {/* Скелетон заголовка */}
+                <div className="h-10 w-32 bg-gray-200 rounded-lg animate-pulse mb-10"></div>
+
+                <div className="bg-white border border-gray-100 shadow-sm rounded-3xl p-6 sm:p-10">
+                    <div className="space-y-6">
+                        {/* Два фіктивних рядки товарів */}
+                        {[1, 2].map((i) => (
+                            <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-6 last:border-0 last:pb-0">
+                                <div className="flex-grow space-y-3">
+                                    <div className="h-6 w-3/4 sm:w-48 bg-gray-200 rounded animate-pulse"></div>
+                                    <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+                                </div>
+                                <div className="flex items-center gap-6 mt-4 sm:mt-0">
+                                    <div className="h-8 w-24 bg-gray-200 rounded-lg animate-pulse"></div>
+                                    <div className="h-6 w-16 bg-gray-200 rounded animate-pulse"></div>
+                                    <div className="h-5 w-5 bg-gray-200 rounded animate-pulse"></div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Скелетон підсумку */}
+                    <div className="mt-10 pt-8 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-6">
+                        <div className="space-y-2">
+                            <div className="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
+                            <div className="h-10 w-24 bg-gray-200 rounded animate-pulse"></div>
+                        </div>
+                        <div className="h-14 w-full sm:w-56 bg-gray-200 rounded-xl animate-pulse"></div>
+                    </div>
+                </div>
+            </main>
+        );
+    }
 
     if (items.length === 0) {
         return (
