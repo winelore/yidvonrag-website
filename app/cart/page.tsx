@@ -8,6 +8,11 @@ import 'react-phone-number-input/style.css';
 
 const NP_API_KEY = "8751d1fd6848e311032a24acf7ea0ff8";
 
+interface NPItem {
+    Ref: string;
+    Description: string;
+}
+
 export default function CartPage() {
     const { items, totalPrice, updateQuantity, removeFromCart } = useCart();
     const [loading, setLoading] = useState(false);
@@ -21,13 +26,13 @@ export default function CartPage() {
     });
 
     const [cityQuery, setCityQuery] = useState('');
-    const [cities, setCities] = useState<any[]>([]);
-    const [selectedCity, setSelectedCity] = useState<any>(null);
+    const [cities, setCities] = useState<NPItem[]>([]);
+    const [selectedCity, setSelectedCity] = useState<NPItem | null>(null);
     const [showCityDropdown, setShowCityDropdown] = useState(false);
 
     const [branchQuery, setBranchQuery] = useState('');
-    const [branches, setBranches] = useState<any[]>([]);
-    const [selectedBranch, setSelectedBranch] = useState<any>(null);
+    const [branches, setBranches] = useState<NPItem[]>([]);
+    const [selectedBranch, setSelectedBranch] = useState<NPItem | null>(null);
     const [showBranchDropdown, setShowBranchDropdown] = useState(false);
 
     const searchCities = async (query: string) => {
@@ -168,7 +173,7 @@ export default function CartPage() {
 
                         {/* ІМ'Я */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-900 mb-1">Ім'я <span className="text-red-500">*</span></label>
+                            <label className="block text-sm font-medium text-gray-900 mb-1">Ім&apos;я <span className="text-red-500">*</span></label>
                             <input
                                 type="text"
                                 name="name"
@@ -272,7 +277,9 @@ export default function CartPage() {
                                     setBranchQuery(e.target.value);
                                     setSelectedBranch(null);
                                     setShowBranchDropdown(true);
-                                    searchBranches(selectedCity.Ref, e.target.value);
+                                    if (selectedCity) {
+                                        searchBranches(selectedCity.Ref, e.target.value);
+                                    }
                                     if (formError) setFormError("");
                                 }}
                                 onFocus={() => selectedCity && setShowBranchDropdown(true)}
