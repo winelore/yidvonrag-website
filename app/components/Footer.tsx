@@ -9,7 +9,6 @@ export default function Footer() {
                 <Link href="/privacy-policy" className="hover:text-black transition-colors font-medium">Політика конфіденційності</Link>
                 <Link href="/public-offer" className="hover:text-black transition-colors font-medium">Публічна оферта</Link>
                 <Link href="/payment-and-delivery" className="hover:text-black transition-colors font-medium">Оплата і доставка</Link>
-                <Link href="/returns" className="hover:text-black transition-colors font-medium">Повернення</Link>
             </div>
 
             <div className="mb-6 space-y-2 text-gray-600">
