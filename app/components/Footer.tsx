@@ -6,6 +6,10 @@ export default function Footer() {
             <div className="flex justify-center gap-8 mb-6">
                 <Link href="/" className="hover:text-black transition-colors font-medium">Головна</Link>
                 <Link href="/about" className="hover:text-black transition-colors font-medium">Про нас</Link>
+                <Link href="/privacy-policy" className="hover:text-black transition-colors font-medium">Політика конфіденційності</Link>
+                <Link href="/public-offer" className="hover:text-black transition-colors font-medium">Публічна оферта</Link>
+                <Link href="/payment-and-delivery" className="hover:text-black transition-colors font-medium">Оплата і доставка</Link>
+                <Link href="/returns" className="hover:text-black transition-colors font-medium">Повернення</Link>
             </div>
 
             <div className="mb-6 space-y-2 text-gray-600">
