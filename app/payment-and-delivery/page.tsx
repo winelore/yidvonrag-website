@@ -29,7 +29,7 @@ export default function PaymentAndDeliveryPage() {
 
                     {/* Compliant age verification banner */}
                     <div className="p-4 bg-stone-50 border-l-4 border-stone-500 text-stone-900 text-sm font-medium rounded-r">
-                        🔞 Згідно із законодавством України, ми не здійснюємо продаж alkoholьних напоїв особам, які не досягли 18 років. Оформлюючи замовлення на сайті, ви підтверджуєте свое повноліття.
+                        🔞 Згідно із законодавством України, ми не здійснюємо продаж алкогольних напоїв особам, які не досягли 18 років. Оформлюючи замовлення на сайті, ви підтверджуєте свое повноліття.
                     </div>
 
                     {/* Section 1: Statutory Framework */}
