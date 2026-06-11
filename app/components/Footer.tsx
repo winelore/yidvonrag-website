@@ -19,6 +19,9 @@ export default function Footer() {
                     <h3 className="font-semibold text-base mb-2">Клієнтам</h3>
                     <Link href="/cart" className="text-gray-500 hover:text-black transition-colors">Кошик</Link>
                     <Link href="/contact" className="text-gray-500 hover:text-black transition-colors">Контактна інформація</Link>
+                    <Link href="/privacy-policy" className="hover:text-black transition-colors font-medium">Політика конфіденційності</Link>
+                <Link href="/public-offer" className="hover:text-black transition-colors font-medium">Публічна оферта</Link>
+                <Link href="/payment-and-delivery" className="hover:text-black transition-colors font-medium">Оплата і доставка</Link>
                 </div>
 
                 {/* Контакти (Текст) */}
@@ -34,7 +37,6 @@ export default function Footer() {
                         ✉️ hello@Garnovdi.com
                     </a>
                 </div>
-
             </div>
 
             {/* Копірайт */}

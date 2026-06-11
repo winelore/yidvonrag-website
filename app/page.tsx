@@ -18,7 +18,7 @@ export default async function Home() {
         }
     });
 
-    console.log(hits);
+    // console.log(hits);
 
     // 2. Отримуємо пости (спочатку найновіші)
     const posts = await prisma.post.findMany({
