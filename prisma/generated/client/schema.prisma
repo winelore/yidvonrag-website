@@ -59,10 +59,17 @@ model About {
 }
 
 model Order {
-  id        String      @id @default(uuid())
+  id        String  @id @default(uuid())
   amount    Float
-  status    String      @default("PENDING")
+  status    String  @default("PENDING")
   invoiceId String?
+
+  customerName    String?
+  customerSurname String?
+  customerPhone   String?
+  customerCity    String?
+  customerBranch  String?
+
   createdAt DateTime    @default(now())
   items     OrderItem[]
 }
