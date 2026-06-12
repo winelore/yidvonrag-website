@@ -2,9 +2,13 @@
 
 import { useCart } from "@/lib/CartContext";
 import Link from "next/link";
+import { useState } from 'react';
 
 export default function CartPage() {
-    const { items, totalPrice, updateQuantity, removeFromCart } = useCart();
+    const { items, totalPrice, updateQuantity, removeFromCart, clearCart } = useCart();
+    const [loading, setLoading] = useState(false);
+    const [customerName, setCustomerName] = useState('')
+    const [customerEmail, setCustomerEmail] = useState('')
 
     if (items.length === 0) {
         return (
@@ -62,9 +66,66 @@ export default function CartPage() {
                         <p className="text-gray-500 text-sm mb-1">Разом до оплати</p>
                         <p className="text-4xl font-black">${totalPrice.toFixed(2)}</p>
                     </div>
-                    <button className="bg-black text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition w-full sm:w-auto shadow-lg hover:shadow-xl hover:-translate-y-0.5">
-                        Оформити замовлення
-                    </button>
+                        <form
+                            onSubmit={async (e) => {
+                                e.preventDefault()
+                                if (items.length === 0) return alert('Кошик порожній')
+                                if (!customerName.trim()) return alert('Вкажіть ім\'я покупця')
+                                try {
+                                    setLoading(true)
+                                    const res = await fetch('/api/checkout', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ customerName: customerName.trim(), customerEmail: customerEmail?.trim(), items })
+                                    })
+                                    const json = await res.json()
+                                    if (res.ok) {
+                                        // clear cart using context
+                                        // clearCart is provided by useCart
+                                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                        // @ts-ignore
+                                        clearCart()
+                                        alert('Замовлення успішно створено. Номер: ' + json.orderId)
+                                    } else {
+                                        alert('Помилка: ' + (json.error || 'Невідома помилка'))
+                                    }
+                                } catch (e) {
+                                    // eslint-disable-next-line no-console
+                                    console.error(e)
+                                    alert('Помилка мережі')
+                                } finally {
+                                    setLoading(false)
+                                }
+                            }}
+                            className="w-full mt-6"
+                        >
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                                <input
+                                    value={customerName}
+                                    onChange={(e) => setCustomerName(e.target.value)}
+                                    className="border border-gray-200 rounded-xl px-4 py-3"
+                                    placeholder="Ім'я покупця"
+                                    required
+                                />
+                                <input
+                                    value={customerEmail}
+                                    onChange={(e) => setCustomerEmail(e.target.value)}
+                                    className="border border-gray-200 rounded-xl px-4 py-3"
+                                    placeholder="Email (опційно)"
+                                    type="email"
+                                />
+                            </div>
+                            <div className="flex gap-3 items-center">
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="bg-black text-white px-6 py-3 rounded-xl font-bold text-lg hover:bg-gray-800 transition shadow-lg"
+                                >
+                                    {loading ? 'Обробка...' : 'Оформити замовлення'}
+                                </button>
+                                <div className="text-sm text-gray-600 ml-3">Разом: <strong>${totalPrice.toFixed(2)}</strong></div>
+                            </div>
+                        </form>
                 </div>
             </div>
         </main>
