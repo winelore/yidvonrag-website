@@ -26,7 +26,7 @@ export default async function Home() {
     });
 
     return (
-        <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)]">
+        <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
             {/* Hero Section */}
             <section className="flex flex-col items-center justify-center text-center py-16 sm:py-24 px-8 bg-gradient-to-b from-transparent to-black/[0.02]">
                 <h1 className="text-4xl sm:text-6xl font-bold mb-6">

@@ -7,7 +7,7 @@ export default async function AboutPage() {
     const about = await prisma.about.findFirst();
 
     return (
-        <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)]">
+        <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
 
             {/* Основний контент */}
             <main className="max-w-4xl mx-auto px-8 py-20">
