@@ -8,22 +8,61 @@ import { put, del } from '@vercel/blob'
 const BLOB_TOKEN = 'vercel_blob_rw_xqtNsojIRblvwdXW_ltX0i9Q0dYouL83aEKv9gRZGur2yT1';
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
-export async function createWineAction() {
-  const newWine = await prisma.wine.create({
-    data: {
-      name: "Нове вино",
-      description: "",
-      color: "",
-      sweetness: "",
-      volume: 0.75,
-      alcohol: "",
-      grapeVariety: "",
-      country: "",
-      inStock: true
-    }
-  })
+export async function submitNewWineAction(formData: FormData) {
+    const name = formData.get('name') as string
+    const description = formData.get('description') as string
+    const color = formData.get('color') as string
+    const sweetness = formData.get('sweetness') as string
+    const volume = parseFloat(formData.get('volume') as string) || 0.75;
+    const alcohol = formData.get('alcohol') as string
+    const grapeVariety = formData.get('grapeVariety') as string
+    const country = formData.get('country') as string
+    const inStock = formData.get('inStock') === 'on'
 
-  redirect(`/admin/wines/${newWine.id}`)
+    const orderStr = formData.get('imageOrder') as string;
+    const finalImages: string[] = [];
+
+    // Обробка завантажених фотографій під час створення
+    if (orderStr && orderStr.trim() !== "") {
+        try {
+            const orderArray = JSON.parse(orderStr) as string[];
+            for (const itemId of orderArray) {
+                if (itemId.startsWith('newFile_')) {
+                    const file = formData.get(itemId) as File | null;
+                    if (file && file.size > 0) {
+                        const blob = await put(file.name, file, {
+                            access: 'public',
+                            token: BLOB_TOKEN,
+                            addRandomSuffix: true,
+                        });
+                        finalImages.push(blob.url);
+                    }
+                }
+            }
+        } catch (e) {
+            console.error("Помилка обробки зображень:", e);
+        }
+    }
+
+    // Створюємо запис у базі тільки тоді, коли є всі дані
+    await prisma.wine.create({
+        data: {
+            name,
+            description,
+            color,
+            sweetness,
+            volume,
+            alcohol,
+            grapeVariety,
+            country,
+            inStock,
+            images: finalImages
+        }
+    })
+
+    revalidatePath('/')
+    revalidatePath('/admin/wines')
+    redirect('/admin/wines')
 }
 
 export async function updateWineAction(id: string, formData: FormData) {
@@ -148,4 +187,30 @@ export async function deleteImageAction(wineId: string, imageUrl: string) {
 
   revalidatePath(`/admin/wines/${wineId}`);
   revalidatePath('/');
+}
+
+export async function deleteWineAction(id: string) {
+    const wine = await prisma.wine.findUnique({ where: { id } });
+
+    // Видаляємо всі прив'язані картинки з Vercel Blob
+    if (wine && wine.images && wine.images.length > 0) {
+        for (const imageUrl of wine.images) {
+            try {
+                await del(imageUrl, { token: BLOB_TOKEN });
+            } catch (e) {
+                console.error("Failed to delete blob during wine deletion", imageUrl, e);
+            }
+        }
+    }
+
+    // Видаляємо запис про вино з БД (відгуки видаляться автоматично через onDelete: Cascade)
+    await prisma.wine.delete({
+        where: { id }
+    });
+
+    // Оновлюємо кеш сторінок
+    revalidatePath('/admin/wines');
+    revalidatePath('/');
+
+    redirect('/admin/wines');
 }

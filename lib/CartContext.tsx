@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 type CartItem = {
     id: string;
@@ -16,21 +16,33 @@ type CartContextType = {
     updateQuantity: (id: string, quantity: number) => void;
     clearCart: () => void;
     totalPrice: number;
+    isLoaded: boolean;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
     const[items, setItems] = useState<CartItem[]>([]);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         const savedCart = localStorage.getItem('wine-cart');
-        if (savedCart) setItems(JSON.parse(savedCart));
+        if (savedCart) {
+            try {
+                setItems(JSON.parse(savedCart));
+            } catch (error) {
+                console.error("Error in the reading of the cart memory:", error);
+                localStorage.removeItem('wine-cart');
+            }
+        }
+        setIsLoaded(true);
     },[]);
 
     useEffect(() => {
-        localStorage.setItem('wine-cart', JSON.stringify(items));
-    }, [items]);
+        if (isLoaded) {
+            localStorage.setItem('wine-cart', JSON.stringify(items));
+        }
+    }, [items, isLoaded]);
 
     const addToCart = (newItem: Omit<CartItem, 'quantity'>) => {
         setItems(prev => {
@@ -50,19 +62,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         setItems(prev => prev.map(item => item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item));
     };
 
-    const clearCart = () => {
+    const totalPrice = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+    const clearCart = useCallback(() => {
         setItems([]);
         try {
             localStorage.removeItem('wine-cart');
         } catch {
             // ignore
         }
-    };
-
-    const totalPrice = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    }, []);
 
     return (
-        <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQuantity, clearCart, totalPrice }}>
+        <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQuantity, totalPrice, clearCart, isLoaded }}>
             {children}
         </CartContext.Provider>
     );

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
 import ReviewForm from "@/app/wines/[id]/ReviewForm";
 import AddToCartButton from "@/app/components/AddToCartButton";
+import MonoPayButton from "@/app/components/MonoPayButton";
 
 import ImageCarousel from "@/app/components/ImageCarousel";
 
@@ -63,7 +64,13 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                         <div className="text-sm text-gray-500 mb-1">Ціна за пляшку</div>
                         <div className="text-4xl font-black text-gray-900 mb-4">${wine.price}</div>
                         {wine.inStock && (
-                            <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
+                            <div className="flex flex-col gap-3 w-full">
+                                {/* Кнопка додавання в кошик */}
+                                <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
+
+                                {/* Кнопка швидкої оплати MonoPay */}
+                                <MonoPayButton wineId={wine.id} price={wine.price} />
+                            </div>
                         )}
                     </div>
                 </header>

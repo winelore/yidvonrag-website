@@ -19,10 +19,11 @@ model Wine {
   grapeVariety String
   country      String
 
-  inStock Boolean  @default(true)
-  images  String[] @default([])
-  reviews Review[]
-  price   Float    @default(0)
+  inStock    Boolean     @default(true)
+  images     String[]    @default([])
+  reviews    Review[]
+  price      Float       @default(0)
+  orderItems OrderItem[]
 }
 
 model User {
@@ -58,21 +59,31 @@ model About {
 }
 
 model Order {
-  id            String      @id @default(uuid())
-  customerName  String
-  customerEmail String?
-  total         Float
-  createdAt     DateTime    @default(now())
-  items         OrderItem[]
+  id        String  @id @default(uuid())
+  total     Float?
+  amount    Float?
+  status    String  @default("PENDING")
+  invoiceId String?
+
+  customerName    String
+  customerSurname String?
+  customerEmail   String?
+  customerPhone   String?
+  customerCity    String?
+  customerBranch  String?
+
+  createdAt DateTime    @default(now())
+  items     OrderItem[]
 }
 
 model OrderItem {
   id       String  @id @default(uuid())
   orderId  String
   wineId   String?
-  name     String
+  name     String?
   price    Float
   quantity Int
 
   order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  wine  Wine? @relation(fields: [wineId], references: [id])
 }

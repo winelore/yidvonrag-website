@@ -33,7 +33,7 @@ export default async function WinesCatalogPage() {
                                     )}
                                 </div>
                                 <div className="flex-grow px-4 pt-4 pb-2">
-                                    <h3 className="font-semibold text-lg line-clamp-1">{wine.name}</h3>
+                                    <h3 className="font-semibold text-lg text-black line-clamp-1">{wine.name}</h3>
                                     {avgRating ? (
                                         <div className="flex items-center gap-1 mt-1 text-sm">
                                             <span className="text-yellow-500">★</span>

@@ -13,7 +13,7 @@ export default function Header() {
         <header className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8 py-6 px-8 max-w-7xl mx-auto w-full border-b border-gray-100">
             {/* Left Side: Logo */}
             <Link href="/" className="text-2xl font-black tracking-tighter uppercase whitespace-nowrap">
-                Олександр Гарновді
+                ВМ Штифко
             </Link>
 
             {/* Center Side: Live Search Bar */}

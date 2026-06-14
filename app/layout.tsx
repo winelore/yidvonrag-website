@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import { CartProvider } from "@/lib/CartContext";
 import Header from "@/app/components/Header";
 import AgeGate from "@/app/components/AgeGate";
+import PaymentNotification from "@/app/components/PaymentNotification";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -18,7 +19,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "Олександр Гарновді | Ексклюзивна колекція вин",
+    title: "Винна мануфактура Штифко",
     description: "Відкрийте для себе найкращі смаки з усього світу.",
 };
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         <CartProvider>
             <AgeGate />
             <Header />
+            <PaymentNotification />
             {children}
             <Toaster position="bottom-right" />
         </CartProvider>

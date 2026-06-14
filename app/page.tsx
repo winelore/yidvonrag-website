@@ -2,6 +2,7 @@ import Image from "next/image";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import AddToCartButton from "@/app/components/AddToCartButton";
+import Footer from "@/app/components/Footer";
 
 
 export default async function Home() {
@@ -17,7 +18,7 @@ export default async function Home() {
         }
     });
 
-    console.log(hits);
+    // console.log(hits);
 
     // 2. Отримуємо пости (спочатку найновіші)
     const posts = await prisma.post.findMany({
@@ -25,7 +26,7 @@ export default async function Home() {
     });
 
     return (
-        <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)]">
+        <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
             {/* Hero Section */}
             <section className="flex flex-col items-center justify-center text-center py-16 sm:py-24 px-8 bg-gradient-to-b from-transparent to-black/[0.02]">
                 <h1 className="text-4xl sm:text-6xl font-bold mb-6">
@@ -106,7 +107,7 @@ export default async function Home() {
                                             <p className="text-sm text-gray-500 mt-1">
                                                 {wine.country} • {wine.color} • {wine.sweetness}
                                             </p>
-                                            <p className="text-xs text-gray-400 mt-2 line-clamp-2">
+                                            <p className="text-xs text-gray-400 mt-2 line-clamp-2 text-justify">
                                                 {wine.description}
                                             </p>
                                         </div>
@@ -139,8 +140,8 @@ export default async function Home() {
                                             <Image src={p.images[0]} alt={p.title} fill className="object-cover hover:scale-105 transition-transform duration-300" />
                                         </div>
                                     )}
-                                    <h3 className="text-xl font-bold mb-2">{p.title}</h3>
-                                    <p className="text-gray-600 line-clamp-3">{p.content}</p>
+                                    <h3 className="text-xl font-bold mb-2 text-balance">{p.title}</h3>
+                                    <p className="text-gray-600 line-clamp-3 text-justify">{p.content}</p>
                                     <div className="mt-4 flex justify-between items-center">
                                         <div className="text-xs text-gray-400">{new Date(p.createdAt).toLocaleDateString('uk-UA')}</div>
                                         <Link href={`/posts/${p.id}`} className="text-blue-600 hover:underline text-sm font-medium">Читати повністю →</Link>
@@ -155,15 +156,7 @@ export default async function Home() {
                     </div>
                 </section>
             </main>
-
-            {/* ОНОВЛЕНО: Footer з посиланнями */}
-            <footer className="border-t border-black/[0.08] py-12 text-center text-sm text-gray-500">
-                <div className="flex justify-center gap-8 mb-6">
-                    <Link href="/" className="hover:text-black transition-colors font-medium">Головна</Link>
-                    <Link href="/about" className="hover:text-black transition-colors font-medium">Про нас</Link>
-                </div>
-                <p>© 2026 Олександр Гарновді. Всі права захищені.</p>
-            </footer>
+                <Footer />
         </div>
     );
 }

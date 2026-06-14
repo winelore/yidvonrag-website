@@ -1,0 +1,94 @@
+import Link from 'next/link'
+import { submitNewWineAction } from '../actions'
+import { ImageGalleryManager } from '../[id]/image-upload-input'
+import { FormSubmitButton } from '../../components/FormSubmitButton'
+import { AdminForm } from '../../components/AdminForm'
+
+export default function NewWinePage() {
+    return (
+        <div className="p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)] max-w-3xl mx-auto">
+            <Link href="/admin/wines" className="text-sm text-foreground hover:underline inline-flex items-center gap-2 mb-6">
+                &larr; Назад до списку
+            </Link>
+
+            <div className="rounded-2xl border border-black/[.08] dark:border-white/[.145] bg-white dark:bg-black p-8 shadow-sm">
+                <h1 className="text-2xl font-bold mb-6 text-foreground">Додати нове вино</h1>
+
+                <AdminForm id="create-wine-form" action={submitNewWineAction} className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-1.5">
+                        <label htmlFor="name" className="text-sm font-medium text-foreground">Назва</label>
+                        <input
+                            type="text" id="name" name="name" required
+                            className="h-12 w-full rounded-lg border border-black/[.15] dark:border-white/[.15] bg-transparent px-4 text-sm transition-colors focus:border-foreground focus:outline-none"
+                        />
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                        <label htmlFor="description" className="text-sm font-medium text-foreground">Опис</label>
+                        <textarea
+                            id="description" name="description" required rows={4}
+                            className="w-full rounded-lg border border-black/[.15] dark:border-white/[.15] bg-transparent p-4 text-sm transition-colors focus:border-foreground focus:outline-none resize-y"
+                        />
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-6">
+                        <div className="flex flex-col gap-1.5 flex-1">
+                            <label htmlFor="color" className="text-sm font-medium text-foreground">Колір</label>
+                            <input type="text" id="color" name="color" className="h-12 w-full rounded-lg border border-black/[.15] dark:border-white/[.15] bg-transparent px-4 text-sm focus:border-foreground focus:outline-none" />
+                        </div>
+
+                        <div className="flex flex-col gap-1.5 flex-1">
+                            <label htmlFor="sweetness" className="text-sm font-medium text-foreground">Солодкість</label>
+                            <input type="text" id="sweetness" name="sweetness" className="h-12 w-full rounded-lg border border-black/[.15] dark:border-white/[.15] bg-transparent px-4 text-sm focus:border-foreground focus:outline-none" />
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-6">
+                        <div className="flex flex-col gap-1.5 flex-1">
+                            <label htmlFor="volume" className="text-sm font-medium text-foreground">{"Об'єм (л)"}</label>
+                            <input type="number" step="0.01" id="volume" name="volume" defaultValue={0.75} required className="h-12 w-full rounded-lg border border-black/[.15] dark:border-white/[.15] bg-transparent px-4 text-sm focus:border-foreground focus:outline-none" />
+                        </div>
+
+                        <div className="flex flex-col gap-1.5 flex-1">
+                            <label htmlFor="alcohol" className="text-sm font-medium text-foreground">Алкоголь</label>
+                            <input type="text" id="alcohol" name="alcohol" className="h-12 w-full rounded-lg border border-black/[.15] dark:border-white/[.15] bg-transparent px-4 text-sm focus:border-foreground focus:outline-none" />
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-6">
+                        <div className="flex flex-col gap-1.5 flex-1">
+                            <label htmlFor="grapeVariety" className="text-sm font-medium text-foreground">Сорт винограду</label>
+                            <input type="text" id="grapeVariety" name="grapeVariety" className="h-12 w-full rounded-lg border border-black/[.15] dark:border-white/[.15] bg-transparent px-4 text-sm focus:border-foreground focus:outline-none" />
+                        </div>
+
+                        <div className="flex flex-col gap-1.5 flex-1">
+                            <label htmlFor="country" className="text-sm font-medium text-foreground">Країна</label>
+                            <input type="text" id="country" name="country" className="h-12 w-full rounded-lg border border-black/[.15] dark:border-white/[.15] bg-transparent px-4 text-sm focus:border-foreground focus:outline-none" />
+                        </div>
+                    </div>
+
+                    <div className="flex items-center gap-3 mt-2">
+                        <input type="checkbox" id="inStock" name="inStock" defaultChecked={true} className="h-5 w-5 rounded border-black/[.15] dark:border-white/[.15] accent-foreground" />
+                        <label htmlFor="inStock" className="text-sm font-medium text-foreground cursor-pointer">В наявності</label>
+                    </div>
+
+                    <div className="border-t border-black/[.08] dark:border-white/[.145] pt-6 flex flex-col gap-4 mt-6">
+                        <h2 className="text-sm font-medium text-foreground">Галерея зображень</h2>
+                        <ImageGalleryManager initialImages={[]} />
+                    </div>
+
+                    <div className="mt-8 flex flex-col sm:flex-row justify-between pt-6 border-t border-black/[.08] dark:border-white/[.145]">
+                        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                            <FormSubmitButton className="w-full sm:w-auto rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm h-12 px-8">
+                                Створити вино
+                            </FormSubmitButton>
+                            <Link href="/admin/wines" className="w-full sm:w-auto rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] text-sm h-12 px-8 text-foreground">
+                                Скасувати
+                            </Link>
+                        </div>
+                    </div>
+                </AdminForm>
+            </div>
+        </div>
+    )
+}
