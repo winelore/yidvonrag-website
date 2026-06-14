@@ -54,7 +54,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         setItems([]);
         try {
             localStorage.removeItem('wine-cart');
-        } catch (e) {
+        } catch {
             // ignore
         }
     };
