@@ -7,7 +7,6 @@ type OrderItem = {
 type OrderData = {
   id: string;
   customerName: string;
-  customerEmail?: string | null;
   total: number;
   items: OrderItem[];
   createdAt?: string;
@@ -30,9 +29,7 @@ export function renderOrderNotification(order: OrderData) {
     <body style="font-family:Arial,Helvetica,sans-serif;color:#111">
       <div style="max-width:680px;margin:0 auto;padding:24px">
         <h2 style="margin-bottom:6px">Нове замовлення — #${escapeHtml(order.id)}</h2>
-        <p style="color:#555;margin-top:0">Клієнт: <strong>${escapeHtml(order.customerName)}</strong>${
-          order.customerEmail ? ` — <a href="mailto:${escapeHtml(order.customerEmail)}">${escapeHtml(order.customerEmail)}</a>` : ''
-        }</p>
+        <p style="color:#555;margin-top:0">Клієнт: <strong>${escapeHtml(order.customerName)}</strong></p>
         <table style="width:100%;border-collapse:collapse;margin-top:18px">
           <thead>
             <tr>

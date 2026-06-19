@@ -6820,7 +6820,6 @@ export namespace Prisma {
     invoiceId: string | null
     customerName: string | null
     customerSurname: string | null
-    customerEmail: string | null
     customerPhone: string | null
     customerCity: string | null
     customerBranch: string | null
@@ -6835,7 +6834,6 @@ export namespace Prisma {
     invoiceId: string | null
     customerName: string | null
     customerSurname: string | null
-    customerEmail: string | null
     customerPhone: string | null
     customerCity: string | null
     customerBranch: string | null
@@ -6850,7 +6848,6 @@ export namespace Prisma {
     invoiceId: number
     customerName: number
     customerSurname: number
-    customerEmail: number
     customerPhone: number
     customerCity: number
     customerBranch: number
@@ -6877,7 +6874,6 @@ export namespace Prisma {
     invoiceId?: true
     customerName?: true
     customerSurname?: true
-    customerEmail?: true
     customerPhone?: true
     customerCity?: true
     customerBranch?: true
@@ -6892,7 +6888,6 @@ export namespace Prisma {
     invoiceId?: true
     customerName?: true
     customerSurname?: true
-    customerEmail?: true
     customerPhone?: true
     customerCity?: true
     customerBranch?: true
@@ -6907,7 +6902,6 @@ export namespace Prisma {
     invoiceId?: true
     customerName?: true
     customerSurname?: true
-    customerEmail?: true
     customerPhone?: true
     customerCity?: true
     customerBranch?: true
@@ -7009,7 +7003,6 @@ export namespace Prisma {
     invoiceId: string | null
     customerName: string
     customerSurname: string | null
-    customerEmail: string | null
     customerPhone: string | null
     customerCity: string | null
     customerBranch: string | null
@@ -7043,7 +7036,6 @@ export namespace Prisma {
     invoiceId?: boolean
     customerName?: boolean
     customerSurname?: boolean
-    customerEmail?: boolean
     customerPhone?: boolean
     customerCity?: boolean
     customerBranch?: boolean
@@ -7060,7 +7052,6 @@ export namespace Prisma {
     invoiceId?: boolean
     customerName?: boolean
     customerSurname?: boolean
-    customerEmail?: boolean
     customerPhone?: boolean
     customerCity?: boolean
     customerBranch?: boolean
@@ -7075,7 +7066,6 @@ export namespace Prisma {
     invoiceId?: boolean
     customerName?: boolean
     customerSurname?: boolean
-    customerEmail?: boolean
     customerPhone?: boolean
     customerCity?: boolean
     customerBranch?: boolean
@@ -7090,14 +7080,13 @@ export namespace Prisma {
     invoiceId?: boolean
     customerName?: boolean
     customerSurname?: boolean
-    customerEmail?: boolean
     customerPhone?: boolean
     customerCity?: boolean
     customerBranch?: boolean
     createdAt?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "total" | "amount" | "status" | "invoiceId" | "customerName" | "customerSurname" | "customerEmail" | "customerPhone" | "customerCity" | "customerBranch" | "createdAt", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "total" | "amount" | "status" | "invoiceId" | "customerName" | "customerSurname" | "customerPhone" | "customerCity" | "customerBranch" | "createdAt", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | Order$itemsArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
@@ -7118,7 +7107,6 @@ export namespace Prisma {
       invoiceId: string | null
       customerName: string
       customerSurname: string | null
-      customerEmail: string | null
       customerPhone: string | null
       customerCity: string | null
       customerBranch: string | null
@@ -7554,7 +7542,6 @@ export namespace Prisma {
     readonly invoiceId: FieldRef<"Order", 'String'>
     readonly customerName: FieldRef<"Order", 'String'>
     readonly customerSurname: FieldRef<"Order", 'String'>
-    readonly customerEmail: FieldRef<"Order", 'String'>
     readonly customerPhone: FieldRef<"Order", 'String'>
     readonly customerCity: FieldRef<"Order", 'String'>
     readonly customerBranch: FieldRef<"Order", 'String'>
@@ -9218,7 +9205,6 @@ export namespace Prisma {
     invoiceId: 'invoiceId',
     customerName: 'customerName',
     customerSurname: 'customerSurname',
-    customerEmail: 'customerEmail',
     customerPhone: 'customerPhone',
     customerCity: 'customerCity',
     customerBranch: 'customerBranch',
@@ -9649,7 +9635,6 @@ export namespace Prisma {
     invoiceId?: StringNullableFilter<"Order"> | string | null
     customerName?: StringFilter<"Order"> | string
     customerSurname?: StringNullableFilter<"Order"> | string | null
-    customerEmail?: StringNullableFilter<"Order"> | string | null
     customerPhone?: StringNullableFilter<"Order"> | string | null
     customerCity?: StringNullableFilter<"Order"> | string | null
     customerBranch?: StringNullableFilter<"Order"> | string | null
@@ -9665,7 +9650,6 @@ export namespace Prisma {
     invoiceId?: SortOrderInput | SortOrder
     customerName?: SortOrder
     customerSurname?: SortOrderInput | SortOrder
-    customerEmail?: SortOrderInput | SortOrder
     customerPhone?: SortOrderInput | SortOrder
     customerCity?: SortOrderInput | SortOrder
     customerBranch?: SortOrderInput | SortOrder
@@ -9684,7 +9668,6 @@ export namespace Prisma {
     invoiceId?: StringNullableFilter<"Order"> | string | null
     customerName?: StringFilter<"Order"> | string
     customerSurname?: StringNullableFilter<"Order"> | string | null
-    customerEmail?: StringNullableFilter<"Order"> | string | null
     customerPhone?: StringNullableFilter<"Order"> | string | null
     customerCity?: StringNullableFilter<"Order"> | string | null
     customerBranch?: StringNullableFilter<"Order"> | string | null
@@ -9700,7 +9683,6 @@ export namespace Prisma {
     invoiceId?: SortOrderInput | SortOrder
     customerName?: SortOrder
     customerSurname?: SortOrderInput | SortOrder
-    customerEmail?: SortOrderInput | SortOrder
     customerPhone?: SortOrderInput | SortOrder
     customerCity?: SortOrderInput | SortOrder
     customerBranch?: SortOrderInput | SortOrder
@@ -9723,7 +9705,6 @@ export namespace Prisma {
     invoiceId?: StringNullableWithAggregatesFilter<"Order"> | string | null
     customerName?: StringWithAggregatesFilter<"Order"> | string
     customerSurname?: StringNullableWithAggregatesFilter<"Order"> | string | null
-    customerEmail?: StringNullableWithAggregatesFilter<"Order"> | string | null
     customerPhone?: StringNullableWithAggregatesFilter<"Order"> | string | null
     customerCity?: StringNullableWithAggregatesFilter<"Order"> | string | null
     customerBranch?: StringNullableWithAggregatesFilter<"Order"> | string | null
@@ -10132,7 +10113,6 @@ export namespace Prisma {
     invoiceId?: string | null
     customerName: string
     customerSurname?: string | null
-    customerEmail?: string | null
     customerPhone?: string | null
     customerCity?: string | null
     customerBranch?: string | null
@@ -10148,7 +10128,6 @@ export namespace Prisma {
     invoiceId?: string | null
     customerName: string
     customerSurname?: string | null
-    customerEmail?: string | null
     customerPhone?: string | null
     customerCity?: string | null
     customerBranch?: string | null
@@ -10164,7 +10143,6 @@ export namespace Prisma {
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     customerName?: StringFieldUpdateOperationsInput | string
     customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
-    customerEmail?: NullableStringFieldUpdateOperationsInput | string | null
     customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
     customerCity?: NullableStringFieldUpdateOperationsInput | string | null
     customerBranch?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10180,7 +10158,6 @@ export namespace Prisma {
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     customerName?: StringFieldUpdateOperationsInput | string
     customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
-    customerEmail?: NullableStringFieldUpdateOperationsInput | string | null
     customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
     customerCity?: NullableStringFieldUpdateOperationsInput | string | null
     customerBranch?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10196,7 +10173,6 @@ export namespace Prisma {
     invoiceId?: string | null
     customerName: string
     customerSurname?: string | null
-    customerEmail?: string | null
     customerPhone?: string | null
     customerCity?: string | null
     customerBranch?: string | null
@@ -10211,7 +10187,6 @@ export namespace Prisma {
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     customerName?: StringFieldUpdateOperationsInput | string
     customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
-    customerEmail?: NullableStringFieldUpdateOperationsInput | string | null
     customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
     customerCity?: NullableStringFieldUpdateOperationsInput | string | null
     customerBranch?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10226,7 +10201,6 @@ export namespace Prisma {
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     customerName?: StringFieldUpdateOperationsInput | string
     customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
-    customerEmail?: NullableStringFieldUpdateOperationsInput | string | null
     customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
     customerCity?: NullableStringFieldUpdateOperationsInput | string | null
     customerBranch?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10661,7 +10635,6 @@ export namespace Prisma {
     invoiceId?: SortOrder
     customerName?: SortOrder
     customerSurname?: SortOrder
-    customerEmail?: SortOrder
     customerPhone?: SortOrder
     customerCity?: SortOrder
     customerBranch?: SortOrder
@@ -10681,7 +10654,6 @@ export namespace Prisma {
     invoiceId?: SortOrder
     customerName?: SortOrder
     customerSurname?: SortOrder
-    customerEmail?: SortOrder
     customerPhone?: SortOrder
     customerCity?: SortOrder
     customerBranch?: SortOrder
@@ -10696,7 +10668,6 @@ export namespace Prisma {
     invoiceId?: SortOrder
     customerName?: SortOrder
     customerSurname?: SortOrder
-    customerEmail?: SortOrder
     customerPhone?: SortOrder
     customerCity?: SortOrder
     customerBranch?: SortOrder
@@ -11432,7 +11403,6 @@ export namespace Prisma {
     invoiceId?: string | null
     customerName: string
     customerSurname?: string | null
-    customerEmail?: string | null
     customerPhone?: string | null
     customerCity?: string | null
     customerBranch?: string | null
@@ -11447,7 +11417,6 @@ export namespace Prisma {
     invoiceId?: string | null
     customerName: string
     customerSurname?: string | null
-    customerEmail?: string | null
     customerPhone?: string | null
     customerCity?: string | null
     customerBranch?: string | null
@@ -11515,7 +11484,6 @@ export namespace Prisma {
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     customerName?: StringFieldUpdateOperationsInput | string
     customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
-    customerEmail?: NullableStringFieldUpdateOperationsInput | string | null
     customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
     customerCity?: NullableStringFieldUpdateOperationsInput | string | null
     customerBranch?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11530,7 +11498,6 @@ export namespace Prisma {
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
     customerName?: StringFieldUpdateOperationsInput | string
     customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
-    customerEmail?: NullableStringFieldUpdateOperationsInput | string | null
     customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
     customerCity?: NullableStringFieldUpdateOperationsInput | string | null
     customerBranch?: NullableStringFieldUpdateOperationsInput | string | null

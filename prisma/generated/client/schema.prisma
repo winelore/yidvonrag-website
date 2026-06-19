@@ -67,7 +67,6 @@ model Order {
 
   customerName    String
   customerSurname String?
-  customerEmail   String?
   customerPhone   String?
   customerCity    String?
   customerBranch  String?
