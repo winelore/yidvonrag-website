@@ -3,10 +3,6 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import renderOrderNotification from '@/lib/emailTemplates/orderNotification';
 
-// Supports two payload shapes:
-// - Simple: { items: [{id?, name, price, quantity}], customerName, customerEmail }
-// - Full: { cartItems: [{id, quantity}], customerInfo: { name, surname, phone, city, branch } }
-
 type SimpleItem = { id?: string; name: string; price: number; quantity: number };
 type CartItemInput = { id: string; quantity: number };
 
@@ -46,12 +42,10 @@ export async function POST(req: Request) {
           customerPhone: customerInfo?.phone || null,
           customerCity: customerInfo?.city || null,
           customerBranch: customerInfo?.branch || null,
-          customerEmail: customerInfo?.email || null,
           items: { create: orderItemsData }
         }
       });
 
-      // best-effort email (use local orderItemsData since created doesn't include items here)
       trySendResendEmail(created, orderItemsData as any[]);
 
       const amountInKopecks = Math.round(totalAmount * 100);
@@ -78,7 +72,7 @@ export async function POST(req: Request) {
     }
 
     // Simple create + email flow
-    const { customerName, customerEmail, items } = body as { customerName?: string; customerEmail?: string; items?: SimpleItem[] };
+    const { customerName, items } = body as { customerName?: string; items?: SimpleItem[] };
     if (!customerName || !items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json({ error: 'Invalid payload' }, { status: 400 });
     }
@@ -87,7 +81,6 @@ export async function POST(req: Request) {
     const created = await prisma.order.create({
       data: {
         customerName,
-        customerEmail,
         total,
         amount: total,
         items: { create: items.map((it) => ({ wineId: it.id ?? null, name: it.name, price: it.price, quantity: it.quantity })) }
@@ -98,7 +91,6 @@ export async function POST(req: Request) {
     trySendResendEmail(created, created.items as any[]);
     return NextResponse.json({ ok: true, orderId: created.id });
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.error('Checkout error', err);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
@@ -109,7 +101,6 @@ async function trySendResendEmail(created: any, items: any[]) {
     const html = renderOrderNotification({
       id: created.id,
       customerName: created.customerName || 'Клієнт',
-      customerEmail: created.customerEmail ?? undefined,
       total: (created.total ?? created.amount) || 0,
       items: items.map((i: any) => ({ name: i.name || '<item>', price: i.price, quantity: i.quantity })),
       createdAt: (created.createdAt || new Date()).toISOString()
@@ -126,11 +117,9 @@ async function trySendResendEmail(created: any, items: any[]) {
         body: JSON.stringify({ from: FROM, to: [TO], subject: `Нове замовлення #${created.id}`, html })
       });
     } else {
-      // eslint-disable-next-line no-console
       console.warn('RESEND_API_KEY not set — skipping email send.');
     }
   } catch (e) {
-    // eslint-disable-next-line no-console
     console.error('Failed to send notification email', e);
   }
 }
