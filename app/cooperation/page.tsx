@@ -75,7 +75,7 @@ export default function CooperationPage() {
                 <div className="flex justify-between items-end mb-8 max-w-5xl mx-auto pt-2">
                     <div>
                         <h2 className="text-3xl font-bold tracking-tight">Почнімо співпрацю</h2>
-                        <p className="text-gray-500 mt-2">Зв'яжіться з нами для обговорення умов партнерства зручним способом</p>
+                        <p className="text-gray-500 mt-2">Зв&apos;яжіться з нами для обговорення умов партнерства зручним способом</p>
                     </div>
                     <Link href="/contact" className="text-blue-600 hover:underline text-sm font-medium whitespace-nowrap ml-4">
                         Наші контакти →

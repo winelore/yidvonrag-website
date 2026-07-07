@@ -16,9 +16,9 @@ export default function ContactPage() {
                     {/* Контактні дані */}
                     <div className="space-y-8">
 
-                        {/* Зв'язок */}
+                        {/* Зв&apos;язок */}
                         <div className="space-y-4">
-                            <h2 className="text-xl font-semibold border-b border-gray-100 pb-2">Зв'язок з нами</h2>
+                            <h2 className="text-xl font-semibold border-b border-gray-100 pb-2">Зв&apos;язок з нами</h2>
 
                             <div className="flex items-center gap-3">
                                 <span className="text-gray-400">📞</span>

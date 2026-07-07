@@ -157,7 +157,7 @@ export default async function Home() {
                             ))
                         ) : (
                             <div className="text-center py-10 border-2 border-dashed border-gray-200 rounded-2xl">
-                                <p className="text-gray-400">Новини та статті скоро з'являться.</p>
+                                <p className="text-gray-400">Новини та статті скоро з&apos;являться.</p>
                             </div>
                         )}
                     </div>
