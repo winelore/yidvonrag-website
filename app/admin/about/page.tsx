@@ -25,7 +25,7 @@ export default async function AdminAboutPage() {
                             required
                             rows={15}
                             className="w-full rounded-lg border border-black/[.15] dark:border-white/[.15] bg-transparent p-4 text-sm transition-colors focus:border-foreground focus:outline-none resize-y"
-                            placeholder="Напишіть історію вашої виноробні тут..."
+                            placeholder="Напишіть тут текст, який буде розміщено на сторінці про нас..."
                         />
                     </div>
 
