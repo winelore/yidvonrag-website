@@ -22,7 +22,8 @@ export default async function Home() {
 
     // 2. Отримуємо пости (спочатку найновіші)
     const posts = await prisma.post.findMany({
-        orderBy: { id: 'desc' }
+        orderBy: { id: 'desc' },
+        take: 3
     });
 
     return (
@@ -126,9 +127,15 @@ export default async function Home() {
 
                 {/* Секція "Пости" */}
                 <section className="bg-gray-50 rounded-3xl p-8 sm:p-12">
-                    <div className="max-w-3xl mx-auto text-center mb-12">
-                        <h2 className="text-3xl font-bold">Останні оновлення</h2>
-                        <p className="text-gray-500 mt-2">Новини нашого блогу та сервісу</p>
+                    {/* Вирівняв заголовок так само, як у секції вин */}
+                    <div className="flex justify-between items-end mb-10 max-w-3xl mx-auto">
+                        <div>
+                            <h2 className="text-3xl font-bold tracking-tight">Останні оновлення</h2>
+                            <p className="text-gray-500 mt-2">Новини нашого блогу та сервісу</p>
+                        </div>
+                        <Link href="/posts" className="text-blue-600 hover:underline text-sm font-medium">
+                            Всі новини →
+                        </Link>
                     </div>
 
                     <div className="space-y-6 max-w-3xl mx-auto">

@@ -51,7 +51,7 @@ export default function SearchInput() {
     }, [query]);
 
     return (
-        <div className="relative w-full max-w-md mx-auto z-50">
+        <div className="relative w-full max-w-md mx-auto z-40">
             {/* Search Input field wrapper */}
             <div className="relative">
                 <input

@@ -43,7 +43,7 @@ export default function MonoPayButton({ wineId, price }: MonoPayButtonProps) {
         <button
             onClick={handlePayment}
             disabled={loading || price <= 0}
-            className={`w-full py-4 rounded-xl font-bold text-lg transition-all shadow-md flex items-center justify-center gap-2
+            className={`w-full h-9 px-6 rounded-xl font-medium text-base transition-all flex items-center justify-center gap-2
         ${loading || price <= 0
                 ? 'bg-gray-200 text-gray-500 cursor-not-allowed shadow-none'
                 : 'bg-black text-white hover:bg-gray-800 hover:shadow-lg active:scale-[0.98]'
@@ -53,7 +53,6 @@ export default function MonoPayButton({ wineId, price }: MonoPayButtonProps) {
                 <span className="animate-pulse">Підготовка...</span>
             ) : (
                 <>
-                    <span className="text-xl leading-none">💳</span>
                     Купити за {price} ₴
                 </>
             )}
