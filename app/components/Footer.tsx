@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className="border-t border-black/[0.08] py-16 mt-20 bg-white text-black w-full">
-            <div className="max-w-5xl mx-auto px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 text-sm">
+        <footer className="border-t border-black/[0.08] py-10 mt-12 bg-white text-black w-full">
+            <div className="max-w-5xl mx-auto px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 text-sm">
 
                 {/* Навігація */}
                 <div className="flex flex-col gap-3">
@@ -65,7 +65,7 @@ export default function Footer() {
             </div>
 
             {/* Копірайт */}
-            <div className="max-w-5xl mx-auto px-8 mt-16 pt-8 border-t border-black/[0.04] text-center text-sm text-gray-400">
+            <div className="max-w-5xl mx-auto px-8 mt-10 pt-4 border-t border-black/[0.04] text-center text-sm text-gray-400">
                 <p>© {new Date().getFullYear()} Олександр Гарновдій. Всі права захищені.</p>
             </div>
         </footer>
