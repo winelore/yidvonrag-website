@@ -29,7 +29,7 @@ export default async function Home() {
     return (
         <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
             {/* Hero Section */}
-            <section className="flex flex-col items-center justify-center text-center py-16 sm:py-24 px-8 bg-gradient-to-b from-transparent to-black/[0.02]">
+            <section className="flex flex-col items-center justify-center text-center py-16 base:py-24 px-8 bg-gradient-to-b from-transparent to-black/[0.02]">
                 <h1 className="text-4xl sm:text-6xl font-bold mb-6">
                     Ексклюзивна колекція вин
                 </h1>
@@ -44,7 +44,7 @@ export default async function Home() {
                 </div>
             </section>
 
-            <main className="max-w-7xl mx-auto px-8 py-16 space-y-24">
+            <main className="max-w-7xl mx-auto px-8 py-10 space-y-24">
                 {/* Секція "Список Хітів" */}
                 <section>
                     <div className="flex justify-between items-end mb-10">
@@ -126,7 +126,7 @@ export default async function Home() {
                 </section>
 
                 {/* Секція "Пости" */}
-                <section className="bg-gray-50 rounded-3xl p-8 sm:p-12">
+                <section className="bg-gray-50 rounded-3xl p-8 base:p-12">
                     {/* Вирівняв заголовок так само, як у секції вин */}
                     <div className="flex justify-between items-end mb-10 max-w-3xl mx-auto">
                         <div>

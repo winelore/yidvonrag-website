@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import Image from "next/image";
 import { useCart } from "@/lib/CartContext";
 import SearchInput from "./SearchInput"; // Import your new search component
 
@@ -12,10 +13,15 @@ export default function Header() {
         // Changed layout classes to handle the search bar responsiveness nicely
         <header className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8 py-6 px-8 max-w-7xl mx-auto w-full border-b border-gray-100">
             {/* Left Side: Logo */}
-            <Link href="/" className="text-2xl font-black tracking-tighter uppercase whitespace-nowrap">
-                ВМ Штифко
+            <Link href="/" className="relative w-40 h-24 transition-opacity hover:opacity-80 block shrink-0">
+                <Image
+                    src="/logo-black.svg"
+                    alt="ВМ Штифко"
+                    fill
+                    priority
+                    className="object-contain object-left"
+                />
             </Link>
-
             {/* Center Side: Live Search Bar */}
             <div className="w-full md:flex-1 md:max-w-md mx-auto">
                 <SearchInput />
@@ -23,9 +29,9 @@ export default function Header() {
 
             {/* Right Side: Navigation & Cart */}
             <nav className="flex items-center gap-6 md:gap-8 w-full md:w-auto justify-center md:justify-end">
-                <Link href="/" className="text-sm font-medium hover:text-gray-500 transition-colors">Головна</Link>
-                <Link href="/wines" className="text-sm font-medium hover:text-gray-500 transition-colors">Каталог</Link>
-                <Link href="/about" className="text-sm font-medium hover:text-gray-500 transition-colors">Про нас</Link>
+                <Link href="/" className="text-base font-medium hover:text-gray-500 transition-colors">Головна</Link>
+                <Link href="/wines" className="text-base font-medium hover:text-gray-500 transition-colors">Каталог</Link>
+                <Link href="/about" className="text-base font-medium hover:text-gray-500 transition-colors">Про нас</Link>
 
                 {/* Shopping Cart Link */}
                 <Link href="/cart" className="relative flex items-center hover:text-gray-500 transition-colors ml-2 md:ml-0">

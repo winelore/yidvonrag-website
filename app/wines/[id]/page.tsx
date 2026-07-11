@@ -68,8 +68,6 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                                 {/* Кнопка додавання в кошик */}
                                 <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
 
-                                {/* Кнопка швидкої оплати MonoPay */}
-                                <MonoPayButton wineId={wine.id} price={wine.price} />
                             </div>
                         )}
                     </div>
