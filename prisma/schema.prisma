@@ -60,11 +60,12 @@ model About {
 
 model Order {
   id              String      @id @default(uuid())
-  amount          Float
+  total           Float?      
+  amount          Float?      
   status          String      @default("PENDING")
   invoiceId       String?
 
-  customerName    String?
+  customerName    String
   customerSurname String?
   customerPhone   String?
   customerCity    String?
@@ -75,13 +76,13 @@ model Order {
 }
 
 model OrderItem {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   orderId  String
-  order    Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  wineId   String
-  wine     Wine   @relation(fields: [wineId], references: [id])
-  quantity Int
+  wineId   String?
+  name     String?
   price    Float
+  quantity Int
+
+  order    Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  wine     Wine?   @relation(fields: [wineId], references: [id])
 }
-
-

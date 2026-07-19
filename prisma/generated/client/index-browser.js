@@ -168,6 +168,7 @@ exports.Prisma.AboutScalarFieldEnum = {
 
 exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
+  total: 'total',
   amount: 'amount',
   status: 'status',
   invoiceId: 'invoiceId',
@@ -183,8 +184,9 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   id: 'id',
   orderId: 'orderId',
   wineId: 'wineId',
-  quantity: 'quantity',
-  price: 'price'
+  name: 'name',
+  price: 'price',
+  quantity: 'quantity'
 };
 
 exports.Prisma.SortOrder = {

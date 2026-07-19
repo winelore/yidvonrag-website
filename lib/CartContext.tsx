@@ -14,8 +14,8 @@ type CartContextType = {
     addToCart: (item: Omit<CartItem, 'quantity'>) => void;
     removeFromCart: (id: string) => void;
     updateQuantity: (id: string, quantity: number) => void;
-    totalPrice: number;
     clearCart: () => void;
+    totalPrice: number;
     isLoaded: boolean;
 };
 
@@ -66,7 +66,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     const clearCart = useCallback(() => {
         setItems([]);
-    },[]);
+        try {
+            localStorage.removeItem('wine-cart');
+        } catch {
+            // ignore
+        }
+    }, []);
 
     return (
         <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQuantity, totalPrice, clearCart, isLoaded }}>

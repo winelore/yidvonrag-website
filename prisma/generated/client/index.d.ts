@@ -6803,15 +6803,18 @@ export namespace Prisma {
   }
 
   export type OrderAvgAggregateOutputType = {
+    total: number | null
     amount: number | null
   }
 
   export type OrderSumAggregateOutputType = {
+    total: number | null
     amount: number | null
   }
 
   export type OrderMinAggregateOutputType = {
     id: string | null
+    total: number | null
     amount: number | null
     status: string | null
     invoiceId: string | null
@@ -6825,6 +6828,7 @@ export namespace Prisma {
 
   export type OrderMaxAggregateOutputType = {
     id: string | null
+    total: number | null
     amount: number | null
     status: string | null
     invoiceId: string | null
@@ -6838,6 +6842,7 @@ export namespace Prisma {
 
   export type OrderCountAggregateOutputType = {
     id: number
+    total: number
     amount: number
     status: number
     invoiceId: number
@@ -6852,15 +6857,18 @@ export namespace Prisma {
 
 
   export type OrderAvgAggregateInputType = {
+    total?: true
     amount?: true
   }
 
   export type OrderSumAggregateInputType = {
+    total?: true
     amount?: true
   }
 
   export type OrderMinAggregateInputType = {
     id?: true
+    total?: true
     amount?: true
     status?: true
     invoiceId?: true
@@ -6874,6 +6882,7 @@ export namespace Prisma {
 
   export type OrderMaxAggregateInputType = {
     id?: true
+    total?: true
     amount?: true
     status?: true
     invoiceId?: true
@@ -6887,6 +6896,7 @@ export namespace Prisma {
 
   export type OrderCountAggregateInputType = {
     id?: true
+    total?: true
     amount?: true
     status?: true
     invoiceId?: true
@@ -6987,10 +6997,11 @@ export namespace Prisma {
 
   export type OrderGroupByOutputType = {
     id: string
-    amount: number
+    total: number | null
+    amount: number | null
     status: string
     invoiceId: string | null
-    customerName: string | null
+    customerName: string
     customerSurname: string | null
     customerPhone: string | null
     customerCity: string | null
@@ -7019,6 +7030,7 @@ export namespace Prisma {
 
   export type OrderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    total?: boolean
     amount?: boolean
     status?: boolean
     invoiceId?: boolean
@@ -7034,6 +7046,7 @@ export namespace Prisma {
 
   export type OrderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    total?: boolean
     amount?: boolean
     status?: boolean
     invoiceId?: boolean
@@ -7047,6 +7060,7 @@ export namespace Prisma {
 
   export type OrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    total?: boolean
     amount?: boolean
     status?: boolean
     invoiceId?: boolean
@@ -7060,6 +7074,7 @@ export namespace Prisma {
 
   export type OrderSelectScalar = {
     id?: boolean
+    total?: boolean
     amount?: boolean
     status?: boolean
     invoiceId?: boolean
@@ -7071,7 +7086,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "amount" | "status" | "invoiceId" | "customerName" | "customerSurname" | "customerPhone" | "customerCity" | "customerBranch" | "createdAt", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "total" | "amount" | "status" | "invoiceId" | "customerName" | "customerSurname" | "customerPhone" | "customerCity" | "customerBranch" | "createdAt", ExtArgs["result"]["order"]>
   export type OrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     items?: boolean | Order$itemsArgs<ExtArgs>
     _count?: boolean | OrderCountOutputTypeDefaultArgs<ExtArgs>
@@ -7086,10 +7101,11 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      amount: number
+      total: number | null
+      amount: number | null
       status: string
       invoiceId: string | null
-      customerName: string | null
+      customerName: string
       customerSurname: string | null
       customerPhone: string | null
       customerCity: string | null
@@ -7520,6 +7536,7 @@ export namespace Prisma {
    */
   interface OrderFieldRefs {
     readonly id: FieldRef<"Order", 'String'>
+    readonly total: FieldRef<"Order", 'Float'>
     readonly amount: FieldRef<"Order", 'Float'>
     readonly status: FieldRef<"Order", 'String'>
     readonly invoiceId: FieldRef<"Order", 'String'>
@@ -7977,73 +7994,79 @@ export namespace Prisma {
   }
 
   export type OrderItemAvgAggregateOutputType = {
-    quantity: number | null
     price: number | null
+    quantity: number | null
   }
 
   export type OrderItemSumAggregateOutputType = {
-    quantity: number | null
     price: number | null
+    quantity: number | null
   }
 
   export type OrderItemMinAggregateOutputType = {
     id: string | null
     orderId: string | null
     wineId: string | null
-    quantity: number | null
+    name: string | null
     price: number | null
+    quantity: number | null
   }
 
   export type OrderItemMaxAggregateOutputType = {
     id: string | null
     orderId: string | null
     wineId: string | null
-    quantity: number | null
+    name: string | null
     price: number | null
+    quantity: number | null
   }
 
   export type OrderItemCountAggregateOutputType = {
     id: number
     orderId: number
     wineId: number
-    quantity: number
+    name: number
     price: number
+    quantity: number
     _all: number
   }
 
 
   export type OrderItemAvgAggregateInputType = {
-    quantity?: true
     price?: true
+    quantity?: true
   }
 
   export type OrderItemSumAggregateInputType = {
-    quantity?: true
     price?: true
+    quantity?: true
   }
 
   export type OrderItemMinAggregateInputType = {
     id?: true
     orderId?: true
     wineId?: true
-    quantity?: true
+    name?: true
     price?: true
+    quantity?: true
   }
 
   export type OrderItemMaxAggregateInputType = {
     id?: true
     orderId?: true
     wineId?: true
-    quantity?: true
+    name?: true
     price?: true
+    quantity?: true
   }
 
   export type OrderItemCountAggregateInputType = {
     id?: true
     orderId?: true
     wineId?: true
-    quantity?: true
+    name?: true
     price?: true
+    quantity?: true
     _all?: true
   }
 
@@ -8136,9 +8159,10 @@ export namespace Prisma {
   export type OrderItemGroupByOutputType = {
     id: string
     orderId: string
-    wineId: string
-    quantity: number
+    wineId: string | null
+    name: string | null
     price: number
+    quantity: number
     _count: OrderItemCountAggregateOutputType | null
     _avg: OrderItemAvgAggregateOutputType | null
     _sum: OrderItemSumAggregateOutputType | null
@@ -8164,66 +8188,71 @@ export namespace Prisma {
     id?: boolean
     orderId?: boolean
     wineId?: boolean
-    quantity?: boolean
+    name?: boolean
     price?: boolean
+    quantity?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    wine?: boolean | WineDefaultArgs<ExtArgs>
+    wine?: boolean | OrderItem$wineArgs<ExtArgs>
   }, ExtArgs["result"]["orderItem"]>
 
   export type OrderItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     orderId?: boolean
     wineId?: boolean
-    quantity?: boolean
+    name?: boolean
     price?: boolean
+    quantity?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    wine?: boolean | WineDefaultArgs<ExtArgs>
+    wine?: boolean | OrderItem$wineArgs<ExtArgs>
   }, ExtArgs["result"]["orderItem"]>
 
   export type OrderItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     orderId?: boolean
     wineId?: boolean
-    quantity?: boolean
+    name?: boolean
     price?: boolean
+    quantity?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    wine?: boolean | WineDefaultArgs<ExtArgs>
+    wine?: boolean | OrderItem$wineArgs<ExtArgs>
   }, ExtArgs["result"]["orderItem"]>
 
   export type OrderItemSelectScalar = {
     id?: boolean
     orderId?: boolean
     wineId?: boolean
-    quantity?: boolean
+    name?: boolean
     price?: boolean
+    quantity?: boolean
   }
 
-  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderId" | "wineId" | "quantity" | "price", ExtArgs["result"]["orderItem"]>
+  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderId" | "wineId" | "name" | "price" | "quantity", ExtArgs["result"]["orderItem"]>
   export type OrderItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    wine?: boolean | WineDefaultArgs<ExtArgs>
+    wine?: boolean | OrderItem$wineArgs<ExtArgs>
   }
   export type OrderItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    wine?: boolean | WineDefaultArgs<ExtArgs>
+    wine?: boolean | OrderItem$wineArgs<ExtArgs>
   }
   export type OrderItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    wine?: boolean | WineDefaultArgs<ExtArgs>
+    wine?: boolean | OrderItem$wineArgs<ExtArgs>
   }
 
   export type $OrderItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "OrderItem"
     objects: {
       order: Prisma.$OrderPayload<ExtArgs>
-      wine: Prisma.$WinePayload<ExtArgs>
+      wine: Prisma.$WinePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       orderId: string
-      wineId: string
-      quantity: number
+      wineId: string | null
+      name: string | null
       price: number
+      quantity: number
     }, ExtArgs["result"]["orderItem"]>
     composites: {}
   }
@@ -8619,7 +8648,7 @@ export namespace Prisma {
   export interface Prisma__OrderItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     order<T extends OrderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrderDefaultArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    wine<T extends WineDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WineDefaultArgs<ExtArgs>>): Prisma__WineClient<$Result.GetResult<Prisma.$WinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    wine<T extends OrderItem$wineArgs<ExtArgs> = {}>(args?: Subset<T, OrderItem$wineArgs<ExtArgs>>): Prisma__WineClient<$Result.GetResult<Prisma.$WinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8652,8 +8681,9 @@ export namespace Prisma {
     readonly id: FieldRef<"OrderItem", 'String'>
     readonly orderId: FieldRef<"OrderItem", 'String'>
     readonly wineId: FieldRef<"OrderItem", 'String'>
-    readonly quantity: FieldRef<"OrderItem", 'Int'>
+    readonly name: FieldRef<"OrderItem", 'String'>
     readonly price: FieldRef<"OrderItem", 'Float'>
+    readonly quantity: FieldRef<"OrderItem", 'Int'>
   }
     
 
@@ -9055,6 +9085,25 @@ export namespace Prisma {
   }
 
   /**
+   * OrderItem.wine
+   */
+  export type OrderItem$wineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Wine
+     */
+    select?: WineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Wine
+     */
+    omit?: WineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WineInclude<ExtArgs> | null
+    where?: WineWhereInput
+  }
+
+  /**
    * OrderItem without action
    */
   export type OrderItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9150,6 +9199,7 @@ export namespace Prisma {
 
   export const OrderScalarFieldEnum: {
     id: 'id',
+    total: 'total',
     amount: 'amount',
     status: 'status',
     invoiceId: 'invoiceId',
@@ -9168,8 +9218,9 @@ export namespace Prisma {
     id: 'id',
     orderId: 'orderId',
     wineId: 'wineId',
-    quantity: 'quantity',
-    price: 'price'
+    name: 'name',
+    price: 'price',
+    quantity: 'quantity'
   };
 
   export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
@@ -9578,10 +9629,11 @@ export namespace Prisma {
     OR?: OrderWhereInput[]
     NOT?: OrderWhereInput | OrderWhereInput[]
     id?: StringFilter<"Order"> | string
-    amount?: FloatFilter<"Order"> | number
+    total?: FloatNullableFilter<"Order"> | number | null
+    amount?: FloatNullableFilter<"Order"> | number | null
     status?: StringFilter<"Order"> | string
     invoiceId?: StringNullableFilter<"Order"> | string | null
-    customerName?: StringNullableFilter<"Order"> | string | null
+    customerName?: StringFilter<"Order"> | string
     customerSurname?: StringNullableFilter<"Order"> | string | null
     customerPhone?: StringNullableFilter<"Order"> | string | null
     customerCity?: StringNullableFilter<"Order"> | string | null
@@ -9592,10 +9644,11 @@ export namespace Prisma {
 
   export type OrderOrderByWithRelationInput = {
     id?: SortOrder
-    amount?: SortOrder
+    total?: SortOrderInput | SortOrder
+    amount?: SortOrderInput | SortOrder
     status?: SortOrder
     invoiceId?: SortOrderInput | SortOrder
-    customerName?: SortOrderInput | SortOrder
+    customerName?: SortOrder
     customerSurname?: SortOrderInput | SortOrder
     customerPhone?: SortOrderInput | SortOrder
     customerCity?: SortOrderInput | SortOrder
@@ -9609,10 +9662,11 @@ export namespace Prisma {
     AND?: OrderWhereInput | OrderWhereInput[]
     OR?: OrderWhereInput[]
     NOT?: OrderWhereInput | OrderWhereInput[]
-    amount?: FloatFilter<"Order"> | number
+    total?: FloatNullableFilter<"Order"> | number | null
+    amount?: FloatNullableFilter<"Order"> | number | null
     status?: StringFilter<"Order"> | string
     invoiceId?: StringNullableFilter<"Order"> | string | null
-    customerName?: StringNullableFilter<"Order"> | string | null
+    customerName?: StringFilter<"Order"> | string
     customerSurname?: StringNullableFilter<"Order"> | string | null
     customerPhone?: StringNullableFilter<"Order"> | string | null
     customerCity?: StringNullableFilter<"Order"> | string | null
@@ -9623,10 +9677,11 @@ export namespace Prisma {
 
   export type OrderOrderByWithAggregationInput = {
     id?: SortOrder
-    amount?: SortOrder
+    total?: SortOrderInput | SortOrder
+    amount?: SortOrderInput | SortOrder
     status?: SortOrder
     invoiceId?: SortOrderInput | SortOrder
-    customerName?: SortOrderInput | SortOrder
+    customerName?: SortOrder
     customerSurname?: SortOrderInput | SortOrder
     customerPhone?: SortOrderInput | SortOrder
     customerCity?: SortOrderInput | SortOrder
@@ -9644,10 +9699,11 @@ export namespace Prisma {
     OR?: OrderScalarWhereWithAggregatesInput[]
     NOT?: OrderScalarWhereWithAggregatesInput | OrderScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Order"> | string
-    amount?: FloatWithAggregatesFilter<"Order"> | number
+    total?: FloatNullableWithAggregatesFilter<"Order"> | number | null
+    amount?: FloatNullableWithAggregatesFilter<"Order"> | number | null
     status?: StringWithAggregatesFilter<"Order"> | string
     invoiceId?: StringNullableWithAggregatesFilter<"Order"> | string | null
-    customerName?: StringNullableWithAggregatesFilter<"Order"> | string | null
+    customerName?: StringWithAggregatesFilter<"Order"> | string
     customerSurname?: StringNullableWithAggregatesFilter<"Order"> | string | null
     customerPhone?: StringNullableWithAggregatesFilter<"Order"> | string | null
     customerCity?: StringNullableWithAggregatesFilter<"Order"> | string | null
@@ -9661,19 +9717,21 @@ export namespace Prisma {
     NOT?: OrderItemWhereInput | OrderItemWhereInput[]
     id?: StringFilter<"OrderItem"> | string
     orderId?: StringFilter<"OrderItem"> | string
-    wineId?: StringFilter<"OrderItem"> | string
-    quantity?: IntFilter<"OrderItem"> | number
+    wineId?: StringNullableFilter<"OrderItem"> | string | null
+    name?: StringNullableFilter<"OrderItem"> | string | null
     price?: FloatFilter<"OrderItem"> | number
+    quantity?: IntFilter<"OrderItem"> | number
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
-    wine?: XOR<WineScalarRelationFilter, WineWhereInput>
+    wine?: XOR<WineNullableScalarRelationFilter, WineWhereInput> | null
   }
 
   export type OrderItemOrderByWithRelationInput = {
     id?: SortOrder
     orderId?: SortOrder
-    wineId?: SortOrder
-    quantity?: SortOrder
+    wineId?: SortOrderInput | SortOrder
+    name?: SortOrderInput | SortOrder
     price?: SortOrder
+    quantity?: SortOrder
     order?: OrderOrderByWithRelationInput
     wine?: WineOrderByWithRelationInput
   }
@@ -9684,19 +9742,21 @@ export namespace Prisma {
     OR?: OrderItemWhereInput[]
     NOT?: OrderItemWhereInput | OrderItemWhereInput[]
     orderId?: StringFilter<"OrderItem"> | string
-    wineId?: StringFilter<"OrderItem"> | string
-    quantity?: IntFilter<"OrderItem"> | number
+    wineId?: StringNullableFilter<"OrderItem"> | string | null
+    name?: StringNullableFilter<"OrderItem"> | string | null
     price?: FloatFilter<"OrderItem"> | number
+    quantity?: IntFilter<"OrderItem"> | number
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
-    wine?: XOR<WineScalarRelationFilter, WineWhereInput>
+    wine?: XOR<WineNullableScalarRelationFilter, WineWhereInput> | null
   }, "id">
 
   export type OrderItemOrderByWithAggregationInput = {
     id?: SortOrder
     orderId?: SortOrder
-    wineId?: SortOrder
-    quantity?: SortOrder
+    wineId?: SortOrderInput | SortOrder
+    name?: SortOrderInput | SortOrder
     price?: SortOrder
+    quantity?: SortOrder
     _count?: OrderItemCountOrderByAggregateInput
     _avg?: OrderItemAvgOrderByAggregateInput
     _max?: OrderItemMaxOrderByAggregateInput
@@ -9710,9 +9770,10 @@ export namespace Prisma {
     NOT?: OrderItemScalarWhereWithAggregatesInput | OrderItemScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"OrderItem"> | string
     orderId?: StringWithAggregatesFilter<"OrderItem"> | string
-    wineId?: StringWithAggregatesFilter<"OrderItem"> | string
-    quantity?: IntWithAggregatesFilter<"OrderItem"> | number
+    wineId?: StringNullableWithAggregatesFilter<"OrderItem"> | string | null
+    name?: StringNullableWithAggregatesFilter<"OrderItem"> | string | null
     price?: FloatWithAggregatesFilter<"OrderItem"> | number
+    quantity?: IntWithAggregatesFilter<"OrderItem"> | number
   }
 
   export type WineCreateInput = {
@@ -10046,10 +10107,11 @@ export namespace Prisma {
 
   export type OrderCreateInput = {
     id?: string
-    amount: number
+    total?: number | null
+    amount?: number | null
     status?: string
     invoiceId?: string | null
-    customerName?: string | null
+    customerName: string
     customerSurname?: string | null
     customerPhone?: string | null
     customerCity?: string | null
@@ -10060,10 +10122,11 @@ export namespace Prisma {
 
   export type OrderUncheckedCreateInput = {
     id?: string
-    amount: number
+    total?: number | null
+    amount?: number | null
     status?: string
     invoiceId?: string | null
-    customerName?: string | null
+    customerName: string
     customerSurname?: string | null
     customerPhone?: string | null
     customerCity?: string | null
@@ -10074,10 +10137,11 @@ export namespace Prisma {
 
   export type OrderUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    total?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
-    customerName?: NullableStringFieldUpdateOperationsInput | string | null
+    customerName?: StringFieldUpdateOperationsInput | string
     customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
     customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
     customerCity?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10088,10 +10152,11 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    total?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
-    customerName?: NullableStringFieldUpdateOperationsInput | string | null
+    customerName?: StringFieldUpdateOperationsInput | string
     customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
     customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
     customerCity?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10102,10 +10167,11 @@ export namespace Prisma {
 
   export type OrderCreateManyInput = {
     id?: string
-    amount: number
+    total?: number | null
+    amount?: number | null
     status?: string
     invoiceId?: string | null
-    customerName?: string | null
+    customerName: string
     customerSurname?: string | null
     customerPhone?: string | null
     customerCity?: string | null
@@ -10115,10 +10181,11 @@ export namespace Prisma {
 
   export type OrderUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    total?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
-    customerName?: NullableStringFieldUpdateOperationsInput | string | null
+    customerName?: StringFieldUpdateOperationsInput | string
     customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
     customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
     customerCity?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10128,10 +10195,11 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    total?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
-    customerName?: NullableStringFieldUpdateOperationsInput | string | null
+    customerName?: StringFieldUpdateOperationsInput | string
     customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
     customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
     customerCity?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10141,56 +10209,63 @@ export namespace Prisma {
 
   export type OrderItemCreateInput = {
     id?: string
-    quantity: number
+    name?: string | null
     price: number
+    quantity: number
     order: OrderCreateNestedOneWithoutItemsInput
-    wine: WineCreateNestedOneWithoutOrderItemsInput
+    wine?: WineCreateNestedOneWithoutOrderItemsInput
   }
 
   export type OrderItemUncheckedCreateInput = {
     id?: string
     orderId: string
-    wineId: string
-    quantity: number
+    wineId?: string | null
+    name?: string | null
     price: number
+    quantity: number
   }
 
   export type OrderItemUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
-    wine?: WineUpdateOneRequiredWithoutOrderItemsNestedInput
+    wine?: WineUpdateOneWithoutOrderItemsNestedInput
   }
 
   export type OrderItemUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
-    wineId?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
+    wineId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderItemCreateManyInput = {
     id?: string
     orderId: string
-    wineId: string
-    quantity: number
+    wineId?: string | null
+    name?: string | null
     price: number
+    quantity: number
   }
 
   export type OrderItemUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderItemUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
-    wineId?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
+    wineId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -10541,8 +10616,20 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type OrderCountOrderByAggregateInput = {
     id?: SortOrder
+    total?: SortOrder
     amount?: SortOrder
     status?: SortOrder
     invoiceId?: SortOrder
@@ -10555,11 +10642,13 @@ export namespace Prisma {
   }
 
   export type OrderAvgOrderByAggregateInput = {
+    total?: SortOrder
     amount?: SortOrder
   }
 
   export type OrderMaxOrderByAggregateInput = {
     id?: SortOrder
+    total?: SortOrder
     amount?: SortOrder
     status?: SortOrder
     invoiceId?: SortOrder
@@ -10573,6 +10662,7 @@ export namespace Prisma {
 
   export type OrderMinOrderByAggregateInput = {
     id?: SortOrder
+    total?: SortOrder
     amount?: SortOrder
     status?: SortOrder
     invoiceId?: SortOrder
@@ -10585,7 +10675,24 @@ export namespace Prisma {
   }
 
   export type OrderSumOrderByAggregateInput = {
+    total?: SortOrder
     amount?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type OrderScalarRelationFilter = {
@@ -10593,38 +10700,46 @@ export namespace Prisma {
     isNot?: OrderWhereInput
   }
 
+  export type WineNullableScalarRelationFilter = {
+    is?: WineWhereInput | null
+    isNot?: WineWhereInput | null
+  }
+
   export type OrderItemCountOrderByAggregateInput = {
     id?: SortOrder
     orderId?: SortOrder
     wineId?: SortOrder
-    quantity?: SortOrder
+    name?: SortOrder
     price?: SortOrder
+    quantity?: SortOrder
   }
 
   export type OrderItemAvgOrderByAggregateInput = {
-    quantity?: SortOrder
     price?: SortOrder
+    quantity?: SortOrder
   }
 
   export type OrderItemMaxOrderByAggregateInput = {
     id?: SortOrder
     orderId?: SortOrder
     wineId?: SortOrder
-    quantity?: SortOrder
+    name?: SortOrder
     price?: SortOrder
+    quantity?: SortOrder
   }
 
   export type OrderItemMinOrderByAggregateInput = {
     id?: SortOrder
     orderId?: SortOrder
     wineId?: SortOrder
-    quantity?: SortOrder
+    name?: SortOrder
     price?: SortOrder
+    quantity?: SortOrder
   }
 
   export type OrderItemSumOrderByAggregateInput = {
-    quantity?: SortOrder
     price?: SortOrder
+    quantity?: SortOrder
   }
 
   export type WineCreateimagesInput = {
@@ -10789,6 +10904,14 @@ export namespace Prisma {
     connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
   }
 
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type OrderItemUpdateManyWithoutOrderNestedInput = {
     create?: XOR<OrderItemCreateWithoutOrderInput, OrderItemUncheckedCreateWithoutOrderInput> | OrderItemCreateWithoutOrderInput[] | OrderItemUncheckedCreateWithoutOrderInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutOrderInput | OrderItemCreateOrConnectWithoutOrderInput[]
@@ -10837,10 +10960,12 @@ export namespace Prisma {
     update?: XOR<XOR<OrderUpdateToOneWithWhereWithoutItemsInput, OrderUpdateWithoutItemsInput>, OrderUncheckedUpdateWithoutItemsInput>
   }
 
-  export type WineUpdateOneRequiredWithoutOrderItemsNestedInput = {
+  export type WineUpdateOneWithoutOrderItemsNestedInput = {
     create?: XOR<WineCreateWithoutOrderItemsInput, WineUncheckedCreateWithoutOrderItemsInput>
     connectOrCreate?: WineCreateOrConnectWithoutOrderItemsInput
     upsert?: WineUpsertWithoutOrderItemsInput
+    disconnect?: WineWhereInput | boolean
+    delete?: WineWhereInput | boolean
     connect?: WineWhereUniqueInput
     update?: XOR<XOR<WineUpdateToOneWithWhereWithoutOrderItemsInput, WineUpdateWithoutOrderItemsInput>, WineUncheckedUpdateWithoutOrderItemsInput>
   }
@@ -11010,6 +11135,33 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type ReviewCreateWithoutWineInput = {
     id?: string
     authorName: string
@@ -11040,16 +11192,18 @@ export namespace Prisma {
 
   export type OrderItemCreateWithoutWineInput = {
     id?: string
-    quantity: number
+    name?: string | null
     price: number
+    quantity: number
     order: OrderCreateNestedOneWithoutItemsInput
   }
 
   export type OrderItemUncheckedCreateWithoutWineInput = {
     id?: string
     orderId: string
-    quantity: number
+    name?: string | null
     price: number
+    quantity: number
   }
 
   export type OrderItemCreateOrConnectWithoutWineInput = {
@@ -11113,9 +11267,10 @@ export namespace Prisma {
     NOT?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
     id?: StringFilter<"OrderItem"> | string
     orderId?: StringFilter<"OrderItem"> | string
-    wineId?: StringFilter<"OrderItem"> | string
-    quantity?: IntFilter<"OrderItem"> | number
+    wineId?: StringNullableFilter<"OrderItem"> | string | null
+    name?: StringNullableFilter<"OrderItem"> | string | null
     price?: FloatFilter<"OrderItem"> | number
+    quantity?: IntFilter<"OrderItem"> | number
   }
 
   export type WineCreateWithoutReviewsInput = {
@@ -11200,16 +11355,18 @@ export namespace Prisma {
 
   export type OrderItemCreateWithoutOrderInput = {
     id?: string
-    quantity: number
+    name?: string | null
     price: number
-    wine: WineCreateNestedOneWithoutOrderItemsInput
+    quantity: number
+    wine?: WineCreateNestedOneWithoutOrderItemsInput
   }
 
   export type OrderItemUncheckedCreateWithoutOrderInput = {
     id?: string
-    wineId: string
-    quantity: number
+    wineId?: string | null
+    name?: string | null
     price: number
+    quantity: number
   }
 
   export type OrderItemCreateOrConnectWithoutOrderInput = {
@@ -11240,10 +11397,11 @@ export namespace Prisma {
 
   export type OrderCreateWithoutItemsInput = {
     id?: string
-    amount: number
+    total?: number | null
+    amount?: number | null
     status?: string
     invoiceId?: string | null
-    customerName?: string | null
+    customerName: string
     customerSurname?: string | null
     customerPhone?: string | null
     customerCity?: string | null
@@ -11253,10 +11411,11 @@ export namespace Prisma {
 
   export type OrderUncheckedCreateWithoutItemsInput = {
     id?: string
-    amount: number
+    total?: number | null
+    amount?: number | null
     status?: string
     invoiceId?: string | null
-    customerName?: string | null
+    customerName: string
     customerSurname?: string | null
     customerPhone?: string | null
     customerCity?: string | null
@@ -11319,10 +11478,11 @@ export namespace Prisma {
 
   export type OrderUpdateWithoutItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    total?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
-    customerName?: NullableStringFieldUpdateOperationsInput | string | null
+    customerName?: StringFieldUpdateOperationsInput | string
     customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
     customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
     customerCity?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11332,10 +11492,11 @@ export namespace Prisma {
 
   export type OrderUncheckedUpdateWithoutItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    amount?: FloatFieldUpdateOperationsInput | number
+    total?: NullableFloatFieldUpdateOperationsInput | number | null
+    amount?: NullableFloatFieldUpdateOperationsInput | number | null
     status?: StringFieldUpdateOperationsInput | string
     invoiceId?: NullableStringFieldUpdateOperationsInput | string | null
-    customerName?: NullableStringFieldUpdateOperationsInput | string | null
+    customerName?: StringFieldUpdateOperationsInput | string
     customerSurname?: NullableStringFieldUpdateOperationsInput | string | null
     customerPhone?: NullableStringFieldUpdateOperationsInput | string | null
     customerCity?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11398,8 +11559,9 @@ export namespace Prisma {
   export type OrderItemCreateManyWineInput = {
     id?: string
     orderId: string
-    quantity: number
+    name?: string | null
     price: number
+    quantity: number
   }
 
   export type ReviewUpdateWithoutWineInput = {
@@ -11431,51 +11593,58 @@ export namespace Prisma {
 
   export type OrderItemUpdateWithoutWineInput = {
     id?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
     order?: OrderUpdateOneRequiredWithoutItemsNestedInput
   }
 
   export type OrderItemUncheckedUpdateWithoutWineInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderItemUncheckedUpdateManyWithoutWineInput = {
     id?: StringFieldUpdateOperationsInput | string
     orderId?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderItemCreateManyOrderInput = {
     id?: string
-    wineId: string
-    quantity: number
+    wineId?: string | null
+    name?: string | null
     price: number
+    quantity: number
   }
 
   export type OrderItemUpdateWithoutOrderInput = {
     id?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
-    wine?: WineUpdateOneRequiredWithoutOrderItemsNestedInput
+    quantity?: IntFieldUpdateOperationsInput | number
+    wine?: WineUpdateOneWithoutOrderItemsNestedInput
   }
 
   export type OrderItemUncheckedUpdateWithoutOrderInput = {
     id?: StringFieldUpdateOperationsInput | string
-    wineId?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
+    wineId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderItemUncheckedUpdateManyWithoutOrderInput = {
     id?: StringFieldUpdateOperationsInput | string
-    wineId?: StringFieldUpdateOperationsInput | string
-    quantity?: IntFieldUpdateOperationsInput | number
+    wineId?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
     price?: FloatFieldUpdateOperationsInput | number
+    quantity?: IntFieldUpdateOperationsInput | number
   }
 
 

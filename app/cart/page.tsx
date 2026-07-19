@@ -3,8 +3,14 @@
 import { useCart } from "@/lib/CartContext";
 import Link from "next/link";
 import { useState } from "react";
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
+
+// Local CartItem type to avoid implicit any errors
+interface CartItem {
+    id: string;
+    name: string;
+    price: number;
+    quantity: number;
+}
 
 const NP_API_KEY = "8751d1fd6848e311032a24acf7ea0ff8";
 
@@ -14,7 +20,7 @@ interface NPItem {
 }
 
 export default function CartPage() {
-    const { items, totalPrice, updateQuantity, removeFromCart, isLoaded } = useCart();
+    const { items, totalPrice, updateQuantity, removeFromCart, clearCart } = useCart();
     const [loading, setLoading] = useState(false);
     const [formError, setFormError] = useState("");
 
@@ -120,6 +126,12 @@ export default function CartPage() {
             const data = await res.json();
 
             if (data.pageUrl) {
+                // clear cart locally before redirecting
+                try {
+                    clearCart();
+                } catch {
+                    // ignore
+                }
                 window.location.href = data.pageUrl;
             } else {
                 setFormError(data.error || "Помилка створення платежу.");
@@ -131,43 +143,6 @@ export default function CartPage() {
             setLoading(false);
         }
     };
-
-    if (!isLoaded) {
-        return (
-            <main className="max-w-4xl mx-auto px-8 py-16 min-h-screen">
-                {/* Скелетон заголовка */}
-                <div className="h-10 w-32 bg-gray-200 rounded-lg animate-pulse mb-10"></div>
-
-                <div className="bg-white border border-gray-100 shadow-sm rounded-3xl p-6 sm:p-10">
-                    <div className="space-y-6">
-                        {/* Два фіктивних рядки товарів */}
-                        {[1, 2].map((i) => (
-                            <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-6 last:border-0 last:pb-0">
-                                <div className="flex-grow space-y-3">
-                                    <div className="h-6 w-3/4 sm:w-48 bg-gray-200 rounded animate-pulse"></div>
-                                    <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
-                                </div>
-                                <div className="flex items-center gap-6 mt-4 sm:mt-0">
-                                    <div className="h-8 w-24 bg-gray-200 rounded-lg animate-pulse"></div>
-                                    <div className="h-6 w-16 bg-gray-200 rounded animate-pulse"></div>
-                                    <div className="h-5 w-5 bg-gray-200 rounded animate-pulse"></div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Скелетон підсумку */}
-                    <div className="mt-10 pt-8 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-6">
-                        <div className="space-y-2">
-                            <div className="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
-                            <div className="h-10 w-24 bg-gray-200 rounded animate-pulse"></div>
-                        </div>
-                        <div className="h-14 w-full sm:w-56 bg-gray-200 rounded-xl animate-pulse"></div>
-                    </div>
-                </div>
-            </main>
-        );
-    }
 
     if (items.length === 0) {
         return (
@@ -184,7 +159,7 @@ export default function CartPage() {
 
             <div className="bg-white border border-gray-100 shadow-sm rounded-3xl p-6 sm:p-10">
                 <div className="space-y-6 mb-10">
-                    {items.map(item => (
+                    {items.map((item: CartItem) => (
                         <div key={item.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-6 last:border-0 last:pb-0">
                             <div className="flex-grow">
                                 <Link href={`/wines/${item.id}`} className="text-lg text-black font-semibold hover:underline">{item.name}</Link>
@@ -237,29 +212,14 @@ export default function CartPage() {
                         {/* ТЕЛЕФОН (З вибором країни) */}
                         <div className="sm:col-span-2">
                             <label className="block text-sm font-medium text-gray-900 mb-1">Телефон <span className="text-red-500">*</span></label>
-                            <PhoneInput
-                                international
-                                defaultCountry="UA"
+                            <input
+                                type="tel"
+                                name="phone"
                                 value={formData.phone}
-                                onChange={(value) => {
-                                    setFormData(prev => ({ ...prev, phone: value || '' }));
-                                    if (formError) setFormError("");
-                                }}
-                                className={`w-full border bg-white text-gray-900 rounded-xl px-4 py-3 focus-within:ring-1 transition-colors ${
-                                    formError && !formData.phone
-                                        ? 'border-red-400 focus-within:border-red-500 bg-red-50/30'
-                                        : 'border-gray-300 focus-within:border-black focus-within:ring-black'
-                                }`}
+                                onChange={handleInputChange}
+                                placeholder="Наприклад: +380501234567"
+                                className={`w-full border bg-white text-gray-900 rounded-xl px-4 py-3 transition-colors ${formError && !formData.phone ? 'border-red-400 bg-red-50/30' : 'border-gray-300 focus:border-black'}`}
                             />
-                            {/* Маленька підказка для стилів бібліотеки */}
-                            <style jsx global>{`
-                                .PhoneInputInput {
-                                    border: none;
-                                    outline: none;
-                                    background: transparent;
-                                    margin-left: 12px;
-                                }
-                            `}</style>
                         </div>
 
                         {/* МІСТО */}
