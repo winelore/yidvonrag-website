@@ -421,15 +421,7 @@ export default function CartPage() {
 
                     <button
                         onClick={handleCheckout}
-                        disabled={
-                            loading ||
-                            !isAgeConfirmed ||
-                            !formData.name.trim() ||
-                            !formData.surname.trim() ||
-                            !isValidPhoneNumber(formData.phone) ||
-                            !selectedCity ||
-                            !selectedBranch
-                        }
+                        disabled={loading || !isAgeConfirmed}
                         className={`px-10 py-4 rounded-xl font-bold text-lg transition w-full sm:w-auto shadow-lg ${
                             loading || !isAgeConfirmed
                                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
