@@ -1,12 +1,14 @@
 'use client';
 
-import { useCart } from "@/lib/CartContext";
+import {useCart} from "@/lib/CartContext";
 import Link from "next/link";
-import { useState } from "react";
+import {useState} from "react";
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import { isValidPhoneNumber } from "react-phone-number-input";
 
-const NP_API_KEY = "8751d1fd6848e311032a24acf7ea0ff8";
+const NP_API_KEY = process.env.NEXT_PUBLIC_NP_API_KEY!;
+const NP_API_URL = "https://api.novaposhta.ua/v2.0/json/";
 
 interface NPItem {
     Ref: string;
@@ -14,9 +16,10 @@ interface NPItem {
 }
 
 export default function CartPage() {
-    const { items, totalPrice, updateQuantity, removeFromCart, isLoaded } = useCart();
+    const {items, totalPrice, updateQuantity, removeFromCart, isLoaded} = useCart();
     const [loading, setLoading] = useState(false);
     const [formError, setFormError] = useState("");
+    const [isAgeConfirmed, setIsAgeConfirmed] = useState(false);
 
     // Додали phoneCode та phone
     const [formData, setFormData] = useState({
@@ -41,13 +44,13 @@ export default function CartPage() {
             return;
         }
         try {
-            const res = await fetch('https://api.novaposhta.ua/v2.0/json/', {
+            const res = await fetch(NP_API_URL, {
                 method: 'POST',
                 body: JSON.stringify({
                     apiKey: NP_API_KEY,
                     modelName: "Address",
                     calledMethod: "getCities",
-                    methodProperties: { FindByString: query }
+                    methodProperties: {FindByString: query}
                 })
             });
             const data = await res.json();
@@ -59,13 +62,13 @@ export default function CartPage() {
 
     const searchBranches = async (cityRef: string, query: string) => {
         try {
-            const res = await fetch('https://api.novaposhta.ua/v2.0/json/', {
+            const res = await fetch(NP_API_URL, {
                 method: 'POST',
                 body: JSON.stringify({
                     apiKey: NP_API_KEY,
                     modelName: "Address",
                     calledMethod: "getWarehouses",
-                    methodProperties: { CityRef: cityRef, FindByString: query }
+                    methodProperties: {CityRef: cityRef, FindByString: query}
                 })
             });
             const data = await res.json();
@@ -75,16 +78,15 @@ export default function CartPage() {
         }
     };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleInputChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const { name, value } = e.target;
 
-        // Якщо це поле телефону, дозволяємо вводити лише цифри
-        if (name === 'phone') {
-            const onlyNums = value.replace(/[^0-9]/g, '');
-            setFormData(prev => ({ ...prev, [name]: onlyNums }));
-        } else {
-            setFormData(prev => ({ ...prev, [name]: value }));
-        }
+        setFormData(prev => ({
+            ...prev,
+            [name]: value,
+        }));
 
         if (formError) setFormError("");
     };
@@ -92,8 +94,15 @@ export default function CartPage() {
     const handleCheckout = async () => {
         if (items.length === 0) return;
 
+        if (!isAgeConfirmed) {
+            setFormError(
+                "Для оформлення замовлення необхідно підтвердити, що ви досягли 18-річного віку."
+            );
+            return;
+        }
+
         // Перевіряємо, чи заповнено телефон
-        if (!formData.name.trim() || !formData.surname.trim() || !formData.phone.trim() || !selectedCity || !selectedBranch) {
+        if (!formData.name.trim() || !formData.surname.trim() || !isValidPhoneNumber(formData.phone) || !selectedCity || !selectedBranch) {
             setFormError("Будь ласка, заповніть всі обов'язкові поля (*)");
             return;
         }
@@ -104,7 +113,7 @@ export default function CartPage() {
 
             const res = await fetch('/api/checkout', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
                     cartItems: items,
                     customerInfo: {
@@ -142,7 +151,8 @@ export default function CartPage() {
                     <div className="space-y-6">
                         {/* Два фіктивних рядки товарів */}
                         {[1, 2].map((i) => (
-                            <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-6 last:border-0 last:pb-0">
+                            <div key={i}
+                                 className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-6 last:border-0 last:pb-0">
                                 <div className="flex-grow space-y-3">
                                     <div className="h-6 w-3/4 sm:w-48 bg-gray-200 rounded animate-pulse"></div>
                                     <div className="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
@@ -157,7 +167,8 @@ export default function CartPage() {
                     </div>
 
                     {/* Скелетон підсумку */}
-                    <div className="mt-10 pt-8 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-6">
+                    <div
+                        className="mt-10 pt-8 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-6">
                         <div className="space-y-2">
                             <div className="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
                             <div className="h-10 w-24 bg-gray-200 rounded animate-pulse"></div>
@@ -171,9 +182,12 @@ export default function CartPage() {
 
     if (items.length === 0) {
         return (
-            <main className="max-w-4xl mx-auto px-8 py-24 text-center min-h-[60vh] flex flex-col items-center justify-center">
+            <main
+                className="max-w-4xl mx-auto px-8 py-24 text-center min-h-[60vh] flex flex-col items-center justify-center">
                 <h1 className="text-3xl font-bold mb-4">Ваш кошик порожній 🛒</h1>
-                <Link href="/wines" className="bg-black text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition">Перейти до каталогу</Link>
+                <Link href="/wines"
+                      className="bg-black text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition">Перейти
+                    до каталогу</Link>
             </main>
         );
     }
@@ -184,20 +198,30 @@ export default function CartPage() {
 
             <div className="bg-white border border-gray-100 shadow-sm rounded-3xl p-6 sm:p-10">
                 <div className="space-y-6 mb-10">
-                    {items.map(item => (
-                        <div key={item.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-6 last:border-0 last:pb-0">
+                    {items.map((item) => (
+                        <div key={item.id}
+                             className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-6 last:border-0 last:pb-0">
                             <div className="flex-grow">
-                                <Link href={`/wines/${item.id}`} className="text-lg text-black font-semibold hover:underline">{item.name}</Link>
+                                <Link href={`/wines/${item.id}`}
+                                      className="text-lg text-black font-semibold hover:underline">{item.name}</Link>
                                 <div className="text-sm text-gray-500 mt-1">${item.price.toFixed(2)} за шт.</div>
                             </div>
                             <div className="flex items-center gap-6">
-                                <div className="flex items-center gap-3 bg-gray-50 px-3 py-1 rounded-lg border border-gray-200">
-                                    <button onClick={() => updateQuantity(item.id, item.quantity - 1)} className="text-gray-500 hover:text-black font-bold px-2">-</button>
+                                <div
+                                    className="flex items-center gap-3 bg-gray-50 px-3 py-1 rounded-lg border border-gray-200">
+                                    <button onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                            className="text-gray-500 hover:text-black font-bold px-2">-
+                                    </button>
                                     <span className="font-semibold text-black w-6 text-center">{item.quantity}</span>
-                                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="text-gray-500 hover:text-black font-bold px-2">+</button>
+                                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                            className="text-gray-500 hover:text-black font-bold px-2">+
+                                    </button>
                                 </div>
-                                <div className="font-bold text-lg w-20 text-black text-right">${(item.price * item.quantity).toFixed(2)}</div>
-                                <button onClick={() => removeFromCart(item.id)} className="text-red-500 hover:text-red-700 text-sm font-medium">✕</button>
+                                <div
+                                    className="font-bold text-lg w-20 text-black text-right">${(item.price * item.quantity).toFixed(2)}</div>
+                                <button onClick={() => removeFromCart(item.id)}
+                                        className="text-red-500 hover:text-red-700 text-sm font-medium">✕
+                                </button>
                             </div>
                         </div>
                     ))}
@@ -210,7 +234,8 @@ export default function CartPage() {
 
                         {/* ІМ'Я */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-900 mb-1">Ім&apos;я <span className="text-red-500">*</span></label>
+                            <label className="block text-sm font-medium text-gray-900 mb-1">Ім&apos;я <span
+                                className="text-red-500">*</span></label>
                             <input
                                 type="text"
                                 name="name"
@@ -223,7 +248,8 @@ export default function CartPage() {
 
                         {/* ПРІЗВИЩЕ */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-900 mb-1">Прізвище <span className="text-red-500">*</span></label>
+                            <label className="block text-sm font-medium text-gray-900 mb-1">Прізвище <span
+                                className="text-red-500">*</span></label>
                             <input
                                 type="text"
                                 name="surname"
@@ -236,13 +262,14 @@ export default function CartPage() {
 
                         {/* ТЕЛЕФОН (З вибором країни) */}
                         <div className="sm:col-span-2">
-                            <label className="block text-sm font-medium text-gray-900 mb-1">Телефон <span className="text-red-500">*</span></label>
+                            <label className="block text-sm font-medium text-gray-900 mb-1">Телефон <span
+                                className="text-red-500">*</span></label>
                             <PhoneInput
                                 international
                                 defaultCountry="UA"
                                 value={formData.phone}
                                 onChange={(value) => {
-                                    setFormData(prev => ({ ...prev, phone: value || '' }));
+                                    setFormData((prev) => ({...prev, phone: value || ''}));
                                     if (formError) setFormError("");
                                 }}
                                 className={`w-full border bg-white text-gray-900 rounded-xl px-4 py-3 focus-within:ring-1 transition-colors ${
@@ -264,7 +291,8 @@ export default function CartPage() {
 
                         {/* МІСТО */}
                         <div className="relative">
-                            <label className="block text-sm font-medium text-gray-900 mb-1">Місто <span className="text-red-500">*</span></label>
+                            <label className="block text-sm font-medium text-gray-900 mb-1">Місто <span
+                                className="text-red-500">*</span></label>
                             <input
                                 type="text"
                                 value={cityQuery}
@@ -304,7 +332,8 @@ export default function CartPage() {
 
                         {/* ВІДДІЛЕННЯ */}
                         <div className="relative">
-                            <label className="block text-sm font-medium text-gray-900 mb-1">Відділення Нової Пошти <span className="text-red-500">*</span></label>
+                            <label className="block text-sm font-medium text-gray-900 mb-1">Відділення Нової Пошти <span
+                                className="text-red-500">*</span></label>
                             <input
                                 type="text"
                                 value={branchQuery}
@@ -344,19 +373,69 @@ export default function CartPage() {
                     </div>
 
                     {formError && (
-                        <div className="mt-6 p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm font-medium flex items-center gap-3">
+                        <div
+                            className="mt-6 p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm font-medium flex items-center gap-3">
                             <span className="text-lg">⚠️</span>
                             <p>{formError}</p>
                         </div>
                     )}
                 </div>
 
+                <div className="mt-8 border-t border-gray-200 pt-6">
+                    <label className="flex items-start gap-3 cursor-pointer">
+                        <input
+                            type="checkbox"
+                            checked={isAgeConfirmed}
+                            onChange={(e) => {
+                                setIsAgeConfirmed(e.target.checked);
+                                if (formError) setFormError("");
+                            }}
+                            className="mt-1 h-5 w-5 rounded border-gray-300"
+                        />
+
+                        <span className="text-sm text-gray-700 leading-6">
+            Я підтверджую, що досяг(ла) 18-річного віку, маю законне право
+            придбавати алкогольну продукцію відповідно до законодавства України,
+            підтверджую достовірність наданої інформації та погоджуюся з умовами{" "}
+                            <Link href="/privacy-policy" className="underline hover:text-black">
+                Політики конфіденційності
+            </Link>{" "}
+                            та{" "}
+                            <Link href="/public-offer" className="underline hover:text-black">
+                Публічної оферти
+            </Link>.
+        </span>
+                    </label>
+                </div>
+
                 <div className="mt-8 pt-8 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-6">
                     <div>
-                        <p className="text-gray-500 text-sm mb-1">Разом до оплати</p>
-                        <p className="text-4xl text-black font-black">${totalPrice.toFixed(2)}</p>
+                        <p className="text-gray-500 text-sm mb-1">
+                            Разом до оплати
+                        </p>
+
+                        <p className="text-4xl text-black font-black">
+                            ${totalPrice.toFixed(2)}
+                        </p>
                     </div>
-                    <button onClick={handleCheckout} disabled={loading} className="bg-black text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition w-full sm:w-auto shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+
+                    <button
+                        onClick={handleCheckout}
+                        disabled={
+                            loading ||
+                            !isAgeConfirmed ||
+                            !formData.name.trim() ||
+                            !formData.surname.trim() ||
+                            !isValidPhoneNumber(formData.phone) ||
+                            !selectedCity ||
+                            !selectedBranch
+                        }
+                        className={`px-10 py-4 rounded-xl font-bold text-lg transition w-full sm:w-auto shadow-lg ${
+                            loading || !isAgeConfirmed
+                                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                : "bg-black text-white hover:bg-gray-800"
+                        }`}
+                    >
                         {loading ? "Формуємо платіж..." : "Оформити замовлення"}
                     </button>
                 </div>
