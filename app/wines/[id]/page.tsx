@@ -71,9 +71,9 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                     </div>
 
                     {/* Блок з ціною та кнопкою кошика */}
-                    <div className="flex flex-col items-start sm:items-end min-w-[200px] bg-gray-50 p-6 rounded-2xl border border-gray-100">
-                        <div className="text-sm text-gray-500 mb-1">Ціна за пляшку</div>
-                        <div className="text-4xl font-black text-gray-900 mb-4">{wine.price} ₴</div>
+                    <div className="flex flex-col items-start sm:items-end min-w-[220px] bg-bordeaux-50/40 p-6 rounded-2xl border border-bordeaux-100/80 shadow-xs">
+                        <div className="text-xs font-semibold uppercase tracking-wider text-bordeaux-800/80 mb-1">Ціна за пляшку</div>
+                        <div className="text-4xl font-black text-bordeaux-950 mb-4">{wine.price} ₴</div>
                         {wine.inStock && (
                             <div className="flex flex-col gap-3 w-full">
                                 {/* Кнопка додавання в кошик */}
@@ -97,24 +97,25 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                 </section>
 
                 {/* Characteristics Card */}
-                <section className="bg-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
-                    <h2 className="text-xl font-bold text-gray-900 mb-6 uppercase tracking-wider">
+                <section className="bg-bordeaux-50/30 rounded-2xl p-6 sm:p-8 border border-bordeaux-100/60 shadow-xs">
+                    <h2 className="text-xl font-bold text-gray-900 mb-6 uppercase tracking-wider flex items-center gap-2.5">
+                        <span className="w-1.5 h-5 bg-bordeaux-800 rounded-full inline-block"></span>
                         Характеристики
                     </h2>
                     <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
-                        <div className="flex flex-col border-b border-gray-200 pb-3 sm:border-0 sm:pb-0">
+                        <div className="flex flex-col border-b border-bordeaux-100/60 pb-3 sm:border-0 sm:pb-0">
                             <dt className="text-sm font-medium text-gray-500">Колір</dt>
-                            <dd className="mt-1 text-base font-semibold text-gray-900">{wine.color}</dd>
+                            <dd className="mt-1 text-base font-semibold text-bordeaux-950">{wine.color}</dd>
                         </div>
-                        <div className="flex flex-col border-b border-gray-200 pb-3 sm:border-0 sm:pb-0">
+                        <div className="flex flex-col border-b border-bordeaux-100/60 pb-3 sm:border-0 sm:pb-0">
                             <dt className="text-sm font-medium text-gray-500">Вміст цукру</dt>
                             <dd className="mt-1 text-base font-semibold text-gray-900">{wine.sweetness}</dd>
                         </div>
-                        <div className="flex flex-col border-b border-gray-200 pb-3 sm:border-0 sm:pb-0">
+                        <div className="flex flex-col border-b border-bordeaux-100/60 pb-3 sm:border-0 sm:pb-0">
                             <dt className="text-sm font-medium text-gray-500">Об&apos;єм</dt>
                             <dd className="mt-1 text-base font-semibold text-gray-900">{wine.volume} л</dd>
                         </div>
-                        <div className="flex flex-col border-b border-gray-200 pb-3 sm:border-0 sm:pb-0">
+                        <div className="flex flex-col border-b border-bordeaux-100/60 pb-3 sm:border-0 sm:pb-0">
                             <dt className="text-sm font-medium text-gray-500">Міцність</dt>
                             <dd className="mt-1 text-base font-semibold text-gray-900">{wine.alcohol}</dd>
                         </div>
@@ -126,7 +127,8 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                 </section>
 
                 <section className="bg-gray-50 rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
-                    <h2 className="text-xl font-bold text-gray-900 mb-6 uppercase tracking-wider">
+                    <h2 className="text-xl font-bold text-gray-900 mb-6 uppercase tracking-wider flex items-center gap-2.5">
+                        <span className="w-1.5 h-5 bg-bordeaux-800 rounded-full inline-block"></span>
                         Відгуки
                     </h2>
 

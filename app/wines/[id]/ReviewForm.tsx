@@ -12,12 +12,6 @@ export default function ReviewForm({ wineId }: { wineId: string }) {
         return (
             <div className="bg-green-50 border border-green-200 p-6 rounded-xl text-center">
                 <p className="text-green-800 font-medium">{state.message}</p>
-                <button
-                    onClick={() => window.location.reload()}
-                    className="mt-4 text-sm text-green-600 underline"
-                >
-                    Надіслати ще один
-                </button>
             </div>
         )
     }

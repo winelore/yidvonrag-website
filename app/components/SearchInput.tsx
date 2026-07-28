@@ -113,8 +113,8 @@ export default function SearchInput({ isTransparent = false }: SearchInputProps)
                     placeholder="Пошук вина (напр., Франція, Червоне)..."
                     className={`w-full px-5 py-3 pl-12 text-sm rounded-xl shadow-sm focus:outline-none transition-all duration-300 ${
                         isTransparent
-                            ? "bg-white/20 backdrop-blur-md text-white placeholder-gray-200 border border-white/30 focus:bg-white focus:text-gray-900 focus:placeholder-gray-400 focus:border-white focus:ring-1 focus:ring-white"
-                            : "bg-white text-gray-900 placeholder-gray-400 border border-gray-200 focus:border-gray-800 focus:ring-1 focus:ring-gray-800"
+                            ? "bg-white/20 backdrop-blur-md text-white placeholder-gray-200 border border-white/30 focus:bg-white focus:text-gray-900 focus:placeholder-gray-400 focus:border-bordeaux-800 focus:ring-1 focus:ring-bordeaux-800"
+                            : "bg-white text-gray-900 placeholder-gray-400 border border-gray-200 focus:border-bordeaux-800 focus:ring-1 focus:ring-bordeaux-800"
                     }`}
                 />
                 {/* Search magnifying glass icon */}

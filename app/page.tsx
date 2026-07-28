@@ -41,12 +41,13 @@ export default async function Home() {
                     quality={90}
                     className="object-cover object-center opacity-65 scale-105 transition-transform duration-1000"
                 />
-                {/* Gradient Overlays for smooth readability & transition */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/30" />
+                {/* Gradient Overlays for smooth readability & luxury bordeaux atmosphere */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-bordeaux-950/40 to-black/40" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-bordeaux-900/30 via-transparent to-transparent pointer-events-none" />
 
                 {/* Hero Content */}
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 sm:pt-44 md:pt-48 pb-24 sm:pb-32 flex flex-col items-center text-center">
-                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-white mb-6 shadow-inner">
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-bordeaux-950/80 backdrop-blur-md border border-bordeaux-700/50 text-xs font-semibold text-bordeaux-200 mb-6 shadow-lg shadow-bordeaux-950/50">
                         🍷 Крафтова виноробня ВМ Штифко
                     </span>
                     <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6 max-w-5xl drop-shadow-md leading-tight">
@@ -58,16 +59,16 @@ export default async function Home() {
                     <div className="mt-10 sm:mt-12 flex flex-wrap justify-center gap-4">
                         <Link
                             href="/wines"
-                            className="inline-flex items-center gap-2.5 rounded-full bg-white text-gray-900 px-8 sm:px-10 py-3.5 sm:py-4 text-base font-semibold hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 group"
+                            className="inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-bordeaux-900 via-bordeaux-800 to-bordeaux-900 text-white px-8 sm:px-10 py-3.5 sm:py-4 text-base font-semibold hover:from-bordeaux-800 hover:to-bordeaux-700 transition-all duration-300 shadow-xl shadow-bordeaux-950/40 border border-bordeaux-700/60 hover:scale-105 group"
                         >
-                            <svg className="w-5 h-5 text-gray-900 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 text-bordeaux-200 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 21h8m-4-4v4m-5-16h10a1 1 0 011 1v3a6 6 0 01-6 6 6 6 0 01-6-6V6a1 1 0 011-1z" />
                             </svg>
                             <span>Переглянути каталог</span>
                         </Link>
                         <Link
                             href="/about"
-                            className="inline-flex items-center gap-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 sm:px-10 py-3.5 sm:py-4 text-base font-semibold hover:bg-white/20 transition-all duration-200 hover:scale-105 group"
+                            className="inline-flex items-center gap-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/25 text-white px-8 sm:px-10 py-3.5 sm:py-4 text-base font-semibold hover:bg-bordeaux-950/50 hover:border-bordeaux-500/40 transition-all duration-300 hover:scale-105 group"
                         >
                             <svg className="w-5 h-5 text-white transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -83,10 +84,13 @@ export default async function Home() {
                 <section>
                     <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
                         <div>
-                            <h2 className="text-3xl font-bold tracking-tight">Популярні вина</h2>
+                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 flex items-center gap-3">
+                                <span className="w-1.5 h-7 bg-gradient-to-b from-bordeaux-700 to-bordeaux-900 rounded-full inline-block"></span>
+                                Популярні вина
+                            </h2>
                             <p className="text-gray-500 mt-1">Вибір наших клієнтів</p>
                         </div>
-                        <Link href="/wines" className="text-blue-600 hover:text-blue-800 text-sm font-semibold inline-flex items-center gap-1 transition-colors">
+                        <Link href="/wines" className="text-bordeaux-800 hover:text-bordeaux-950 text-sm font-semibold inline-flex items-center gap-1 transition-colors">
                             Дивитися весь каталог &rarr;
                         </Link>
                     </div>
@@ -100,7 +104,7 @@ export default async function Home() {
                             return (
                                 <div
                                     key={wine.id}
-                                    className="group relative border border-gray-200/80 rounded-2xl overflow-hidden transition-all duration-200 hover:shadow-lg hover:border-gray-300 flex flex-col bg-white"
+                                    className="group relative border border-gray-200/80 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-bordeaux-300/70 hover:shadow-bordeaux-900/5 flex flex-col bg-white"
                                 >
                                     <InCartBadge wineId={wine.id} />
                                     <Link href={`/wines/${wine.id}`} className="flex flex-col flex-grow cursor-pointer">
@@ -129,7 +133,7 @@ export default async function Home() {
                                                     <BeverageBadgePill awards={wine.awards} />
                                                 </div>
                                             )}
-                                            <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-blue-600 transition-colors">{wine.name}</h3>
+                                            <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-bordeaux-800 transition-colors">{wine.name}</h3>
 
                                             {avgRating ? (
                                                 <div className="flex items-center gap-1.5 mt-1.5 mb-1 text-sm">
@@ -164,10 +168,13 @@ export default async function Home() {
                 <section>
                     <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
                         <div>
-                            <h2 className="text-3xl font-bold tracking-tight">Останні оновлення</h2>
+                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 flex items-center gap-3">
+                                <span className="w-1.5 h-7 bg-gradient-to-b from-bordeaux-700 to-bordeaux-900 rounded-full inline-block"></span>
+                                Останні оновлення
+                            </h2>
                             <p className="text-gray-500 mt-1">Новини нашого блогу та сервісу</p>
                         </div>
-                        <Link href="/posts" className="text-blue-600 hover:text-blue-800 text-sm font-semibold inline-flex items-center gap-1 transition-colors">
+                        <Link href="/posts" className="text-bordeaux-800 hover:text-bordeaux-950 text-sm font-semibold inline-flex items-center gap-1 transition-colors">
                             Всі новини &rarr;
                         </Link>
                     </div>
@@ -175,19 +182,19 @@ export default async function Home() {
                     {posts.length > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                             {posts.map((p) => (
-                                <div key={p.id} className="bg-white border border-gray-200/80 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-200 flex flex-col justify-between group">
+                                <div key={p.id} className="bg-white border border-gray-200/80 p-6 rounded-2xl shadow-sm hover:shadow-lg hover:border-bordeaux-300/70 transition-all duration-300 flex flex-col justify-between group">
                                     <div>
                                         {p.images && p.images.length > 0 && (
                                             <div className="relative w-full aspect-video mb-5 rounded-xl overflow-hidden bg-gray-100">
                                                 <Image src={p.images[0]} alt={p.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
                                             </div>
                                         )}
-                                        <h3 className="text-lg font-bold mb-2 text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">{p.title}</h3>
+                                        <h3 className="text-lg font-bold mb-2 text-gray-900 line-clamp-2 group-hover:text-bordeaux-800 transition-colors">{p.title}</h3>
                                         <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed">{p.content}</p>
                                     </div>
                                     <div className="mt-6 pt-4 border-t border-gray-100 flex justify-between items-center text-xs text-gray-400">
                                         <span>{new Date(p.createdAt).toLocaleDateString('uk-UA')}</span>
-                                        <Link href={`/posts/${p.id}`} className="text-blue-600 hover:underline font-medium text-sm">
+                                        <Link href={`/posts/${p.id}`} className="text-bordeaux-800 hover:text-bordeaux-950 font-medium text-sm">
                                             Читати &rarr;
                                         </Link>
                                     </div>

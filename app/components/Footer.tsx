@@ -5,12 +5,12 @@ export default async function Footer() {
     const settings = await getContactSettings();
 
     return (
-        <footer className="border-t border-gray-100 py-12 mt-16 bg-white text-black w-full">
+        <footer className="border-t-2 border-bordeaux-950/20 py-12 mt-16 bg-white text-black w-full relative">
             <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-sm">
 
                 {/* Бренд / Інфо */}
                 <div className="flex flex-col gap-3">
-                    <h3 className="font-bold text-xl tracking-tight mb-1">ВМ Штифко</h3>
+                    <h3 className="font-extrabold text-xl tracking-tight mb-1 text-bordeaux-950">ВМ Штифко</h3>
                     <p className="text-gray-500 text-sm leading-relaxed">
                         Ексклюзивні вина власної крафтової виноробні. Традиції, висока якість та унікальний смак у кожній пляшці.
                     </p>
@@ -18,22 +18,22 @@ export default async function Footer() {
 
                 {/* Навігація */}
                 <div className="flex flex-col gap-3">
-                    <h3 className="font-semibold text-lg mb-1">Навігація</h3>
-                    <Link href="/" className="hover:text-gray-500 transition-colors">Головна</Link>
-                    <Link href="/wines" className="hover:text-gray-500 transition-colors">Каталог вин</Link>
-                    <Link href="/posts" className="hover:text-gray-500 transition-colors">Останні оновлення (Блог)</Link>
-                    <Link href="/about" className="hover:text-gray-500 transition-colors">Про нас</Link>
+                    <h3 className="font-semibold text-lg mb-1 text-gray-900">Навігація</h3>
+                    <Link href="/" className="hover:text-bordeaux-800 transition-colors">Головна</Link>
+                    <Link href="/wines" className="hover:text-bordeaux-800 transition-colors">Каталог вин</Link>
+                    <Link href="/posts" className="hover:text-bordeaux-800 transition-colors">Останні оновлення (Блог)</Link>
+                    <Link href="/about" className="hover:text-bordeaux-800 transition-colors">Про нас</Link>
                 </div>
 
                 {/* Для клієнтів */}
                 <div className="flex flex-col gap-3">
-                    <h3 className="font-semibold text-lg mb-1">Клієнтам</h3>
-                    <Link href="/cart" className="hover:text-gray-500 transition-colors">Кошик</Link>
-                    <Link href="/contact" className="hover:text-gray-500 transition-colors">Контактна інформація</Link>
-                    <Link href="/cooperation" className="hover:text-gray-500 transition-colors">Співпраця</Link>
-                    <Link href="/privacy-policy" className="hover:text-gray-500 transition-colors">Політика конфіденційності</Link>
-                    <Link href="/public-offer" className="hover:text-gray-500 transition-colors">Публічна оферта</Link>
-                    <Link href="/payment-and-delivery" className="hover:text-gray-500 transition-colors">Оплата і доставка</Link>
+                    <h3 className="font-semibold text-lg mb-1 text-gray-900">Клієнтам</h3>
+                    <Link href="/cart" className="hover:text-bordeaux-800 transition-colors">Кошик</Link>
+                    <Link href="/contact" className="hover:text-bordeaux-800 transition-colors">Контактна інформація</Link>
+                    <Link href="/cooperation" className="hover:text-bordeaux-800 transition-colors">Співпраця</Link>
+                    <Link href="/privacy-policy" className="hover:text-bordeaux-800 transition-colors">Політика конфіденційності</Link>
+                    <Link href="/public-offer" className="hover:text-bordeaux-800 transition-colors">Публічна оферта</Link>
+                    <Link href="/payment-and-delivery" className="hover:text-bordeaux-800 transition-colors">Оплата і доставка</Link>
                 </div>
 
                 {/* Контакти (Текст) */}

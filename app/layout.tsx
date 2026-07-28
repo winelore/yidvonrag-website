@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Toaster } from "react-hot-toast";
+import { ToasterProvider } from "@/app/components/ToasterProvider";
 import { CartProvider } from "@/lib/CartContext";
 import Header from "@/app/components/Header";
 import AgeGate from "@/app/components/AgeGate";
@@ -38,7 +38,7 @@ export default function RootLayout({
             <Header />
             <PaymentNotification />
             {children}
-            <Toaster position="bottom-right" />
+            <ToasterProvider />
         </CartProvider>
         </body>
         </html>

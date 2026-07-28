@@ -5,6 +5,8 @@
 :root {
     --background: #ffffff;
     --foreground: #171717;
+    --bordeaux-primary: #4A0B18;
+    --bordeaux-accent: #801A2F;
 }
 
 body {
@@ -14,6 +16,10 @@ body {
 }
 
 @layer base {
+    ::selection {
+        background-color: #4A0B18;
+        color: #ffffff;
+    }
     svg {
         max-width: 100%;
     }
@@ -27,5 +33,10 @@ body {
 @layer utilities {
     .text-balance {
         text-wrap: balance;
+    }
+    .text-bordeaux-gradient {
+        background: linear-gradient(135deg, #801A2F 0%, #4A0B18 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 }
