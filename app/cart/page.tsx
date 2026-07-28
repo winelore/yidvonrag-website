@@ -143,7 +143,7 @@ export default function CartPage() {
 
     if (!isLoaded) {
         return (
-            <main className="max-w-4xl mx-auto px-8 py-16 min-h-screen">
+            <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-32 pb-16 min-h-screen">
                 {/* Скелетон заголовка */}
                 <div className="h-10 w-32 bg-gray-200 rounded-lg animate-pulse mb-10"></div>
 
@@ -193,7 +193,7 @@ export default function CartPage() {
     }
 
     return (
-        <main className="max-w-4xl mx-auto px-8 py-16 min-h-screen">
+        <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-32 pb-16 min-h-screen">
             <h1 className="text-4xl font-bold mb-10">Кошик</h1>
 
             <div className="bg-white border border-gray-100 shadow-sm rounded-3xl p-6 sm:p-10">

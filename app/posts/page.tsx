@@ -15,7 +15,7 @@ export default async function PostsPage() {
 
     return (
         <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)] flex flex-col">
-            <main className="flex-grow max-w-3xl mx-auto px-8 py-16 sm:py-24 w-full">
+            <main className="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-32 pb-16 w-full">
                 <div className="mb-12 border-b border-black/[0.08] pb-8">
                     <h1 className="text-4xl font-bold mb-4 tracking-tight">Новини та статті</h1>
                     <p className="text-lg text-gray-500">

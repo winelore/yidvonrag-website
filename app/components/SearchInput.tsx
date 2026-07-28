@@ -12,7 +12,11 @@ interface WineResult {
     color: string;
 }
 
-export default function SearchInput() {
+interface SearchInputProps {
+    isTransparent?: boolean;
+}
+
+export default function SearchInput({ isTransparent = false }: SearchInputProps) {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<WineResult[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -60,12 +64,15 @@ export default function SearchInput() {
                     onChange={(e) => setQuery(e.target.value)}
                     onFocus={() => query.length >= 2 && setIsOpen(true)}
                     placeholder="Пошук вина (напр., Франція, Червоне)..."
-                    // Swapped red highlights for a sleek dark gray focus effect
-                    className="w-full px-5 py-3 pl-12 text-gray-900 placeholder-gray-400 bg-white border border-gray-200 rounded-xl shadow-sm focus:outline-none focus:border-gray-800 focus:ring-1 focus:ring-gray-800 transition-all duration-200"
+                    className={`w-full px-5 py-3 pl-12 text-sm rounded-xl shadow-sm focus:outline-none transition-all duration-300 ${
+                        isTransparent
+                            ? "bg-white/20 backdrop-blur-md text-white placeholder-gray-200 border border-white/30 focus:bg-white focus:text-gray-900 focus:placeholder-gray-400 focus:border-white focus:ring-1 focus:ring-white"
+                            : "bg-white text-gray-900 placeholder-gray-400 border border-gray-200 focus:border-gray-800 focus:ring-1 focus:ring-gray-800"
+                    }`}
                 />
                 {/* Search magnifying glass icon */}
                 <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className={`w-5 h-5 transition-colors ${isTransparent ? "text-gray-200" : "text-gray-400"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </div>

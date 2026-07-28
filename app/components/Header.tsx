@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useCart } from "@/lib/CartContext";
 import SearchInput from "./SearchInput"; // Import your new search component
 
@@ -10,26 +11,33 @@ export default function Header() {
     const { items } = useCart();
     const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
     const [isScrolled, setIsScrolled] = useState(false);
+    const pathname = usePathname();
+    const isHome = pathname === "/";
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 20) {
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
-            }
+            const top = window.scrollY || window.pageYOffset || document.documentElement?.scrollTop || document.body?.scrollTop || 0;
+            setIsScrolled(top > 20);
         };
 
         handleScroll();
 
         window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
+        document.addEventListener("scroll", handleScroll, { passive: true });
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            document.removeEventListener("scroll", handleScroll);
+        };
     }, []);
+
+    const isHeroHeader = isHome && !isScrolled;
 
     return (
         <header
-            className={`sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-gray-100 transition-all duration-300 ${
-                isScrolled ? "py-2 md:py-3 shadow-md" : "py-4 md:py-6"
+            className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
+                isHeroHeader
+                    ? "bg-gradient-to-b from-black/90 via-black/40 to-transparent py-4 md:py-6 text-white"
+                    : "bg-white border-b border-gray-200 text-gray-900 shadow-md py-2 md:py-3"
             }`}
         >
             <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-8 px-4 md:px-8 max-w-7xl mx-auto w-full transition-all duration-300">
@@ -45,23 +53,51 @@ export default function Header() {
                         alt="ВМ Штифко"
                         fill
                         priority
-                        className="object-contain object-left transition-all duration-300"
+                        className={`object-contain object-left transition-all duration-300 ${
+                            isHeroHeader ? "brightness-0 invert" : ""
+                        }`}
                     />
                 </Link>
 
                 {/* Center Side: Live Search Bar */}
                 <div className="w-full md:flex-1 md:max-w-md mx-auto">
-                    <SearchInput />
+                    <SearchInput isTransparent={isHeroHeader} />
                 </div>
 
                 {/* Right Side: Navigation & Cart */}
-                <nav className="flex items-center gap-6 md:gap-8 w-full md:w-auto justify-center md:justify-end">
-                    <Link href="/" className="text-base font-medium hover:text-gray-500 transition-colors">Головна</Link>
-                    <Link href="/wines" className="text-base font-medium hover:text-gray-500 transition-colors">Каталог</Link>
-                    <Link href="/about" className="text-base font-medium hover:text-gray-500 transition-colors">Про нас</Link>
+                <nav className="flex items-center gap-6 md:gap-8 w-full md:w-auto justify-center md:justify-end font-medium text-base">
+                    <Link
+                        href="/"
+                        className={`transition-colors ${
+                            isHeroHeader ? "text-white hover:text-gray-300" : "text-gray-800 hover:text-gray-500"
+                        }`}
+                    >
+                        Головна
+                    </Link>
+                    <Link
+                        href="/wines"
+                        className={`transition-colors ${
+                            isHeroHeader ? "text-white hover:text-gray-300" : "text-gray-800 hover:text-gray-500"
+                        }`}
+                    >
+                        Каталог
+                    </Link>
+                    <Link
+                        href="/about"
+                        className={`transition-colors ${
+                            isHeroHeader ? "text-white hover:text-gray-300" : "text-gray-800 hover:text-gray-500"
+                        }`}
+                    >
+                        Про нас
+                    </Link>
 
                     {/* Shopping Cart Link */}
-                    <Link href="/cart" className="relative flex items-center hover:text-gray-500 transition-colors ml-2 md:ml-0">
+                    <Link
+                        href="/cart"
+                        className={`relative flex items-center transition-colors ml-2 md:ml-0 ${
+                            isHeroHeader ? "text-white hover:text-gray-300" : "text-gray-800 hover:text-gray-500"
+                        }`}
+                    >
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="9" cy="21" r="1"></circle>
                             <circle cx="20" cy="21" r="1"></circle>

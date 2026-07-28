@@ -26,23 +26,48 @@ export default async function Home() {
     return (
         <div className="min-h-screen font-[family-name:var(--font-geist-sans)] flex flex-col bg-white text-gray-900">
             {/* Hero Section */}
-            <section className="relative overflow-hidden bg-gradient-to-b from-gray-50/80 to-white py-16 sm:py-24 border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
-                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-semibold text-gray-700 mb-6">
+            <section className="relative w-full min-h-[80vh] min-h-[650px] sm:min-h-[750px] lg:min-h-[850px] flex items-center justify-center overflow-hidden border-b border-gray-100 bg-black text-white">
+                {/* Background Image with Dark Overlay Gradient */}
+                <Image
+                    src="/hero-bg.jpg"
+                    alt="Виноробня ВМ Штифко"
+                    fill
+                    priority
+                    quality={90}
+                    className="object-cover object-center opacity-65 scale-105 transition-transform duration-1000"
+                />
+                {/* Gradient Overlays for smooth readability & transition */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/30" />
+
+                {/* Hero Content */}
+                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 sm:pt-44 md:pt-48 pb-24 sm:pb-32 flex flex-col items-center text-center">
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-white mb-6 shadow-inner">
                         🍷 Крафтова виноробня ВМ Штифко
                     </span>
-                    <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-gray-900 mb-6 max-w-4xl">
+                    <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6 max-w-5xl drop-shadow-md leading-tight">
                         Ексклюзивна колекція вин
                     </h1>
-                    <p className="text-lg text-gray-600 max-w-2xl leading-relaxed">
+                    <p className="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl leading-relaxed drop-shadow">
                         Відкрийте для себе найкращі смаки з усього світу. Ми ретельно відбираємо та створюємо кожну пляшку з любов&apos;ю та традиціями.
                     </p>
-                    <div className="mt-8 flex flex-wrap justify-center gap-4">
-                        <Link href="/wines" className="rounded-full bg-gray-900 text-white px-7 py-3 text-sm font-medium hover:bg-gray-800 transition-colors shadow-sm">
-                            Переглянути каталог
+                    <div className="mt-10 sm:mt-12 flex flex-wrap justify-center gap-4">
+                        <Link
+                            href="/wines"
+                            className="inline-flex items-center gap-2.5 rounded-full bg-white text-gray-900 px-8 sm:px-10 py-3.5 sm:py-4 text-base font-semibold hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 group"
+                        >
+                            <svg className="w-5 h-5 text-gray-900 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 21h8m-4-4v4m-5-16h10a1 1 0 011 1v3a6 6 0 01-6 6 6 6 0 01-6-6V6a1 1 0 011-1z" />
+                            </svg>
+                            <span>Переглянути каталог</span>
                         </Link>
-                        <Link href="/about" className="rounded-full border border-gray-300 px-7 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
-                            Дізнатися більше
+                        <Link
+                            href="/about"
+                            className="inline-flex items-center gap-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 sm:px-10 py-3.5 sm:py-4 text-base font-semibold hover:bg-white/20 transition-all duration-200 hover:scale-105 group"
+                        >
+                            <svg className="w-5 h-5 text-white transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>Дізнатися більше</span>
                         </Link>
                     </div>
                 </div>

@@ -10,7 +10,7 @@ export default async function AboutPage() {
         <div className="min-h-screen font-[family-name:var(--font-geist-sans)]">
 
             {/* Основний контент */}
-            <main className="max-w-4xl mx-auto px-8 py-20">
+            <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-32 pb-20">
 
                 <Link
                     href="/"
