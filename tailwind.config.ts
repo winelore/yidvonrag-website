@@ -8,6 +8,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-montserrat)", "sans-serif"],
+        heading: ["var(--font-montserrat)", "sans-serif"],
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -23,6 +28,7 @@ const config: Config = {
           800: "#641122",
           900: "#4A0B18",
           950: "#2D050D",
+          990: "#1E0409",
         },
       },
     },

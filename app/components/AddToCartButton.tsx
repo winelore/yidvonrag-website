@@ -108,10 +108,10 @@ export default function AddToCartButton({
                         type="button"
                         onClick={handleAddToCart}
                         disabled={isAdded}
-                        className={`flex-grow h-12 text-white py-3 px-6 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 shadow-sm ${
+                        className={`flex-grow h-12 text-white py-3 px-6 rounded-xl text-sm font-bold uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 shadow-sm ${
                             isAdded
                                 ? "bg-emerald-600 opacity-100 shadow-emerald-200"
-                                : "bg-black hover:bg-gray-800 active:scale-[0.98]"
+                                : "bg-gradient-to-r from-bordeaux-900 to-bordeaux-800 hover:from-bordeaux-800 hover:to-bordeaux-700 active:scale-[0.98]"
                         }`}
                     >
                         {isAdded ? (
@@ -181,10 +181,10 @@ export default function AddToCartButton({
                     type="button"
                     onClick={handleAddToCart}
                     disabled={isAdded}
-                    className={`flex-grow h-9 text-white px-3 rounded-lg text-xs font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 ${
+                    className={`flex-grow h-9 text-white px-3 rounded-lg text-xs font-bold uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-1.5 ${
                         isAdded
                             ? "bg-emerald-600"
-                            : "bg-black hover:opacity-90 active:scale-95"
+                            : "bg-bordeaux-900 hover:bg-bordeaux-800 active:scale-95"
                     }`}
                 >
                     {isAdded ? (

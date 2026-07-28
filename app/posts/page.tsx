@@ -14,10 +14,10 @@ export default async function PostsPage() {
     });
 
     return (
-        <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)] flex flex-col">
+        <div className="min-h-screen bg-white text-black font-sans flex flex-col">
             <main className="flex-grow max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 sm:pt-48 md:pt-40 pb-16 w-full">
                 <div className="mb-12 border-b border-black/[0.08] pb-8">
-                    <h1 className="text-4xl font-bold mb-4 tracking-tight">Новини та статті</h1>
+                    <h1 className="text-4xl font-bold uppercase tracking-wider mb-4">Новини та статті</h1>
                     <p className="text-lg text-gray-500">
                         Дізнавайтесь про останні новини, оновлення, нові надходження та життя нашої виноробні.
                     </p>
@@ -47,7 +47,7 @@ export default async function PostsPage() {
                                         })}
                                     </time>
                                 </div>
-                                <h2 className="text-2xl font-bold mb-3 text-balance group-hover:text-blue-600 transition-colors">
+                                <h2 className="text-2xl font-bold uppercase tracking-wide mb-3 text-balance group-hover:text-bordeaux-800 transition-colors">
                                     <Link href={`/posts/${p.id}`}>
                                         {p.title}
                                     </Link>
@@ -56,7 +56,7 @@ export default async function PostsPage() {
                                     {p.content}
                                 </p>
                                 <div className="mt-4">
-                                    <Link href={`/posts/${p.id}`} className="inline-flex items-center text-blue-600 font-medium hover:text-blue-800 transition-colors">
+                                    <Link href={`/posts/${p.id}`} className="inline-flex items-center text-bordeaux-800 font-medium hover:text-bordeaux-950 transition-colors">
                                         Читати повністю <span className="ml-1">→</span>
                                     </Link>
                                 </div>

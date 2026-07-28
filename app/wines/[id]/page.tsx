@@ -45,7 +45,7 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                                 <BeverageBadgePill awards={wine.awards} />
                             </div>
                         )}
-                        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">
+                        <h1 className="text-4xl sm:text-5xl font-extrabold uppercase tracking-wider text-gray-900 mb-4">
                             {wine.name}
                         </h1>
 

@@ -184,9 +184,9 @@ export default function CartPage() {
         return (
             <main
                 className="max-w-4xl mx-auto px-8 pt-56 sm:pt-48 md:pt-40 pb-24 text-center min-h-[60vh] flex flex-col items-center justify-center">
-                <h1 className="text-3xl font-bold mb-4">Ваш кошик порожній 🛒</h1>
+                <h1 className="text-3xl font-bold uppercase tracking-wider mb-4">Ваш кошик порожній 🛒</h1>
                 <Link href="/wines"
-                      className="bg-black text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition">Перейти
+                      className="bg-bordeaux-900 text-white px-8 py-3 rounded-full font-bold uppercase tracking-wider hover:bg-bordeaux-800 transition">Перейти
                     до каталогу</Link>
             </main>
         );
@@ -194,7 +194,7 @@ export default function CartPage() {
 
     return (
         <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 sm:pt-48 md:pt-40 pb-16 min-h-screen">
-            <h1 className="text-4xl font-bold mb-10">Кошик</h1>
+            <h1 className="text-4xl font-bold uppercase tracking-wider mb-10 text-gray-900">Кошик</h1>
 
             <div className="bg-white border border-gray-100 shadow-sm rounded-3xl p-6 sm:p-10">
                 <div className="space-y-6 mb-10">
@@ -422,10 +422,10 @@ export default function CartPage() {
                     <button
                         onClick={handleCheckout}
                         disabled={loading || !isAgeConfirmed}
-                        className={`px-10 py-4 rounded-xl font-bold text-lg transition w-full sm:w-auto shadow-lg ${
+                        className={`px-10 py-4 rounded-xl font-bold uppercase tracking-wider text-lg transition w-full sm:w-auto shadow-lg ${
                             loading || !isAgeConfirmed
                                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                                : "bg-black text-white hover:bg-gray-800"
+                                : "bg-gradient-to-r from-bordeaux-900 to-bordeaux-800 text-white hover:from-bordeaux-800 hover:to-bordeaux-700"
                         }`}
                     >
                         {loading ? "Формуємо платіж..." : "Оформити замовлення"}

@@ -19,7 +19,7 @@ export default async function WinesCatalogPage() {
 
     return (
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 sm:pt-48 md:pt-40 pb-16 min-h-screen">
-            <h1 className="text-4xl font-bold mb-10 text-gray-900 flex items-center gap-3">
+            <h1 className="text-4xl font-bold uppercase tracking-wider mb-10 text-gray-900 flex items-center gap-3">
                 <span className="w-2 h-9 bg-gradient-to-b from-bordeaux-700 to-bordeaux-900 rounded-full inline-block"></span>
                 Каталог Вин
             </h1>

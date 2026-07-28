@@ -52,7 +52,7 @@ export default function Header() {
         <header
             className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
                 isHeroHeader
-                    ? `bg-gradient-to-b from-black/90 via-black/40 to-transparent text-white ${
+                    ? `bg-gradient-to-b from-bordeaux-990/95 via-bordeaux-990/60 to-transparent text-white ${
                         isScrolled ? "py-2 md:py-3" : "py-4 md:py-6"
                       }`
                     : `bg-white text-gray-900 shadow-md ${

@@ -12,9 +12,9 @@ export default async function ContactPage() {
     const settings = await getContactSettings();
 
     return (
-        <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)] flex flex-col">
+        <div className="min-h-screen bg-white text-black font-sans flex flex-col">
             <main className="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 sm:pt-48 md:pt-40 pb-16 sm:pb-24 w-full">
-                <h1 className="text-4xl font-bold mb-12">Контактна інформація</h1>
+                <h1 className="text-4xl font-bold uppercase tracking-wider mb-12 text-gray-900">Контактна інформація</h1>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
@@ -23,7 +23,7 @@ export default async function ContactPage() {
 
                         {/* Зв'язок */}
                         <div className="space-y-4">
-                            <h2 className="text-xl font-semibold border-b border-gray-100 pb-2">Зв&apos;язок з нами</h2>
+                            <h2 className="text-xl font-bold uppercase tracking-wider border-b border-gray-100 pb-2 text-gray-900">Зв&apos;язок з нами</h2>
 
                             <div className="flex items-center gap-3">
                                 <span className="text-gray-400">📞</span>
@@ -73,7 +73,7 @@ export default async function ContactPage() {
 
                         {/* Адреса та Графік */}
                         <div className="space-y-4">
-                            <h2 className="text-xl font-semibold border-b border-gray-100 pb-2">Адреса та графік</h2>
+                            <h2 className="text-xl font-bold uppercase tracking-wider border-b border-gray-100 pb-2 text-gray-900">Адреса та графік</h2>
 
                             <div>
                                 <span className="block text-sm text-gray-500 mb-1">Адреса</span>

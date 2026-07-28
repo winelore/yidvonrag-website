@@ -3,7 +3,7 @@ import Footer from "@/app/components/Footer";
 
 export default function PublicOfferPage() {
     return (
-        <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)]">
+        <div className="min-h-screen bg-white text-black font-sans">
 
             {/* Main structural container for extensive legal agreements */}
             <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 sm:pt-48 md:pt-40 pb-16 sm:pb-20">
@@ -11,13 +11,13 @@ export default function PublicOfferPage() {
                 {/* Back navigation anchor */}
                 <Link
                     href="/"
-                    className="inline-flex items-center gap-2 mb-10 text-sm font-medium text-gray-500 hover:text-black transition-colors"
+                    className="inline-flex items-center gap-2 mb-10 text-sm font-medium text-gray-500 hover:text-bordeaux-800 transition-colors"
                 >
                     &larr; Повернутися на головну
                 </Link>
 
                 {/* Main document metadata */}
-                <h1 className="text-3xl sm:text-5xl font-bold mb-4 tracking-tight">
+                <h1 className="text-3xl sm:text-5xl font-bold uppercase tracking-wider mb-4 text-gray-900">
                     Договір публічної оферти
                 </h1>
                 <p className="text-sm text-gray-400 mb-10">

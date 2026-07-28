@@ -29,9 +29,9 @@ export default async function Home() {
     });
 
     return (
-        <div className="min-h-screen font-[family-name:var(--font-geist-sans)] flex flex-col bg-white text-gray-900">
+        <div className="min-h-screen font-sans flex flex-col bg-white text-gray-900">
             {/* Hero Section */}
-            <section id="hero-section" className="relative w-full min-h-[80vh] min-h-[650px] sm:min-h-[750px] lg:min-h-[850px] flex items-center justify-center overflow-hidden bg-black text-white">
+            <section id="hero-section" className="relative w-full min-h-[80vh] min-h-[650px] sm:min-h-[750px] lg:min-h-[850px] flex items-center justify-center overflow-hidden bg-bordeaux-990 text-white">
                 {/* Background Image with Dark Overlay Gradient */}
                 <Image
                     src="/hero-bg.jpg"
@@ -42,15 +42,15 @@ export default async function Home() {
                     className="object-cover object-center opacity-65 scale-105 transition-transform duration-1000"
                 />
                 {/* Gradient Overlays for smooth readability & luxury bordeaux atmosphere */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-bordeaux-950/40 to-black/40" />
+                <div className="absolute inset-0 bg-gradient-to-t from-bordeaux-990/98 via-bordeaux-950/50 to-bordeaux-990/40" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-bordeaux-900/30 via-transparent to-transparent pointer-events-none" />
 
                 {/* Hero Content */}
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 sm:pt-44 md:pt-48 pb-24 sm:pb-32 flex flex-col items-center text-center">
-                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-bordeaux-950/80 backdrop-blur-md border border-bordeaux-700/50 text-xs font-semibold text-bordeaux-200 mb-6 shadow-lg shadow-bordeaux-950/50">
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-bordeaux-950/80 backdrop-blur-md border border-bordeaux-700/50 text-xs font-semibold text-bordeaux-200 mb-6 shadow-lg shadow-bordeaux-950/50 uppercase tracking-widest">
                         🍷 Крафтова виноробня ВМ Штифко
                     </span>
-                    <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6 max-w-5xl drop-shadow-md leading-tight">
+                    <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-wider text-white mb-6 max-w-5xl drop-shadow-md leading-tight">
                         Ексклюзивна колекція вин
                     </h1>
                     <p className="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl leading-relaxed drop-shadow">

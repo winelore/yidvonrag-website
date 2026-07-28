@@ -28,15 +28,15 @@ export default function AgeGate() {
     }
 
     return (
-        // Обертка на весь екран з напівпрозорим чорним фоном і розмиттям (z-50 щоб бути поверх усього)
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+        // Обертка на весь екран з напівпрозорим бордовим фоном і розмиттям (z-50 щоб бути поверх усього)
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-bordeaux-990/85 backdrop-blur-md px-4">
 
             {/* Саме віконце */}
             <div className="bg-white p-8 rounded-3xl shadow-2xl max-w-lg w-full text-center border border-bordeaux-100 relative overflow-hidden">
                 <div className="w-12 h-12 rounded-full bg-bordeaux-50 border border-bordeaux-200 text-bordeaux-900 flex items-center justify-center mx-auto mb-4 text-xl shadow-inner">
                     🍷
                 </div>
-                <h2 className="text-2xl font-bold mb-4 text-bordeaux-950">Вам вже виповнилося 18 років?</h2>
+                <h2 className="text-2xl font-bold uppercase tracking-wider mb-4 text-bordeaux-950">Вам вже виповнилося 18 років?</h2>
 
                 <p className="text-gray-600 text-base mb-8 leading-relaxed">
                     Цей сайт містить інформацію про алкогольні напої. Щоб продовжити, ви повинні підтвердити свій вік.

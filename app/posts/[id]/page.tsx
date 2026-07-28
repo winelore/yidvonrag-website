@@ -19,15 +19,15 @@ export default async function PostPage({ params }: { params: { id: string } }) {
     }
 
     return (
-        <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)]">
+        <div className="min-h-screen bg-white text-black font-sans">
             <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 sm:pt-48 md:pt-40 pb-16">
 
-                <Link href="/" className="text-blue-600 hover:underline text-sm font-medium mb-8 inline-block">
+                <Link href="/" className="text-bordeaux-800 hover:text-bordeaux-950 hover:underline text-sm font-medium mb-8 inline-block">
                     ← Повернутися на головну
                 </Link>
 
                 <article>
-                    <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+                    <h1 className="text-4xl font-bold uppercase tracking-wider mb-4">{post.title}</h1>
                     <div className="text-sm text-gray-500 mb-10 pb-10 border-b border-black/[0.08]">
                         Опубліковано: {new Date(post.createdAt).toLocaleDateString('uk-UA')}
                     </div>
