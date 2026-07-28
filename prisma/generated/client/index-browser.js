@@ -134,6 +134,16 @@ exports.Prisma.WineScalarFieldEnum = {
   price: 'price'
 };
 
+exports.Prisma.AwardScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  year: 'year',
+  image: 'image',
+  wineId: 'wineId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.ContactSettingsScalarFieldEnum = {
   id: 'id',
   phone: 'phone',
@@ -215,6 +225,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   Wine: 'Wine',
+  Award: 'Award',
   ContactSettings: 'ContactSettings',
   User: 'User',
   Post: 'Post',

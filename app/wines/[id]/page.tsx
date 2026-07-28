@@ -8,6 +8,7 @@ import MonoPayButton from "@/app/components/MonoPayButton";
 
 import ImageCarousel from "@/app/components/ImageCarousel";
 import RecentBeverageTracker from "@/app/components/RecentBeverageTracker";
+import { BeverageAwardsSection, BeverageBadgePill } from "@/app/components/BeverageAwards";
 
 export default async function WineDetailsPage({ params }: { params: { id: string } }) {
     const wine = await prisma.wine.findUnique({
@@ -16,6 +17,9 @@ export default async function WineDetailsPage({ params }: { params: { id: string
             reviews: {
                 where: { isApproved: true },
                 orderBy: { createdAt: 'desc' }
+            },
+            awards: {
+                orderBy: { createdAt: 'asc' }
             }
         }
     });
@@ -36,6 +40,11 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                 {/* Header: Name and Status */}
                 <header className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-gray-100 pb-8 mt-6">
                     <div className="flex-1">
+                        {wine.awards && wine.awards.length > 0 && (
+                            <div className="mb-3">
+                                <BeverageBadgePill awards={wine.awards} />
+                            </div>
+                        )}
                         <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">
                             {wine.name}
                         </h1>
@@ -78,6 +87,9 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                         <ImageCarousel images={wine.images} alt={wine.name} containerClassName="h-[400px] sm:h-[600px] w-full" />
                     </section>
                 )}
+
+                {/* Beverage Awards & Badges Section */}
+                <BeverageAwardsSection awards={wine.awards} />
 
                 {/* Markdown Description */}
                 <section className="prose prose-lg prose-gray max-w-none">

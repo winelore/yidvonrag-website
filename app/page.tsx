@@ -4,6 +4,7 @@ import Link from "next/link";
 import AddToCartButton from "@/app/components/AddToCartButton";
 import InCartBadge from "@/app/components/InCartBadge";
 import Footer from "@/app/components/Footer";
+import { BeverageBadgePill } from "@/app/components/BeverageAwards";
 
 export default async function Home() {
     // Міняємо updatedAt на id, бо updatedAt поки немає в схемі
@@ -14,6 +15,9 @@ export default async function Home() {
         include: {
             reviews: {
                 where: { isApproved: true }
+            },
+            awards: {
+                orderBy: { createdAt: 'asc' }
             }
         }
     });
@@ -120,6 +124,11 @@ export default async function Home() {
                                             )}
                                         </div>
                                         <div className="flex-grow px-5 pt-5 pb-3">
+                                            {wine.awards && wine.awards.length > 0 && (
+                                                <div className="mb-2">
+                                                    <BeverageBadgePill awards={wine.awards} />
+                                                </div>
+                                            )}
                                             <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-blue-600 transition-colors">{wine.name}</h3>
 
                                             {avgRating ? (

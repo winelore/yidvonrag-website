@@ -7,9 +7,12 @@ import {FormSubmitButton} from '../../components/FormSubmitButton'
 import {AdminForm} from '../../components/AdminForm'
 import DeleteWineButton from '../DeleteWineButton'
 
+import {AwardsManager} from '../AwardsManager'
+
 export default async function EditWinePage({params}: { params: { id: string } }) {
     const wine = await prisma.wine.findUnique({
-        where: {id: params.id}
+        where: {id: params.id},
+        include: { awards: true }
     })
 
     if (!wine) {
@@ -17,6 +20,15 @@ export default async function EditWinePage({params}: { params: { id: string } })
     }
 
     const updateWineWithId = updateWineAction.bind(null, wine.id)
+
+    const initialAwards = (wine.awards || []).map(a => ({
+        id: a.id,
+        title: a.title,
+        year: a.year || undefined,
+        description: a.description || undefined,
+        image: a.image?.startsWith('preset:') ? undefined : (a.image || undefined),
+        presetIcon: a.image?.startsWith('preset:') ? a.image.replace('preset:', '') : undefined,
+    }))
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-black px-4 sm:px-8 pt-56 sm:pt-48 md:pt-40 pb-20 font-[family-name:var(--font-geist-sans)]">
@@ -145,6 +157,11 @@ export default async function EditWinePage({params}: { params: { id: string } })
                             />
                             <label htmlFor="inStock" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">В
                                 наявності</label>
+                        </div>
+
+                        <div className="border-t border-gray-200 dark:border-zinc-800 pt-6 flex flex-col gap-4 mt-6">
+                            <h2 className="text-sm font-medium text-gray-900 dark:text-white">Нагороди та бейджі напою</h2>
+                            <AwardsManager initialAwards={initialAwards} />
                         </div>
 
                         <div className="border-t border-gray-200 dark:border-zinc-800 pt-6 flex flex-col gap-4 mt-6">

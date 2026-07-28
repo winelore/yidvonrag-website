@@ -3,13 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "@/app/components/AddToCartButton";
 import InCartBadge from "@/app/components/InCartBadge";
+import { BeverageBadgePill } from "@/app/components/BeverageAwards";
 
 export const dynamic = "force-dynamic";
 
 export default async function WinesCatalogPage() {
     const wines = await prisma.wine.findMany({
         where: { inStock: true },
-        include: { reviews: { where: { isApproved: true } } },
+        include: {
+            reviews: { where: { isApproved: true } },
+            awards: { orderBy: { createdAt: 'asc' } }
+        },
         orderBy: { name: 'asc' }
     });
 
@@ -35,6 +39,11 @@ export default async function WinesCatalogPage() {
                                     )}
                                 </div>
                                 <div className="flex-grow px-4 pt-4 pb-2">
+                                    {wine.awards && wine.awards.length > 0 && (
+                                        <div className="mb-2">
+                                            <BeverageBadgePill awards={wine.awards} />
+                                        </div>
+                                    )}
                                     <h3 className="font-semibold text-lg text-black line-clamp-1">{wine.name}</h3>
                                     {avgRating ? (
                                         <div className="flex items-center gap-1 mt-1 text-sm">

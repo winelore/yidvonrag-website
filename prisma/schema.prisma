@@ -21,8 +21,20 @@ model Wine {
   inStock    Boolean     @default(true)
   images     String[]    @default([])
   reviews    Review[]
+  awards     Award[]
   price      Float       @default(0)
   orderItems OrderItem[]
+}
+
+model Award {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  year        String?
+  image       String?
+  wineId      String
+  wine        Wine     @relation(fields: [wineId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
 }
 
 model ContactSettings {

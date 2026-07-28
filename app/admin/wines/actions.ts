@@ -5,8 +5,63 @@ import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { put, del } from '@vercel/blob'
 
-const BLOB_TOKEN = 'vercel_blob_rw_xqtNsojIRblvwdXW_ltX0i9Q0dYouL83aEKv9gRZGur2yT1';
+const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN || 'vercel_blob_rw_xqtNsojIRblvwdXW_ltX0i9Q0dYouL83aEKv9gRZGur2yT1';
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+
+async function processAwardsPayload(formData: FormData) {
+  const awardsDataStr = formData.get('awardsData') as string | null;
+  if (!awardsDataStr || !awardsDataStr.trim()) return [];
+
+  try {
+    const parsedAwards = JSON.parse(awardsDataStr) as Array<{
+      id: string;
+      title: string;
+      year?: string;
+      description?: string;
+      image?: string;
+      presetIcon?: string;
+      hasNewFile?: boolean;
+    }>;
+
+    const awardsToCreate = [];
+
+    for (const award of parsedAwards) {
+      let awardImageUrl: string | undefined = undefined;
+
+      if (award.hasNewFile) {
+        const file = formData.get(`awardFile_${award.id}`) as File | null;
+        if (file && file.size > 0) {
+          if (file.size > MAX_FILE_SIZE) {
+            console.error(`Файл бейджа ${file.name} занадто великий.`);
+            continue;
+          }
+          const blob = await put(file.name, file, {
+            access: 'public',
+            token: BLOB_TOKEN,
+            addRandomSuffix: true,
+          });
+          awardImageUrl = blob.url;
+        }
+      } else if (award.image) {
+        awardImageUrl = award.image;
+      } else if (award.presetIcon) {
+        awardImageUrl = `preset:${award.presetIcon}`;
+      }
+
+      awardsToCreate.push({
+        title: award.title,
+        year: award.year || null,
+        description: award.description || null,
+        image: awardImageUrl || null,
+      });
+    }
+
+    return awardsToCreate;
+  } catch (e) {
+    console.error("Помилка обробки нагород:", e);
+    return null;
+  }
+}
 
 export async function submitNewWineAction(formData: FormData) {
     const name = formData.get('name') as string
@@ -44,6 +99,8 @@ export async function submitNewWineAction(formData: FormData) {
         }
     }
 
+    const awardsToCreate = await processAwardsPayload(formData);
+
     // Створюємо запис у базі тільки тоді, коли є всі дані
     await prisma.wine.create({
         data: {
@@ -56,7 +113,8 @@ export async function submitNewWineAction(formData: FormData) {
             grapeVariety,
             price,
             inStock,
-            images: finalImages
+            images: finalImages,
+            awards: (awardsToCreate && awardsToCreate.length > 0) ? { create: awardsToCreate } : undefined
         }
     })
 
@@ -110,9 +168,13 @@ export async function updateWineAction(id: string, formData: FormData) {
       finalImages = oldWine?.images || [];
     }
   } else {
-    // Якщо прийшов порожній список, і ми впевнені, що це не видалення всього — 
-    // краще залишити старі картинки, щоб вино не «голіло».
     finalImages = oldWine?.images || [];
+  }
+
+  const awardsToCreate = await processAwardsPayload(formData);
+
+  if (awardsToCreate !== null) {
+    await prisma.award.deleteMany({ where: { wineId: id } });
   }
 
   await prisma.wine.update({
@@ -127,7 +189,8 @@ export async function updateWineAction(id: string, formData: FormData) {
       grapeVariety,
       price,
       inStock,
-      images: finalImages
+      images: finalImages,
+      awards: (awardsToCreate && awardsToCreate.length > 0) ? { create: awardsToCreate } : undefined
     }
   })
 

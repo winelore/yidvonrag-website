@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Wine = $Result.DefaultSelection<Prisma.$WinePayload>
 /**
+ * Model Award
+ * 
+ */
+export type Award = $Result.DefaultSelection<Prisma.$AwardPayload>
+/**
  * Model ContactSettings
  * 
  */
@@ -184,6 +189,16 @@ export class PrismaClient<
     * ```
     */
   get wine(): Prisma.WineDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.award`: Exposes CRUD operations for the **Award** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Awards
+    * const awards = await prisma.award.findMany()
+    * ```
+    */
+  get award(): Prisma.AwardDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.contactSettings`: Exposes CRUD operations for the **ContactSettings** model.
@@ -689,6 +704,7 @@ export namespace Prisma {
 
   export const ModelName: {
     Wine: 'Wine',
+    Award: 'Award',
     ContactSettings: 'ContactSettings',
     User: 'User',
     Post: 'Post',
@@ -711,7 +727,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "wine" | "contactSettings" | "user" | "post" | "review" | "about" | "order" | "orderItem"
+      modelProps: "wine" | "award" | "contactSettings" | "user" | "post" | "review" | "about" | "order" | "orderItem"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -786,6 +802,80 @@ export namespace Prisma {
           count: {
             args: Prisma.WineCountArgs<ExtArgs>
             result: $Utils.Optional<WineCountAggregateOutputType> | number
+          }
+        }
+      }
+      Award: {
+        payload: Prisma.$AwardPayload<ExtArgs>
+        fields: Prisma.AwardFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AwardFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AwardPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AwardFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AwardPayload>
+          }
+          findFirst: {
+            args: Prisma.AwardFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AwardPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AwardFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AwardPayload>
+          }
+          findMany: {
+            args: Prisma.AwardFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AwardPayload>[]
+          }
+          create: {
+            args: Prisma.AwardCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AwardPayload>
+          }
+          createMany: {
+            args: Prisma.AwardCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AwardCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AwardPayload>[]
+          }
+          delete: {
+            args: Prisma.AwardDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AwardPayload>
+          }
+          update: {
+            args: Prisma.AwardUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AwardPayload>
+          }
+          deleteMany: {
+            args: Prisma.AwardDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AwardUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AwardUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AwardPayload>[]
+          }
+          upsert: {
+            args: Prisma.AwardUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AwardPayload>
+          }
+          aggregate: {
+            args: Prisma.AwardAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAward>
+          }
+          groupBy: {
+            args: Prisma.AwardGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AwardGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AwardCountArgs<ExtArgs>
+            result: $Utils.Optional<AwardCountAggregateOutputType> | number
           }
         }
       }
@@ -1416,6 +1506,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     wine?: WineOmit
+    award?: AwardOmit
     contactSettings?: ContactSettingsOmit
     user?: UserOmit
     post?: PostOmit
@@ -1504,11 +1595,13 @@ export namespace Prisma {
 
   export type WineCountOutputType = {
     reviews: number
+    awards: number
     orderItems: number
   }
 
   export type WineCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviews?: boolean | WineCountOutputTypeCountReviewsArgs
+    awards?: boolean | WineCountOutputTypeCountAwardsArgs
     orderItems?: boolean | WineCountOutputTypeCountOrderItemsArgs
   }
 
@@ -1528,6 +1621,13 @@ export namespace Prisma {
    */
   export type WineCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ReviewWhereInput
+  }
+
+  /**
+   * WineCountOutputType without action
+   */
+  export type WineCountOutputTypeCountAwardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AwardWhereInput
   }
 
   /**
@@ -1820,6 +1920,7 @@ export namespace Prisma {
     images?: boolean
     price?: boolean
     reviews?: boolean | Wine$reviewsArgs<ExtArgs>
+    awards?: boolean | Wine$awardsArgs<ExtArgs>
     orderItems?: boolean | Wine$orderItemsArgs<ExtArgs>
     _count?: boolean | WineCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["wine"]>
@@ -1869,6 +1970,7 @@ export namespace Prisma {
   export type WineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "color" | "sweetness" | "volume" | "alcohol" | "grapeVariety" | "inStock" | "images" | "price", ExtArgs["result"]["wine"]>
   export type WineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviews?: boolean | Wine$reviewsArgs<ExtArgs>
+    awards?: boolean | Wine$awardsArgs<ExtArgs>
     orderItems?: boolean | Wine$orderItemsArgs<ExtArgs>
     _count?: boolean | WineCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -1879,6 +1981,7 @@ export namespace Prisma {
     name: "Wine"
     objects: {
       reviews: Prisma.$ReviewPayload<ExtArgs>[]
+      awards: Prisma.$AwardPayload<ExtArgs>[]
       orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2288,6 +2391,7 @@ export namespace Prisma {
   export interface Prisma__WineClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     reviews<T extends Wine$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, Wine$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    awards<T extends Wine$awardsArgs<ExtArgs> = {}>(args?: Subset<T, Wine$awardsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AwardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     orderItems<T extends Wine$orderItemsArgs<ExtArgs> = {}>(args?: Subset<T, Wine$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2746,6 +2850,30 @@ export namespace Prisma {
   }
 
   /**
+   * Wine.awards
+   */
+  export type Wine$awardsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Award
+     */
+    select?: AwardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Award
+     */
+    omit?: AwardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AwardInclude<ExtArgs> | null
+    where?: AwardWhereInput
+    orderBy?: AwardOrderByWithRelationInput | AwardOrderByWithRelationInput[]
+    cursor?: AwardWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AwardScalarFieldEnum | AwardScalarFieldEnum[]
+  }
+
+  /**
    * Wine.orderItems
    */
   export type Wine$orderItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2785,6 +2913,1095 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: WineInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Award
+   */
+
+  export type AggregateAward = {
+    _count: AwardCountAggregateOutputType | null
+    _min: AwardMinAggregateOutputType | null
+    _max: AwardMaxAggregateOutputType | null
+  }
+
+  export type AwardMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    year: string | null
+    image: string | null
+    wineId: string | null
+    createdAt: Date | null
+  }
+
+  export type AwardMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    year: string | null
+    image: string | null
+    wineId: string | null
+    createdAt: Date | null
+  }
+
+  export type AwardCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    year: number
+    image: number
+    wineId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AwardMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    year?: true
+    image?: true
+    wineId?: true
+    createdAt?: true
+  }
+
+  export type AwardMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    year?: true
+    image?: true
+    wineId?: true
+    createdAt?: true
+  }
+
+  export type AwardCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    year?: true
+    image?: true
+    wineId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AwardAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Award to aggregate.
+     */
+    where?: AwardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Awards to fetch.
+     */
+    orderBy?: AwardOrderByWithRelationInput | AwardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AwardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Awards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Awards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Awards
+    **/
+    _count?: true | AwardCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AwardMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AwardMaxAggregateInputType
+  }
+
+  export type GetAwardAggregateType<T extends AwardAggregateArgs> = {
+        [P in keyof T & keyof AggregateAward]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAward[P]>
+      : GetScalarType<T[P], AggregateAward[P]>
+  }
+
+
+
+
+  export type AwardGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AwardWhereInput
+    orderBy?: AwardOrderByWithAggregationInput | AwardOrderByWithAggregationInput[]
+    by: AwardScalarFieldEnum[] | AwardScalarFieldEnum
+    having?: AwardScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AwardCountAggregateInputType | true
+    _min?: AwardMinAggregateInputType
+    _max?: AwardMaxAggregateInputType
+  }
+
+  export type AwardGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    year: string | null
+    image: string | null
+    wineId: string
+    createdAt: Date
+    _count: AwardCountAggregateOutputType | null
+    _min: AwardMinAggregateOutputType | null
+    _max: AwardMaxAggregateOutputType | null
+  }
+
+  type GetAwardGroupByPayload<T extends AwardGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AwardGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AwardGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AwardGroupByOutputType[P]>
+            : GetScalarType<T[P], AwardGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AwardSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    year?: boolean
+    image?: boolean
+    wineId?: boolean
+    createdAt?: boolean
+    wine?: boolean | WineDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["award"]>
+
+  export type AwardSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    year?: boolean
+    image?: boolean
+    wineId?: boolean
+    createdAt?: boolean
+    wine?: boolean | WineDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["award"]>
+
+  export type AwardSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    year?: boolean
+    image?: boolean
+    wineId?: boolean
+    createdAt?: boolean
+    wine?: boolean | WineDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["award"]>
+
+  export type AwardSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    year?: boolean
+    image?: boolean
+    wineId?: boolean
+    createdAt?: boolean
+  }
+
+  export type AwardOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "year" | "image" | "wineId" | "createdAt", ExtArgs["result"]["award"]>
+  export type AwardInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    wine?: boolean | WineDefaultArgs<ExtArgs>
+  }
+  export type AwardIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    wine?: boolean | WineDefaultArgs<ExtArgs>
+  }
+  export type AwardIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    wine?: boolean | WineDefaultArgs<ExtArgs>
+  }
+
+  export type $AwardPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Award"
+    objects: {
+      wine: Prisma.$WinePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      year: string | null
+      image: string | null
+      wineId: string
+      createdAt: Date
+    }, ExtArgs["result"]["award"]>
+    composites: {}
+  }
+
+  type AwardGetPayload<S extends boolean | null | undefined | AwardDefaultArgs> = $Result.GetResult<Prisma.$AwardPayload, S>
+
+  type AwardCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AwardFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AwardCountAggregateInputType | true
+    }
+
+  export interface AwardDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Award'], meta: { name: 'Award' } }
+    /**
+     * Find zero or one Award that matches the filter.
+     * @param {AwardFindUniqueArgs} args - Arguments to find a Award
+     * @example
+     * // Get one Award
+     * const award = await prisma.award.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AwardFindUniqueArgs>(args: SelectSubset<T, AwardFindUniqueArgs<ExtArgs>>): Prisma__AwardClient<$Result.GetResult<Prisma.$AwardPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Award that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AwardFindUniqueOrThrowArgs} args - Arguments to find a Award
+     * @example
+     * // Get one Award
+     * const award = await prisma.award.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AwardFindUniqueOrThrowArgs>(args: SelectSubset<T, AwardFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AwardClient<$Result.GetResult<Prisma.$AwardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Award that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AwardFindFirstArgs} args - Arguments to find a Award
+     * @example
+     * // Get one Award
+     * const award = await prisma.award.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AwardFindFirstArgs>(args?: SelectSubset<T, AwardFindFirstArgs<ExtArgs>>): Prisma__AwardClient<$Result.GetResult<Prisma.$AwardPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Award that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AwardFindFirstOrThrowArgs} args - Arguments to find a Award
+     * @example
+     * // Get one Award
+     * const award = await prisma.award.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AwardFindFirstOrThrowArgs>(args?: SelectSubset<T, AwardFindFirstOrThrowArgs<ExtArgs>>): Prisma__AwardClient<$Result.GetResult<Prisma.$AwardPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Awards that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AwardFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Awards
+     * const awards = await prisma.award.findMany()
+     * 
+     * // Get first 10 Awards
+     * const awards = await prisma.award.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const awardWithIdOnly = await prisma.award.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AwardFindManyArgs>(args?: SelectSubset<T, AwardFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AwardPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Award.
+     * @param {AwardCreateArgs} args - Arguments to create a Award.
+     * @example
+     * // Create one Award
+     * const Award = await prisma.award.create({
+     *   data: {
+     *     // ... data to create a Award
+     *   }
+     * })
+     * 
+     */
+    create<T extends AwardCreateArgs>(args: SelectSubset<T, AwardCreateArgs<ExtArgs>>): Prisma__AwardClient<$Result.GetResult<Prisma.$AwardPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Awards.
+     * @param {AwardCreateManyArgs} args - Arguments to create many Awards.
+     * @example
+     * // Create many Awards
+     * const award = await prisma.award.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AwardCreateManyArgs>(args?: SelectSubset<T, AwardCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Awards and returns the data saved in the database.
+     * @param {AwardCreateManyAndReturnArgs} args - Arguments to create many Awards.
+     * @example
+     * // Create many Awards
+     * const award = await prisma.award.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Awards and only return the `id`
+     * const awardWithIdOnly = await prisma.award.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AwardCreateManyAndReturnArgs>(args?: SelectSubset<T, AwardCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AwardPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Award.
+     * @param {AwardDeleteArgs} args - Arguments to delete one Award.
+     * @example
+     * // Delete one Award
+     * const Award = await prisma.award.delete({
+     *   where: {
+     *     // ... filter to delete one Award
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AwardDeleteArgs>(args: SelectSubset<T, AwardDeleteArgs<ExtArgs>>): Prisma__AwardClient<$Result.GetResult<Prisma.$AwardPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Award.
+     * @param {AwardUpdateArgs} args - Arguments to update one Award.
+     * @example
+     * // Update one Award
+     * const award = await prisma.award.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AwardUpdateArgs>(args: SelectSubset<T, AwardUpdateArgs<ExtArgs>>): Prisma__AwardClient<$Result.GetResult<Prisma.$AwardPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Awards.
+     * @param {AwardDeleteManyArgs} args - Arguments to filter Awards to delete.
+     * @example
+     * // Delete a few Awards
+     * const { count } = await prisma.award.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AwardDeleteManyArgs>(args?: SelectSubset<T, AwardDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Awards.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AwardUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Awards
+     * const award = await prisma.award.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AwardUpdateManyArgs>(args: SelectSubset<T, AwardUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Awards and returns the data updated in the database.
+     * @param {AwardUpdateManyAndReturnArgs} args - Arguments to update many Awards.
+     * @example
+     * // Update many Awards
+     * const award = await prisma.award.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Awards and only return the `id`
+     * const awardWithIdOnly = await prisma.award.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AwardUpdateManyAndReturnArgs>(args: SelectSubset<T, AwardUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AwardPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Award.
+     * @param {AwardUpsertArgs} args - Arguments to update or create a Award.
+     * @example
+     * // Update or create a Award
+     * const award = await prisma.award.upsert({
+     *   create: {
+     *     // ... data to create a Award
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Award we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AwardUpsertArgs>(args: SelectSubset<T, AwardUpsertArgs<ExtArgs>>): Prisma__AwardClient<$Result.GetResult<Prisma.$AwardPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Awards.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AwardCountArgs} args - Arguments to filter Awards to count.
+     * @example
+     * // Count the number of Awards
+     * const count = await prisma.award.count({
+     *   where: {
+     *     // ... the filter for the Awards we want to count
+     *   }
+     * })
+    **/
+    count<T extends AwardCountArgs>(
+      args?: Subset<T, AwardCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AwardCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Award.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AwardAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AwardAggregateArgs>(args: Subset<T, AwardAggregateArgs>): Prisma.PrismaPromise<GetAwardAggregateType<T>>
+
+    /**
+     * Group by Award.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AwardGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AwardGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AwardGroupByArgs['orderBy'] }
+        : { orderBy?: AwardGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AwardGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAwardGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Award model
+   */
+  readonly fields: AwardFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Award.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AwardClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    wine<T extends WineDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WineDefaultArgs<ExtArgs>>): Prisma__WineClient<$Result.GetResult<Prisma.$WinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Award model
+   */
+  interface AwardFieldRefs {
+    readonly id: FieldRef<"Award", 'String'>
+    readonly title: FieldRef<"Award", 'String'>
+    readonly description: FieldRef<"Award", 'String'>
+    readonly year: FieldRef<"Award", 'String'>
+    readonly image: FieldRef<"Award", 'String'>
+    readonly wineId: FieldRef<"Award", 'String'>
+    readonly createdAt: FieldRef<"Award", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Award findUnique
+   */
+  export type AwardFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Award
+     */
+    select?: AwardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Award
+     */
+    omit?: AwardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AwardInclude<ExtArgs> | null
+    /**
+     * Filter, which Award to fetch.
+     */
+    where: AwardWhereUniqueInput
+  }
+
+  /**
+   * Award findUniqueOrThrow
+   */
+  export type AwardFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Award
+     */
+    select?: AwardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Award
+     */
+    omit?: AwardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AwardInclude<ExtArgs> | null
+    /**
+     * Filter, which Award to fetch.
+     */
+    where: AwardWhereUniqueInput
+  }
+
+  /**
+   * Award findFirst
+   */
+  export type AwardFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Award
+     */
+    select?: AwardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Award
+     */
+    omit?: AwardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AwardInclude<ExtArgs> | null
+    /**
+     * Filter, which Award to fetch.
+     */
+    where?: AwardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Awards to fetch.
+     */
+    orderBy?: AwardOrderByWithRelationInput | AwardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Awards.
+     */
+    cursor?: AwardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Awards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Awards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Awards.
+     */
+    distinct?: AwardScalarFieldEnum | AwardScalarFieldEnum[]
+  }
+
+  /**
+   * Award findFirstOrThrow
+   */
+  export type AwardFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Award
+     */
+    select?: AwardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Award
+     */
+    omit?: AwardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AwardInclude<ExtArgs> | null
+    /**
+     * Filter, which Award to fetch.
+     */
+    where?: AwardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Awards to fetch.
+     */
+    orderBy?: AwardOrderByWithRelationInput | AwardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Awards.
+     */
+    cursor?: AwardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Awards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Awards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Awards.
+     */
+    distinct?: AwardScalarFieldEnum | AwardScalarFieldEnum[]
+  }
+
+  /**
+   * Award findMany
+   */
+  export type AwardFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Award
+     */
+    select?: AwardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Award
+     */
+    omit?: AwardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AwardInclude<ExtArgs> | null
+    /**
+     * Filter, which Awards to fetch.
+     */
+    where?: AwardWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Awards to fetch.
+     */
+    orderBy?: AwardOrderByWithRelationInput | AwardOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Awards.
+     */
+    cursor?: AwardWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Awards from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Awards.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Awards.
+     */
+    distinct?: AwardScalarFieldEnum | AwardScalarFieldEnum[]
+  }
+
+  /**
+   * Award create
+   */
+  export type AwardCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Award
+     */
+    select?: AwardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Award
+     */
+    omit?: AwardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AwardInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Award.
+     */
+    data: XOR<AwardCreateInput, AwardUncheckedCreateInput>
+  }
+
+  /**
+   * Award createMany
+   */
+  export type AwardCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Awards.
+     */
+    data: AwardCreateManyInput | AwardCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Award createManyAndReturn
+   */
+  export type AwardCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Award
+     */
+    select?: AwardSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Award
+     */
+    omit?: AwardOmit<ExtArgs> | null
+    /**
+     * The data used to create many Awards.
+     */
+    data: AwardCreateManyInput | AwardCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AwardIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Award update
+   */
+  export type AwardUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Award
+     */
+    select?: AwardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Award
+     */
+    omit?: AwardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AwardInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Award.
+     */
+    data: XOR<AwardUpdateInput, AwardUncheckedUpdateInput>
+    /**
+     * Choose, which Award to update.
+     */
+    where: AwardWhereUniqueInput
+  }
+
+  /**
+   * Award updateMany
+   */
+  export type AwardUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Awards.
+     */
+    data: XOR<AwardUpdateManyMutationInput, AwardUncheckedUpdateManyInput>
+    /**
+     * Filter which Awards to update
+     */
+    where?: AwardWhereInput
+    /**
+     * Limit how many Awards to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Award updateManyAndReturn
+   */
+  export type AwardUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Award
+     */
+    select?: AwardSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Award
+     */
+    omit?: AwardOmit<ExtArgs> | null
+    /**
+     * The data used to update Awards.
+     */
+    data: XOR<AwardUpdateManyMutationInput, AwardUncheckedUpdateManyInput>
+    /**
+     * Filter which Awards to update
+     */
+    where?: AwardWhereInput
+    /**
+     * Limit how many Awards to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AwardIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Award upsert
+   */
+  export type AwardUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Award
+     */
+    select?: AwardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Award
+     */
+    omit?: AwardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AwardInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Award to update in case it exists.
+     */
+    where: AwardWhereUniqueInput
+    /**
+     * In case the Award found by the `where` argument doesn't exist, create a new Award with this data.
+     */
+    create: XOR<AwardCreateInput, AwardUncheckedCreateInput>
+    /**
+     * In case the Award was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AwardUpdateInput, AwardUncheckedUpdateInput>
+  }
+
+  /**
+   * Award delete
+   */
+  export type AwardDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Award
+     */
+    select?: AwardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Award
+     */
+    omit?: AwardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AwardInclude<ExtArgs> | null
+    /**
+     * Filter which Award to delete.
+     */
+    where: AwardWhereUniqueInput
+  }
+
+  /**
+   * Award deleteMany
+   */
+  export type AwardDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Awards to delete
+     */
+    where?: AwardWhereInput
+    /**
+     * Limit how many Awards to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Award without action
+   */
+  export type AwardDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Award
+     */
+    select?: AwardSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Award
+     */
+    omit?: AwardOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AwardInclude<ExtArgs> | null
   }
 
 
@@ -10221,6 +11438,19 @@ export namespace Prisma {
   export type WineScalarFieldEnum = (typeof WineScalarFieldEnum)[keyof typeof WineScalarFieldEnum]
 
 
+  export const AwardScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    year: 'year',
+    image: 'image',
+    wineId: 'wineId',
+    createdAt: 'createdAt'
+  };
+
+  export type AwardScalarFieldEnum = (typeof AwardScalarFieldEnum)[keyof typeof AwardScalarFieldEnum]
+
+
   export const ContactSettingsScalarFieldEnum: {
     id: 'id',
     phone: 'phone',
@@ -10416,6 +11646,7 @@ export namespace Prisma {
     images?: StringNullableListFilter<"Wine">
     price?: FloatFilter<"Wine"> | number
     reviews?: ReviewListRelationFilter
+    awards?: AwardListRelationFilter
     orderItems?: OrderItemListRelationFilter
   }
 
@@ -10432,6 +11663,7 @@ export namespace Prisma {
     images?: SortOrder
     price?: SortOrder
     reviews?: ReviewOrderByRelationAggregateInput
+    awards?: AwardOrderByRelationAggregateInput
     orderItems?: OrderItemOrderByRelationAggregateInput
   }
 
@@ -10451,6 +11683,7 @@ export namespace Prisma {
     images?: StringNullableListFilter<"Wine">
     price?: FloatFilter<"Wine"> | number
     reviews?: ReviewListRelationFilter
+    awards?: AwardListRelationFilter
     orderItems?: OrderItemListRelationFilter
   }, "id">
 
@@ -10488,6 +11721,71 @@ export namespace Prisma {
     inStock?: BoolWithAggregatesFilter<"Wine"> | boolean
     images?: StringNullableListFilter<"Wine">
     price?: FloatWithAggregatesFilter<"Wine"> | number
+  }
+
+  export type AwardWhereInput = {
+    AND?: AwardWhereInput | AwardWhereInput[]
+    OR?: AwardWhereInput[]
+    NOT?: AwardWhereInput | AwardWhereInput[]
+    id?: StringFilter<"Award"> | string
+    title?: StringFilter<"Award"> | string
+    description?: StringNullableFilter<"Award"> | string | null
+    year?: StringNullableFilter<"Award"> | string | null
+    image?: StringNullableFilter<"Award"> | string | null
+    wineId?: StringFilter<"Award"> | string
+    createdAt?: DateTimeFilter<"Award"> | Date | string
+    wine?: XOR<WineScalarRelationFilter, WineWhereInput>
+  }
+
+  export type AwardOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    year?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
+    wineId?: SortOrder
+    createdAt?: SortOrder
+    wine?: WineOrderByWithRelationInput
+  }
+
+  export type AwardWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AwardWhereInput | AwardWhereInput[]
+    OR?: AwardWhereInput[]
+    NOT?: AwardWhereInput | AwardWhereInput[]
+    title?: StringFilter<"Award"> | string
+    description?: StringNullableFilter<"Award"> | string | null
+    year?: StringNullableFilter<"Award"> | string | null
+    image?: StringNullableFilter<"Award"> | string | null
+    wineId?: StringFilter<"Award"> | string
+    createdAt?: DateTimeFilter<"Award"> | Date | string
+    wine?: XOR<WineScalarRelationFilter, WineWhereInput>
+  }, "id">
+
+  export type AwardOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    year?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
+    wineId?: SortOrder
+    createdAt?: SortOrder
+    _count?: AwardCountOrderByAggregateInput
+    _max?: AwardMaxOrderByAggregateInput
+    _min?: AwardMinOrderByAggregateInput
+  }
+
+  export type AwardScalarWhereWithAggregatesInput = {
+    AND?: AwardScalarWhereWithAggregatesInput | AwardScalarWhereWithAggregatesInput[]
+    OR?: AwardScalarWhereWithAggregatesInput[]
+    NOT?: AwardScalarWhereWithAggregatesInput | AwardScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Award"> | string
+    title?: StringWithAggregatesFilter<"Award"> | string
+    description?: StringNullableWithAggregatesFilter<"Award"> | string | null
+    year?: StringNullableWithAggregatesFilter<"Award"> | string | null
+    image?: StringNullableWithAggregatesFilter<"Award"> | string | null
+    wineId?: StringWithAggregatesFilter<"Award"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Award"> | Date | string
   }
 
   export type ContactSettingsWhereInput = {
@@ -10920,6 +12218,7 @@ export namespace Prisma {
     images?: WineCreateimagesInput | string[]
     price?: number
     reviews?: ReviewCreateNestedManyWithoutWineInput
+    awards?: AwardCreateNestedManyWithoutWineInput
     orderItems?: OrderItemCreateNestedManyWithoutWineInput
   }
 
@@ -10936,6 +12235,7 @@ export namespace Prisma {
     images?: WineCreateimagesInput | string[]
     price?: number
     reviews?: ReviewUncheckedCreateNestedManyWithoutWineInput
+    awards?: AwardUncheckedCreateNestedManyWithoutWineInput
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutWineInput
   }
 
@@ -10952,6 +12252,7 @@ export namespace Prisma {
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
     reviews?: ReviewUpdateManyWithoutWineNestedInput
+    awards?: AwardUpdateManyWithoutWineNestedInput
     orderItems?: OrderItemUpdateManyWithoutWineNestedInput
   }
 
@@ -10968,6 +12269,7 @@ export namespace Prisma {
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
     reviews?: ReviewUncheckedUpdateManyWithoutWineNestedInput
+    awards?: AwardUncheckedUpdateManyWithoutWineNestedInput
     orderItems?: OrderItemUncheckedUpdateManyWithoutWineNestedInput
   }
 
@@ -11011,6 +12313,75 @@ export namespace Prisma {
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type AwardCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    year?: string | null
+    image?: string | null
+    createdAt?: Date | string
+    wine: WineCreateNestedOneWithoutAwardsInput
+  }
+
+  export type AwardUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    year?: string | null
+    image?: string | null
+    wineId: string
+    createdAt?: Date | string
+  }
+
+  export type AwardUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    wine?: WineUpdateOneRequiredWithoutAwardsNestedInput
+  }
+
+  export type AwardUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    wineId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AwardCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    year?: string | null
+    image?: string | null
+    wineId: string
+    createdAt?: Date | string
+  }
+
+  export type AwardUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AwardUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    wineId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ContactSettingsCreateInput = {
@@ -11500,6 +12871,12 @@ export namespace Prisma {
     none?: ReviewWhereInput
   }
 
+  export type AwardListRelationFilter = {
+    every?: AwardWhereInput
+    some?: AwardWhereInput
+    none?: AwardWhereInput
+  }
+
   export type OrderItemListRelationFilter = {
     every?: OrderItemWhereInput
     some?: OrderItemWhereInput
@@ -11507,6 +12884,10 @@ export namespace Prisma {
   }
 
   export type ReviewOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AwardOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11606,6 +12987,21 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -11615,6 +13011,78 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type WineScalarRelationFilter = {
+    is?: WineWhereInput
+    isNot?: WineWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type AwardCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    year?: SortOrder
+    image?: SortOrder
+    wineId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AwardMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    year?: SortOrder
+    image?: SortOrder
+    wineId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AwardMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    year?: SortOrder
+    image?: SortOrder
+    wineId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type ContactSettingsCountOrderByAggregateInput = {
@@ -11650,40 +13118,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     username?: SortOrder
@@ -11703,24 +13137,6 @@ export namespace Prisma {
     username?: SortOrder
     email?: SortOrder
     password?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type PostCountOrderByAggregateInput = {
@@ -11754,11 +13170,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type WineScalarRelationFilter = {
-    is?: WineWhereInput
-    isNot?: WineWhereInput
   }
 
   export type ReviewCountOrderByAggregateInput = {
@@ -11930,6 +13341,13 @@ export namespace Prisma {
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
   }
 
+  export type AwardCreateNestedManyWithoutWineInput = {
+    create?: XOR<AwardCreateWithoutWineInput, AwardUncheckedCreateWithoutWineInput> | AwardCreateWithoutWineInput[] | AwardUncheckedCreateWithoutWineInput[]
+    connectOrCreate?: AwardCreateOrConnectWithoutWineInput | AwardCreateOrConnectWithoutWineInput[]
+    createMany?: AwardCreateManyWineInputEnvelope
+    connect?: AwardWhereUniqueInput | AwardWhereUniqueInput[]
+  }
+
   export type OrderItemCreateNestedManyWithoutWineInput = {
     create?: XOR<OrderItemCreateWithoutWineInput, OrderItemUncheckedCreateWithoutWineInput> | OrderItemCreateWithoutWineInput[] | OrderItemUncheckedCreateWithoutWineInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutWineInput | OrderItemCreateOrConnectWithoutWineInput[]
@@ -11942,6 +13360,13 @@ export namespace Prisma {
     connectOrCreate?: ReviewCreateOrConnectWithoutWineInput | ReviewCreateOrConnectWithoutWineInput[]
     createMany?: ReviewCreateManyWineInputEnvelope
     connect?: ReviewWhereUniqueInput | ReviewWhereUniqueInput[]
+  }
+
+  export type AwardUncheckedCreateNestedManyWithoutWineInput = {
+    create?: XOR<AwardCreateWithoutWineInput, AwardUncheckedCreateWithoutWineInput> | AwardCreateWithoutWineInput[] | AwardUncheckedCreateWithoutWineInput[]
+    connectOrCreate?: AwardCreateOrConnectWithoutWineInput | AwardCreateOrConnectWithoutWineInput[]
+    createMany?: AwardCreateManyWineInputEnvelope
+    connect?: AwardWhereUniqueInput | AwardWhereUniqueInput[]
   }
 
   export type OrderItemUncheckedCreateNestedManyWithoutWineInput = {
@@ -11986,6 +13411,20 @@ export namespace Prisma {
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
   }
 
+  export type AwardUpdateManyWithoutWineNestedInput = {
+    create?: XOR<AwardCreateWithoutWineInput, AwardUncheckedCreateWithoutWineInput> | AwardCreateWithoutWineInput[] | AwardUncheckedCreateWithoutWineInput[]
+    connectOrCreate?: AwardCreateOrConnectWithoutWineInput | AwardCreateOrConnectWithoutWineInput[]
+    upsert?: AwardUpsertWithWhereUniqueWithoutWineInput | AwardUpsertWithWhereUniqueWithoutWineInput[]
+    createMany?: AwardCreateManyWineInputEnvelope
+    set?: AwardWhereUniqueInput | AwardWhereUniqueInput[]
+    disconnect?: AwardWhereUniqueInput | AwardWhereUniqueInput[]
+    delete?: AwardWhereUniqueInput | AwardWhereUniqueInput[]
+    connect?: AwardWhereUniqueInput | AwardWhereUniqueInput[]
+    update?: AwardUpdateWithWhereUniqueWithoutWineInput | AwardUpdateWithWhereUniqueWithoutWineInput[]
+    updateMany?: AwardUpdateManyWithWhereWithoutWineInput | AwardUpdateManyWithWhereWithoutWineInput[]
+    deleteMany?: AwardScalarWhereInput | AwardScalarWhereInput[]
+  }
+
   export type OrderItemUpdateManyWithoutWineNestedInput = {
     create?: XOR<OrderItemCreateWithoutWineInput, OrderItemUncheckedCreateWithoutWineInput> | OrderItemCreateWithoutWineInput[] | OrderItemUncheckedCreateWithoutWineInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutWineInput | OrderItemCreateOrConnectWithoutWineInput[]
@@ -12014,6 +13453,20 @@ export namespace Prisma {
     deleteMany?: ReviewScalarWhereInput | ReviewScalarWhereInput[]
   }
 
+  export type AwardUncheckedUpdateManyWithoutWineNestedInput = {
+    create?: XOR<AwardCreateWithoutWineInput, AwardUncheckedCreateWithoutWineInput> | AwardCreateWithoutWineInput[] | AwardUncheckedCreateWithoutWineInput[]
+    connectOrCreate?: AwardCreateOrConnectWithoutWineInput | AwardCreateOrConnectWithoutWineInput[]
+    upsert?: AwardUpsertWithWhereUniqueWithoutWineInput | AwardUpsertWithWhereUniqueWithoutWineInput[]
+    createMany?: AwardCreateManyWineInputEnvelope
+    set?: AwardWhereUniqueInput | AwardWhereUniqueInput[]
+    disconnect?: AwardWhereUniqueInput | AwardWhereUniqueInput[]
+    delete?: AwardWhereUniqueInput | AwardWhereUniqueInput[]
+    connect?: AwardWhereUniqueInput | AwardWhereUniqueInput[]
+    update?: AwardUpdateWithWhereUniqueWithoutWineInput | AwardUpdateWithWhereUniqueWithoutWineInput[]
+    updateMany?: AwardUpdateManyWithWhereWithoutWineInput | AwardUpdateManyWithWhereWithoutWineInput[]
+    deleteMany?: AwardScalarWhereInput | AwardScalarWhereInput[]
+  }
+
   export type OrderItemUncheckedUpdateManyWithoutWineNestedInput = {
     create?: XOR<OrderItemCreateWithoutWineInput, OrderItemUncheckedCreateWithoutWineInput> | OrderItemCreateWithoutWineInput[] | OrderItemUncheckedCreateWithoutWineInput[]
     connectOrCreate?: OrderItemCreateOrConnectWithoutWineInput | OrderItemCreateOrConnectWithoutWineInput[]
@@ -12028,12 +13481,26 @@ export namespace Prisma {
     deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type WineCreateNestedOneWithoutAwardsInput = {
+    create?: XOR<WineCreateWithoutAwardsInput, WineUncheckedCreateWithoutAwardsInput>
+    connectOrCreate?: WineCreateOrConnectWithoutAwardsInput
+    connect?: WineWhereUniqueInput
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type WineUpdateOneRequiredWithoutAwardsNestedInput = {
+    create?: XOR<WineCreateWithoutAwardsInput, WineUncheckedCreateWithoutAwardsInput>
+    connectOrCreate?: WineCreateOrConnectWithoutAwardsInput
+    upsert?: WineUpsertWithoutAwardsInput
+    connect?: WineWhereUniqueInput
+    update?: XOR<XOR<WineUpdateToOneWithWhereWithoutAwardsInput, WineUpdateWithoutAwardsInput>, WineUncheckedUpdateWithoutAwardsInput>
   }
 
   export type PostCreateimagesInput = {
@@ -12219,31 +13686,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -12256,6 +13698,17 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -12284,6 +13737,20 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -12327,6 +13794,34 @@ export namespace Prisma {
 
   export type ReviewCreateManyWineInputEnvelope = {
     data: ReviewCreateManyWineInput | ReviewCreateManyWineInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AwardCreateWithoutWineInput = {
+    id?: string
+    title: string
+    description?: string | null
+    year?: string | null
+    image?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AwardUncheckedCreateWithoutWineInput = {
+    id?: string
+    title: string
+    description?: string | null
+    year?: string | null
+    image?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AwardCreateOrConnectWithoutWineInput = {
+    where: AwardWhereUniqueInput
+    create: XOR<AwardCreateWithoutWineInput, AwardUncheckedCreateWithoutWineInput>
+  }
+
+  export type AwardCreateManyWineInputEnvelope = {
+    data: AwardCreateManyWineInput | AwardCreateManyWineInput[]
     skipDuplicates?: boolean
   }
 
@@ -12383,6 +13878,35 @@ export namespace Prisma {
     wineId?: StringFilter<"Review"> | string
   }
 
+  export type AwardUpsertWithWhereUniqueWithoutWineInput = {
+    where: AwardWhereUniqueInput
+    update: XOR<AwardUpdateWithoutWineInput, AwardUncheckedUpdateWithoutWineInput>
+    create: XOR<AwardCreateWithoutWineInput, AwardUncheckedCreateWithoutWineInput>
+  }
+
+  export type AwardUpdateWithWhereUniqueWithoutWineInput = {
+    where: AwardWhereUniqueInput
+    data: XOR<AwardUpdateWithoutWineInput, AwardUncheckedUpdateWithoutWineInput>
+  }
+
+  export type AwardUpdateManyWithWhereWithoutWineInput = {
+    where: AwardScalarWhereInput
+    data: XOR<AwardUpdateManyMutationInput, AwardUncheckedUpdateManyWithoutWineInput>
+  }
+
+  export type AwardScalarWhereInput = {
+    AND?: AwardScalarWhereInput | AwardScalarWhereInput[]
+    OR?: AwardScalarWhereInput[]
+    NOT?: AwardScalarWhereInput | AwardScalarWhereInput[]
+    id?: StringFilter<"Award"> | string
+    title?: StringFilter<"Award"> | string
+    description?: StringNullableFilter<"Award"> | string | null
+    year?: StringNullableFilter<"Award"> | string | null
+    image?: StringNullableFilter<"Award"> | string | null
+    wineId?: StringFilter<"Award"> | string
+    createdAt?: DateTimeFilter<"Award"> | Date | string
+  }
+
   export type OrderItemUpsertWithWhereUniqueWithoutWineInput = {
     where: OrderItemWhereUniqueInput
     update: XOR<OrderItemUpdateWithoutWineInput, OrderItemUncheckedUpdateWithoutWineInput>
@@ -12410,6 +13934,86 @@ export namespace Prisma {
     price?: FloatFilter<"OrderItem"> | number
   }
 
+  export type WineCreateWithoutAwardsInput = {
+    id?: string
+    name: string
+    description: string
+    color: string
+    sweetness: string
+    volume: number
+    alcohol: string
+    grapeVariety: string
+    inStock?: boolean
+    images?: WineCreateimagesInput | string[]
+    price?: number
+    reviews?: ReviewCreateNestedManyWithoutWineInput
+    orderItems?: OrderItemCreateNestedManyWithoutWineInput
+  }
+
+  export type WineUncheckedCreateWithoutAwardsInput = {
+    id?: string
+    name: string
+    description: string
+    color: string
+    sweetness: string
+    volume: number
+    alcohol: string
+    grapeVariety: string
+    inStock?: boolean
+    images?: WineCreateimagesInput | string[]
+    price?: number
+    reviews?: ReviewUncheckedCreateNestedManyWithoutWineInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutWineInput
+  }
+
+  export type WineCreateOrConnectWithoutAwardsInput = {
+    where: WineWhereUniqueInput
+    create: XOR<WineCreateWithoutAwardsInput, WineUncheckedCreateWithoutAwardsInput>
+  }
+
+  export type WineUpsertWithoutAwardsInput = {
+    update: XOR<WineUpdateWithoutAwardsInput, WineUncheckedUpdateWithoutAwardsInput>
+    create: XOR<WineCreateWithoutAwardsInput, WineUncheckedCreateWithoutAwardsInput>
+    where?: WineWhereInput
+  }
+
+  export type WineUpdateToOneWithWhereWithoutAwardsInput = {
+    where?: WineWhereInput
+    data: XOR<WineUpdateWithoutAwardsInput, WineUncheckedUpdateWithoutAwardsInput>
+  }
+
+  export type WineUpdateWithoutAwardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    sweetness?: StringFieldUpdateOperationsInput | string
+    volume?: FloatFieldUpdateOperationsInput | number
+    alcohol?: StringFieldUpdateOperationsInput | string
+    grapeVariety?: StringFieldUpdateOperationsInput | string
+    inStock?: BoolFieldUpdateOperationsInput | boolean
+    images?: WineUpdateimagesInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
+    reviews?: ReviewUpdateManyWithoutWineNestedInput
+    orderItems?: OrderItemUpdateManyWithoutWineNestedInput
+  }
+
+  export type WineUncheckedUpdateWithoutAwardsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    sweetness?: StringFieldUpdateOperationsInput | string
+    volume?: FloatFieldUpdateOperationsInput | number
+    alcohol?: StringFieldUpdateOperationsInput | string
+    grapeVariety?: StringFieldUpdateOperationsInput | string
+    inStock?: BoolFieldUpdateOperationsInput | boolean
+    images?: WineUpdateimagesInput | string[]
+    price?: FloatFieldUpdateOperationsInput | number
+    reviews?: ReviewUncheckedUpdateManyWithoutWineNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutWineNestedInput
+  }
+
   export type WineCreateWithoutReviewsInput = {
     id?: string
     name: string
@@ -12422,6 +14026,7 @@ export namespace Prisma {
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
     price?: number
+    awards?: AwardCreateNestedManyWithoutWineInput
     orderItems?: OrderItemCreateNestedManyWithoutWineInput
   }
 
@@ -12437,6 +14042,7 @@ export namespace Prisma {
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
     price?: number
+    awards?: AwardUncheckedCreateNestedManyWithoutWineInput
     orderItems?: OrderItemUncheckedCreateNestedManyWithoutWineInput
   }
 
@@ -12468,6 +14074,7 @@ export namespace Prisma {
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
+    awards?: AwardUpdateManyWithoutWineNestedInput
     orderItems?: OrderItemUpdateManyWithoutWineNestedInput
   }
 
@@ -12483,6 +14090,7 @@ export namespace Prisma {
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
+    awards?: AwardUncheckedUpdateManyWithoutWineNestedInput
     orderItems?: OrderItemUncheckedUpdateManyWithoutWineNestedInput
   }
 
@@ -12570,6 +14178,7 @@ export namespace Prisma {
     images?: WineCreateimagesInput | string[]
     price?: number
     reviews?: ReviewCreateNestedManyWithoutWineInput
+    awards?: AwardCreateNestedManyWithoutWineInput
   }
 
   export type WineUncheckedCreateWithoutOrderItemsInput = {
@@ -12585,6 +14194,7 @@ export namespace Prisma {
     images?: WineCreateimagesInput | string[]
     price?: number
     reviews?: ReviewUncheckedCreateNestedManyWithoutWineInput
+    awards?: AwardUncheckedCreateNestedManyWithoutWineInput
   }
 
   export type WineCreateOrConnectWithoutOrderItemsInput = {
@@ -12653,6 +14263,7 @@ export namespace Prisma {
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
     reviews?: ReviewUpdateManyWithoutWineNestedInput
+    awards?: AwardUpdateManyWithoutWineNestedInput
   }
 
   export type WineUncheckedUpdateWithoutOrderItemsInput = {
@@ -12668,6 +14279,7 @@ export namespace Prisma {
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
     reviews?: ReviewUncheckedUpdateManyWithoutWineNestedInput
+    awards?: AwardUncheckedUpdateManyWithoutWineNestedInput
   }
 
   export type ReviewCreateManyWineInput = {
@@ -12676,6 +14288,15 @@ export namespace Prisma {
     rating: number
     text?: string | null
     isApproved?: boolean
+    createdAt?: Date | string
+  }
+
+  export type AwardCreateManyWineInput = {
+    id?: string
+    title: string
+    description?: string | null
+    year?: string | null
+    image?: string | null
     createdAt?: Date | string
   }
 
@@ -12710,6 +14331,33 @@ export namespace Prisma {
     rating?: IntFieldUpdateOperationsInput | number
     text?: NullableStringFieldUpdateOperationsInput | string | null
     isApproved?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AwardUpdateWithoutWineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AwardUncheckedUpdateWithoutWineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AwardUncheckedUpdateManyWithoutWineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    year?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

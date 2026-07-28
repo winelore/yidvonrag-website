@@ -3,6 +3,7 @@ import { submitNewWineAction } from '../actions'
 import { ImageGalleryManager } from '../[id]/image-upload-input'
 import { FormSubmitButton } from '../../components/FormSubmitButton'
 import { AdminForm } from '../../components/AdminForm'
+import { AwardsManager } from '../AwardsManager'
 
 export default function NewWinePage() {
     return (
@@ -71,6 +72,11 @@ export default function NewWinePage() {
                         <div className="flex items-center gap-3 mt-2">
                             <input type="checkbox" id="inStock" name="inStock" defaultChecked={true} className="h-5 w-5 rounded border-gray-300 dark:border-zinc-700 accent-black dark:accent-white" />
                             <label htmlFor="inStock" className="text-sm font-medium text-gray-900 dark:text-white cursor-pointer">В наявності</label>
+                        </div>
+
+                        <div className="border-t border-gray-200 dark:border-zinc-800 pt-6 flex flex-col gap-4 mt-6">
+                            <h2 className="text-sm font-medium text-gray-900 dark:text-white">Нагороди та бейджі напою</h2>
+                            <AwardsManager initialAwards={[]} />
                         </div>
 
                         <div className="border-t border-gray-200 dark:border-zinc-800 pt-6 flex flex-col gap-4 mt-6">
