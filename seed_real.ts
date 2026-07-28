@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import prisma from './lib/prisma';
+// coca cola
 
 async function main() {
     console.log('Clearing old fake data...');
