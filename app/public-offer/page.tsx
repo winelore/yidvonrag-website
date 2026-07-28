@@ -6,7 +6,7 @@ export default function PublicOfferPage() {
         <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)]">
 
             {/* Main structural container for extensive legal agreements */}
-            <main className="max-w-4xl mx-auto px-6 sm:px-8 py-16 sm:py-20">
+            <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 sm:pt-48 md:pt-40 pb-16 sm:pb-20">
 
                 {/* Back navigation anchor */}
                 <Link

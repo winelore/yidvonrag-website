@@ -20,7 +20,6 @@ export async function GET(request: Request) {
                 OR: [
                     { name: { contains: query, mode: 'insensitive' } },        // Case-insensitive search by name
                     { description: { contains: query, mode: 'insensitive' } }, // Case-insensitive search by description
-                    { country: { contains: query, mode: 'insensitive' } },     // Case-insensitive search by country
                     { color: { contains: query, mode: 'insensitive' } },       // Case-insensitive search by wine color
                 ],
             },

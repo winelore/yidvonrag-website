@@ -129,10 +129,20 @@ exports.Prisma.WineScalarFieldEnum = {
   volume: 'volume',
   alcohol: 'alcohol',
   grapeVariety: 'grapeVariety',
-  country: 'country',
   inStock: 'inStock',
   images: 'images',
   price: 'price'
+};
+
+exports.Prisma.ContactSettingsScalarFieldEnum = {
+  id: 'id',
+  phone: 'phone',
+  email: 'email',
+  address: 'address',
+  workingHours: 'workingHours',
+  facebookUrl: 'facebookUrl',
+  instagramUrl: 'instagramUrl',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -205,6 +215,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   Wine: 'Wine',
+  ContactSettings: 'ContactSettings',
   User: 'User',
   Post: 'Post',
   Review: 'Review',

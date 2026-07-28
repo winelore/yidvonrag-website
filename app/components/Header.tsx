@@ -11,6 +11,7 @@ export default function Header() {
     const { items } = useCart();
     const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isOverHero, setIsOverHero] = useState(true);
     const pathname = usePathname();
     const isHome = pathname === "/";
 
@@ -18,32 +19,52 @@ export default function Header() {
         const handleScroll = () => {
             const top = window.scrollY || window.pageYOffset || document.documentElement?.scrollTop || document.body?.scrollTop || 0;
             setIsScrolled(top > 20);
+
+            if (isHome) {
+                const heroElement = document.getElementById("hero-section");
+                if (heroElement) {
+                    const rect = heroElement.getBoundingClientRect();
+                    // Header height is ~80px. If rect.bottom > 80px, header is over hero section
+                    setIsOverHero(rect.bottom > 80);
+                } else {
+                    setIsOverHero(top <= 650);
+                }
+            } else {
+                setIsOverHero(false);
+            }
         };
 
         handleScroll();
 
         window.addEventListener("scroll", handleScroll, { passive: true });
+        window.addEventListener("resize", handleScroll, { passive: true });
         document.addEventListener("scroll", handleScroll, { passive: true });
         return () => {
             window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", handleScroll);
             document.removeEventListener("scroll", handleScroll);
         };
-    }, []);
+    }, [isHome]);
 
-    const isHeroHeader = isHome && !isScrolled;
+    const isHeroHeader = isHome && isOverHero;
 
     return (
         <header
             className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
                 isHeroHeader
-                    ? "bg-gradient-to-b from-black/90 via-black/40 to-transparent py-4 md:py-6 text-white"
-                    : "bg-white border-b border-gray-200 text-gray-900 shadow-md py-2 md:py-3"
+                    ? `bg-gradient-to-b from-black/90 via-black/40 to-transparent text-white ${
+                        isScrolled ? "py-2 md:py-3" : "py-4 md:py-6"
+                      }`
+                    : `bg-white text-gray-900 shadow-md ${
+                        isScrolled ? "py-2 md:py-3" : "py-4 md:py-6"
+                      }`
             }`}
         >
             <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-8 px-4 md:px-8 max-w-7xl mx-auto w-full transition-all duration-300">
                 {/* Left Side: Logo */}
                 <Link
                     href="/"
+                    style={{ position: 'relative' }}
                     className={`relative transition-all duration-300 hover:opacity-80 block shrink-0 ${
                         isScrolled ? "w-28 md:w-32 h-10 md:h-12" : "w-36 md:w-40 h-16 md:h-20"
                     }`}

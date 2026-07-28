@@ -143,7 +143,7 @@ export default function CartPage() {
 
     if (!isLoaded) {
         return (
-            <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-32 pb-16 min-h-screen">
+            <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 sm:pt-48 md:pt-40 pb-16 min-h-screen">
                 {/* Скелетон заголовка */}
                 <div className="h-10 w-32 bg-gray-200 rounded-lg animate-pulse mb-10"></div>
 
@@ -183,7 +183,7 @@ export default function CartPage() {
     if (items.length === 0) {
         return (
             <main
-                className="max-w-4xl mx-auto px-8 py-24 text-center min-h-[60vh] flex flex-col items-center justify-center">
+                className="max-w-4xl mx-auto px-8 pt-56 sm:pt-48 md:pt-40 pb-24 text-center min-h-[60vh] flex flex-col items-center justify-center">
                 <h1 className="text-3xl font-bold mb-4">Ваш кошик порожній 🛒</h1>
                 <Link href="/wines"
                       className="bg-black text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800 transition">Перейти
@@ -193,7 +193,7 @@ export default function CartPage() {
     }
 
     return (
-        <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-32 pb-16 min-h-screen">
+        <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 sm:pt-48 md:pt-40 pb-16 min-h-screen">
             <h1 className="text-4xl font-bold mb-10">Кошик</h1>
 
             <div className="bg-white border border-gray-100 shadow-sm rounded-3xl p-6 sm:p-10">
@@ -204,7 +204,7 @@ export default function CartPage() {
                             <div className="flex-grow">
                                 <Link href={`/wines/${item.id}`}
                                       className="text-lg text-black font-semibold hover:underline">{item.name}</Link>
-                                <div className="text-sm text-gray-500 mt-1">${item.price.toFixed(2)} за шт.</div>
+                                <div className="text-sm text-gray-500 mt-1">{item.price} ₴ за шт.</div>
                             </div>
                             <div className="flex items-center gap-6">
                                 <div
@@ -218,7 +218,7 @@ export default function CartPage() {
                                     </button>
                                 </div>
                                 <div
-                                    className="font-bold text-lg w-20 text-black text-right">${(item.price * item.quantity).toFixed(2)}</div>
+                                    className="font-bold text-lg text-black text-right min-w-[5rem]">{item.price * item.quantity} ₴</div>
                                 <button onClick={() => removeFromCart(item.id)}
                                         className="text-red-500 hover:text-red-700 text-sm font-medium">✕
                                 </button>
@@ -415,7 +415,7 @@ export default function CartPage() {
                         </p>
 
                         <p className="text-4xl text-black font-black">
-                            ${totalPrice.toFixed(2)}
+                            {totalPrice} ₴
                         </p>
                     </div>
 

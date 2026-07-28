@@ -19,7 +19,7 @@ export default async function EditWinePage({params}: { params: { id: string } })
     const updateWineWithId = updateWineAction.bind(null, wine.id)
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-black p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+        <div className="min-h-screen bg-gray-50 dark:bg-black px-4 sm:px-8 pt-56 sm:pt-48 md:pt-40 pb-20 font-[family-name:var(--font-geist-sans)]">
             <div className="max-w-3xl mx-auto">
                 <Link href="/admin/wines"
                       className="text-sm text-gray-900 dark:text-white hover:underline inline-flex items-center gap-2 mb-6">
@@ -122,12 +122,14 @@ export default async function EditWinePage({params}: { params: { id: string } })
                             </div>
 
                             <div className="flex flex-col gap-1.5 flex-1">
-                                <label htmlFor="country" className="text-sm font-medium text-gray-900 dark:text-white">Країна</label>
+                                <label htmlFor="price" className="text-sm font-medium text-gray-900 dark:text-white">Ціна (грн)</label>
                                 <input
-                                    type="text"
-                                    id="country"
-                                    name="country"
-                                    defaultValue={wine.country}
+                                    type="number"
+                                    step="0.01"
+                                    id="price"
+                                    name="price"
+                                    defaultValue={wine.price}
+                                    required
                                     className="h-12 w-full rounded-lg border border-gray-300 dark:border-zinc-700 bg-transparent px-4 text-gray-900 dark:text-white text-sm transition-colors focus:border-black dark:focus:border-white focus:outline-none"
                                 />
                             </div>

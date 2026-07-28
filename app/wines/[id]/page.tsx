@@ -7,6 +7,7 @@ import AddToCartButton from "@/app/components/AddToCartButton";
 import MonoPayButton from "@/app/components/MonoPayButton";
 
 import ImageCarousel from "@/app/components/ImageCarousel";
+import RecentBeverageTracker from "@/app/components/RecentBeverageTracker";
 
 export default async function WineDetailsPage({ params }: { params: { id: string } }) {
     const wine = await prisma.wine.findUnique({
@@ -28,7 +29,8 @@ export default async function WineDetailsPage({ params }: { params: { id: string
         : null;
 
     return (
-        <main className="min-h-screen bg-white text-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+        <main className="min-h-screen bg-white text-gray-900 pt-56 sm:pt-48 md:pt-40 pb-12 px-4 sm:px-6 lg:px-8">
+            <RecentBeverageTracker wine={{ id: wine.id, name: wine.name, price: wine.price, color: wine.color }} />
             <div className="max-w-3xl mx-auto space-y-10">
 
                 {/* Header: Name and Status */}
@@ -62,12 +64,11 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                     {/* Блок з ціною та кнопкою кошика */}
                     <div className="flex flex-col items-start sm:items-end min-w-[200px] bg-gray-50 p-6 rounded-2xl border border-gray-100">
                         <div className="text-sm text-gray-500 mb-1">Ціна за пляшку</div>
-                        <div className="text-4xl font-black text-gray-900 mb-4">${wine.price}</div>
+                        <div className="text-4xl font-black text-gray-900 mb-4">{wine.price} ₴</div>
                         {wine.inStock && (
                             <div className="flex flex-col gap-3 w-full">
                                 {/* Кнопка додавання в кошик */}
-                                <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
-
+                                <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} variant="detail" />
                             </div>
                         )}
                     </div>
@@ -105,13 +106,9 @@ export default async function WineDetailsPage({ params }: { params: { id: string
                             <dt className="text-sm font-medium text-gray-500">Міцність</dt>
                             <dd className="mt-1 text-base font-semibold text-gray-900">{wine.alcohol}</dd>
                         </div>
-                        <div className="flex flex-col border-b border-gray-200 pb-3 sm:border-0 sm:pb-0">
+                        <div className="flex flex-col">
                             <dt className="text-sm font-medium text-gray-500">Сорт винограду</dt>
                             <dd className="mt-1 text-base font-semibold text-gray-900">{wine.grapeVariety}</dd>
-                        </div>
-                        <div className="flex flex-col">
-                            <dt className="text-sm font-medium text-gray-500">Країна</dt>
-                            <dd className="mt-1 text-base font-semibold text-gray-900">{wine.country}</dd>
                         </div>
                     </dl>
                 </section>

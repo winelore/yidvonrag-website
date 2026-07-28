@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { sendAdminOrderNotification } from '@/lib/email';
 
 export async function POST(req: Request) {
     try {
@@ -15,10 +16,34 @@ export async function POST(req: Request) {
 
         // Записуємо успішний статус
         if (status === 'success') {
-            await prisma.order.update({
+            const updatedOrder = await prisma.order.update({
                 where: { id: orderId },
-                data: { status: 'SUCCESS' }
+                data: { status: 'SUCCESS' },
+                include: {
+                    items: {
+                        include: {
+                            wine: true
+                        }
+                    }
+                }
             });
+
+            // Dispatch admin notification email (non-blocking)
+            sendAdminOrderNotification({
+                orderId: updatedOrder.id,
+                amount: updatedOrder.amount,
+                customerName: updatedOrder.customerName,
+                customerSurname: updatedOrder.customerSurname,
+                customerPhone: updatedOrder.customerPhone,
+                customerCity: updatedOrder.customerCity,
+                customerBranch: updatedOrder.customerBranch,
+                items: updatedOrder.items.map(item => ({
+                    name: item.wine.name,
+                    quantity: item.quantity,
+                    price: item.price
+                })),
+                status: 'ОПЛАЧЕНО'
+            }).catch(err => console.error('[Order Email] Error:', err));
         }
         // Записуємо статус помилки або відмови
         else if (status === 'failure') {

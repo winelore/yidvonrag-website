@@ -17,13 +17,23 @@ model Wine {
   volume       Float
   alcohol      String
   grapeVariety String
-  country      String
 
   inStock    Boolean     @default(true)
   images     String[]    @default([])
   reviews    Review[]
   price      Float       @default(0)
   orderItems OrderItem[]
+}
+
+model ContactSettings {
+  id           String   @id @default("default")
+  phone        String   @default("050-317-9452")
+  email        String   @default("vine.shtufko@gmail.com")
+  address      String   @default("с. Ключарки, вул. Миру, 45")
+  workingHours String   @default("Пн-Пт: 09:00 - 18:00")
+  facebookUrl  String   @default("https://www.facebook.com/Shtifko")
+  instagramUrl String   @default("https://www.instagram.com/shtufko/")
+  updatedAt    DateTime @updatedAt
 }
 
 model User {
@@ -60,7 +70,7 @@ model About {
 
 model Order {
   id        String  @id @default(uuid())
-  amount    Float
+  amount    Float   @default(0)
   status    String  @default("PENDING")
   invoiceId String?
 

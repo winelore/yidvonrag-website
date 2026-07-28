@@ -2,6 +2,7 @@ import Image from "next/image";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 import AddToCartButton from "@/app/components/AddToCartButton";
+import InCartBadge from "@/app/components/InCartBadge";
 import Footer from "@/app/components/Footer";
 
 export default async function Home() {
@@ -26,7 +27,7 @@ export default async function Home() {
     return (
         <div className="min-h-screen font-[family-name:var(--font-geist-sans)] flex flex-col bg-white text-gray-900">
             {/* Hero Section */}
-            <section className="relative w-full min-h-[80vh] min-h-[650px] sm:min-h-[750px] lg:min-h-[850px] flex items-center justify-center overflow-hidden border-b border-gray-100 bg-black text-white">
+            <section id="hero-section" className="relative w-full min-h-[80vh] min-h-[650px] sm:min-h-[750px] lg:min-h-[850px] flex items-center justify-center overflow-hidden bg-black text-white">
                 {/* Background Image with Dark Overlay Gradient */}
                 <Image
                     src="/hero-bg.jpg"
@@ -97,6 +98,7 @@ export default async function Home() {
                                     key={wine.id}
                                     className="group relative border border-gray-200/80 rounded-2xl overflow-hidden transition-all duration-200 hover:shadow-lg hover:border-gray-300 flex flex-col bg-white"
                                 >
+                                    <InCartBadge wineId={wine.id} />
                                     <Link href={`/wines/${wine.id}`} className="flex flex-col flex-grow cursor-pointer">
                                         <div className="w-full aspect-square relative bg-gray-50 flex items-center justify-center overflow-hidden">
                                             {wine.images && wine.images.length > 0 ? (
@@ -131,7 +133,7 @@ export default async function Home() {
                                             )}
 
                                             <p className="text-sm text-gray-500 mt-1">
-                                                {wine.country} • {wine.color} • {wine.sweetness}
+                                                {wine.color} • {wine.sweetness}
                                             </p>
                                             <p className="text-xs text-gray-400 mt-2 line-clamp-2 leading-relaxed">
                                                 {wine.description}
@@ -139,9 +141,9 @@ export default async function Home() {
                                         </div>
                                     </Link>
 
-                                    <div className="px-5 pb-5 pt-2 flex items-center justify-between gap-3 border-t border-gray-50">
-                                        <div className="font-bold text-lg text-gray-900">${wine.price}</div>
-                                        <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
+                                    <div className="px-5 pb-5 pt-2 flex flex-col justify-between gap-3 border-t border-gray-50">
+                                        <div className="font-bold text-lg text-gray-900">{wine.price} ₴</div>
+                                        <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} variant="card" />
                                     </div>
                                 </div>
                             );

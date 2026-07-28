@@ -9,7 +9,7 @@ export const metadata = {
 export default function CooperationPage() {
     return (
         <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)] flex flex-col">
-            <main className="flex-grow max-w-5xl mx-auto px-8 py-16 sm:py-24 w-full">
+            <main className="flex-grow max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 sm:pt-48 md:pt-40 pb-16 sm:pb-24 w-full">
 
                 {/* Заголовок та вступ */}
                 <div className="text-center mb-16 border-b border-black/[0.08] pb-10">

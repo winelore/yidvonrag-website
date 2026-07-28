@@ -33,7 +33,7 @@ export default function LoginPage() {
     }, [state.success, router])
 
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 dark:bg-black p-8 xs:p-12 font-[family-name:var(--font-geist-sans)]">
+        <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 dark:bg-black px-4 sm:px-8 pt-56 sm:pt-48 md:pt-40 pb-12 font-[family-name:var(--font-geist-sans)]">
             <div className="w-full max-w-sm rounded-2xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-sm">
                 <div className="mb-8 text-center">
                     <h1 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Вхід</h1>

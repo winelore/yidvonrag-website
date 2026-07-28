@@ -10,7 +10,7 @@ export default async function WinesPage() {
     })
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-black p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+        <div className="min-h-screen bg-gray-50 dark:bg-black px-4 sm:px-8 pt-56 sm:pt-48 md:pt-40 pb-20 font-[family-name:var(--font-geist-sans)]">
             <div className="max-w-5xl mx-auto">
 
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
@@ -36,7 +36,7 @@ export default async function WinesPage() {
                                 <div>
                                     <h2 className="text-xl font-semibold mb-1 text-gray-900 dark:text-white">{wine.name}</h2>
                                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                                        {wine.color || 'Колір не вказано'} | {wine.country || 'Країна не вказана'} | {wine.volume} л
+                                        {wine.color || 'Колір не вказано'} | {wine.volume} л | <span className="font-medium text-gray-900 dark:text-white">{wine.price} грн</span>
                                     </p>
                                 </div>
                             </div>

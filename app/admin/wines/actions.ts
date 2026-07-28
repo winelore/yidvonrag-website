@@ -16,7 +16,7 @@ export async function submitNewWineAction(formData: FormData) {
     const volume = parseFloat(formData.get('volume') as string) || 0.75;
     const alcohol = formData.get('alcohol') as string
     const grapeVariety = formData.get('grapeVariety') as string
-    const country = formData.get('country') as string
+    const price = parseFloat(formData.get('price') as string) || 0;
     const inStock = formData.get('inStock') === 'on'
 
     const orderStr = formData.get('imageOrder') as string;
@@ -54,7 +54,7 @@ export async function submitNewWineAction(formData: FormData) {
             volume,
             alcohol,
             grapeVariety,
-            country,
+            price,
             inStock,
             images: finalImages
         }
@@ -74,7 +74,7 @@ export async function updateWineAction(id: string, formData: FormData) {
   const volume = parseFloat(volumeStr) || 0;
   const alcohol = formData.get('alcohol') as string
   const grapeVariety = formData.get('grapeVariety') as string
-  const country = formData.get('country') as string
+  const price = parseFloat(formData.get('price') as string) || 0;
   const inStock = formData.get('inStock') === 'on'
 
   const orderStr = formData.get('imageOrder') as string;
@@ -125,7 +125,7 @@ export async function updateWineAction(id: string, formData: FormData) {
       volume,
       alcohol,
       grapeVariety,
-      country,
+      price,
       inStock,
       images: finalImages
     }

@@ -7,7 +7,7 @@ export default async function AdminAboutPage() {
     const about = await prisma.about.findFirst();
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-black p-8 pb-20 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+        <div className="min-h-screen bg-gray-50 dark:bg-black px-4 sm:px-8 pt-56 sm:pt-48 md:pt-40 pb-20 font-[family-name:var(--font-geist-sans)]">
             <div className="max-w-3xl mx-auto">
                 <Link href="/admin" className="text-sm text-gray-900 dark:text-white hover:underline inline-flex items-center gap-2 mb-6">
                     &larr; Назад до панелі

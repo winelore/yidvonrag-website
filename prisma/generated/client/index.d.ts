@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Wine = $Result.DefaultSelection<Prisma.$WinePayload>
 /**
+ * Model ContactSettings
+ * 
+ */
+export type ContactSettings = $Result.DefaultSelection<Prisma.$ContactSettingsPayload>
+/**
  * Model User
  * 
  */
@@ -179,6 +184,16 @@ export class PrismaClient<
     * ```
     */
   get wine(): Prisma.WineDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.contactSettings`: Exposes CRUD operations for the **ContactSettings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ContactSettings
+    * const contactSettings = await prisma.contactSettings.findMany()
+    * ```
+    */
+  get contactSettings(): Prisma.ContactSettingsDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.user`: Exposes CRUD operations for the **User** model.
@@ -674,6 +689,7 @@ export namespace Prisma {
 
   export const ModelName: {
     Wine: 'Wine',
+    ContactSettings: 'ContactSettings',
     User: 'User',
     Post: 'Post',
     Review: 'Review',
@@ -695,7 +711,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "wine" | "user" | "post" | "review" | "about" | "order" | "orderItem"
+      modelProps: "wine" | "contactSettings" | "user" | "post" | "review" | "about" | "order" | "orderItem"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -770,6 +786,80 @@ export namespace Prisma {
           count: {
             args: Prisma.WineCountArgs<ExtArgs>
             result: $Utils.Optional<WineCountAggregateOutputType> | number
+          }
+        }
+      }
+      ContactSettings: {
+        payload: Prisma.$ContactSettingsPayload<ExtArgs>
+        fields: Prisma.ContactSettingsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ContactSettingsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactSettingsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ContactSettingsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactSettingsPayload>
+          }
+          findFirst: {
+            args: Prisma.ContactSettingsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactSettingsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ContactSettingsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactSettingsPayload>
+          }
+          findMany: {
+            args: Prisma.ContactSettingsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactSettingsPayload>[]
+          }
+          create: {
+            args: Prisma.ContactSettingsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactSettingsPayload>
+          }
+          createMany: {
+            args: Prisma.ContactSettingsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ContactSettingsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactSettingsPayload>[]
+          }
+          delete: {
+            args: Prisma.ContactSettingsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactSettingsPayload>
+          }
+          update: {
+            args: Prisma.ContactSettingsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactSettingsPayload>
+          }
+          deleteMany: {
+            args: Prisma.ContactSettingsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ContactSettingsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ContactSettingsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactSettingsPayload>[]
+          }
+          upsert: {
+            args: Prisma.ContactSettingsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactSettingsPayload>
+          }
+          aggregate: {
+            args: Prisma.ContactSettingsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateContactSettings>
+          }
+          groupBy: {
+            args: Prisma.ContactSettingsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ContactSettingsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ContactSettingsCountArgs<ExtArgs>
+            result: $Utils.Optional<ContactSettingsCountAggregateOutputType> | number
           }
         }
       }
@@ -1326,6 +1416,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     wine?: WineOmit
+    contactSettings?: ContactSettingsOmit
     user?: UserOmit
     post?: PostOmit
     review?: ReviewOmit
@@ -1513,7 +1604,6 @@ export namespace Prisma {
     volume: number | null
     alcohol: string | null
     grapeVariety: string | null
-    country: string | null
     inStock: boolean | null
     price: number | null
   }
@@ -1527,7 +1617,6 @@ export namespace Prisma {
     volume: number | null
     alcohol: string | null
     grapeVariety: string | null
-    country: string | null
     inStock: boolean | null
     price: number | null
   }
@@ -1541,7 +1630,6 @@ export namespace Prisma {
     volume: number
     alcohol: number
     grapeVariety: number
-    country: number
     inStock: number
     images: number
     price: number
@@ -1568,7 +1656,6 @@ export namespace Prisma {
     volume?: true
     alcohol?: true
     grapeVariety?: true
-    country?: true
     inStock?: true
     price?: true
   }
@@ -1582,7 +1669,6 @@ export namespace Prisma {
     volume?: true
     alcohol?: true
     grapeVariety?: true
-    country?: true
     inStock?: true
     price?: true
   }
@@ -1596,7 +1682,6 @@ export namespace Prisma {
     volume?: true
     alcohol?: true
     grapeVariety?: true
-    country?: true
     inStock?: true
     images?: true
     price?: true
@@ -1698,7 +1783,6 @@ export namespace Prisma {
     volume: number
     alcohol: string
     grapeVariety: string
-    country: string
     inStock: boolean
     images: string[]
     price: number
@@ -1732,7 +1816,6 @@ export namespace Prisma {
     volume?: boolean
     alcohol?: boolean
     grapeVariety?: boolean
-    country?: boolean
     inStock?: boolean
     images?: boolean
     price?: boolean
@@ -1750,7 +1833,6 @@ export namespace Prisma {
     volume?: boolean
     alcohol?: boolean
     grapeVariety?: boolean
-    country?: boolean
     inStock?: boolean
     images?: boolean
     price?: boolean
@@ -1765,7 +1847,6 @@ export namespace Prisma {
     volume?: boolean
     alcohol?: boolean
     grapeVariety?: boolean
-    country?: boolean
     inStock?: boolean
     images?: boolean
     price?: boolean
@@ -1780,13 +1861,12 @@ export namespace Prisma {
     volume?: boolean
     alcohol?: boolean
     grapeVariety?: boolean
-    country?: boolean
     inStock?: boolean
     images?: boolean
     price?: boolean
   }
 
-  export type WineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "color" | "sweetness" | "volume" | "alcohol" | "grapeVariety" | "country" | "inStock" | "images" | "price", ExtArgs["result"]["wine"]>
+  export type WineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "color" | "sweetness" | "volume" | "alcohol" | "grapeVariety" | "inStock" | "images" | "price", ExtArgs["result"]["wine"]>
   export type WineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviews?: boolean | Wine$reviewsArgs<ExtArgs>
     orderItems?: boolean | Wine$orderItemsArgs<ExtArgs>
@@ -1810,7 +1890,6 @@ export namespace Prisma {
       volume: number
       alcohol: string
       grapeVariety: string
-      country: string
       inStock: boolean
       images: string[]
       price: number
@@ -2247,7 +2326,6 @@ export namespace Prisma {
     readonly volume: FieldRef<"Wine", 'Float'>
     readonly alcohol: FieldRef<"Wine", 'String'>
     readonly grapeVariety: FieldRef<"Wine", 'String'>
-    readonly country: FieldRef<"Wine", 'String'>
     readonly inStock: FieldRef<"Wine", 'Boolean'>
     readonly images: FieldRef<"Wine", 'String[]'>
     readonly price: FieldRef<"Wine", 'Float'>
@@ -2707,6 +2785,1045 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: WineInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ContactSettings
+   */
+
+  export type AggregateContactSettings = {
+    _count: ContactSettingsCountAggregateOutputType | null
+    _min: ContactSettingsMinAggregateOutputType | null
+    _max: ContactSettingsMaxAggregateOutputType | null
+  }
+
+  export type ContactSettingsMinAggregateOutputType = {
+    id: string | null
+    phone: string | null
+    email: string | null
+    address: string | null
+    workingHours: string | null
+    facebookUrl: string | null
+    instagramUrl: string | null
+    updatedAt: Date | null
+  }
+
+  export type ContactSettingsMaxAggregateOutputType = {
+    id: string | null
+    phone: string | null
+    email: string | null
+    address: string | null
+    workingHours: string | null
+    facebookUrl: string | null
+    instagramUrl: string | null
+    updatedAt: Date | null
+  }
+
+  export type ContactSettingsCountAggregateOutputType = {
+    id: number
+    phone: number
+    email: number
+    address: number
+    workingHours: number
+    facebookUrl: number
+    instagramUrl: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ContactSettingsMinAggregateInputType = {
+    id?: true
+    phone?: true
+    email?: true
+    address?: true
+    workingHours?: true
+    facebookUrl?: true
+    instagramUrl?: true
+    updatedAt?: true
+  }
+
+  export type ContactSettingsMaxAggregateInputType = {
+    id?: true
+    phone?: true
+    email?: true
+    address?: true
+    workingHours?: true
+    facebookUrl?: true
+    instagramUrl?: true
+    updatedAt?: true
+  }
+
+  export type ContactSettingsCountAggregateInputType = {
+    id?: true
+    phone?: true
+    email?: true
+    address?: true
+    workingHours?: true
+    facebookUrl?: true
+    instagramUrl?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ContactSettingsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContactSettings to aggregate.
+     */
+    where?: ContactSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactSettings to fetch.
+     */
+    orderBy?: ContactSettingsOrderByWithRelationInput | ContactSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ContactSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ContactSettings
+    **/
+    _count?: true | ContactSettingsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContactSettingsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContactSettingsMaxAggregateInputType
+  }
+
+  export type GetContactSettingsAggregateType<T extends ContactSettingsAggregateArgs> = {
+        [P in keyof T & keyof AggregateContactSettings]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContactSettings[P]>
+      : GetScalarType<T[P], AggregateContactSettings[P]>
+  }
+
+
+
+
+  export type ContactSettingsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactSettingsWhereInput
+    orderBy?: ContactSettingsOrderByWithAggregationInput | ContactSettingsOrderByWithAggregationInput[]
+    by: ContactSettingsScalarFieldEnum[] | ContactSettingsScalarFieldEnum
+    having?: ContactSettingsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContactSettingsCountAggregateInputType | true
+    _min?: ContactSettingsMinAggregateInputType
+    _max?: ContactSettingsMaxAggregateInputType
+  }
+
+  export type ContactSettingsGroupByOutputType = {
+    id: string
+    phone: string
+    email: string
+    address: string
+    workingHours: string
+    facebookUrl: string
+    instagramUrl: string
+    updatedAt: Date
+    _count: ContactSettingsCountAggregateOutputType | null
+    _min: ContactSettingsMinAggregateOutputType | null
+    _max: ContactSettingsMaxAggregateOutputType | null
+  }
+
+  type GetContactSettingsGroupByPayload<T extends ContactSettingsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ContactSettingsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContactSettingsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContactSettingsGroupByOutputType[P]>
+            : GetScalarType<T[P], ContactSettingsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContactSettingsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    phone?: boolean
+    email?: boolean
+    address?: boolean
+    workingHours?: boolean
+    facebookUrl?: boolean
+    instagramUrl?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["contactSettings"]>
+
+  export type ContactSettingsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    phone?: boolean
+    email?: boolean
+    address?: boolean
+    workingHours?: boolean
+    facebookUrl?: boolean
+    instagramUrl?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["contactSettings"]>
+
+  export type ContactSettingsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    phone?: boolean
+    email?: boolean
+    address?: boolean
+    workingHours?: boolean
+    facebookUrl?: boolean
+    instagramUrl?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["contactSettings"]>
+
+  export type ContactSettingsSelectScalar = {
+    id?: boolean
+    phone?: boolean
+    email?: boolean
+    address?: boolean
+    workingHours?: boolean
+    facebookUrl?: boolean
+    instagramUrl?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ContactSettingsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone" | "email" | "address" | "workingHours" | "facebookUrl" | "instagramUrl" | "updatedAt", ExtArgs["result"]["contactSettings"]>
+
+  export type $ContactSettingsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ContactSettings"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      phone: string
+      email: string
+      address: string
+      workingHours: string
+      facebookUrl: string
+      instagramUrl: string
+      updatedAt: Date
+    }, ExtArgs["result"]["contactSettings"]>
+    composites: {}
+  }
+
+  type ContactSettingsGetPayload<S extends boolean | null | undefined | ContactSettingsDefaultArgs> = $Result.GetResult<Prisma.$ContactSettingsPayload, S>
+
+  type ContactSettingsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ContactSettingsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ContactSettingsCountAggregateInputType | true
+    }
+
+  export interface ContactSettingsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ContactSettings'], meta: { name: 'ContactSettings' } }
+    /**
+     * Find zero or one ContactSettings that matches the filter.
+     * @param {ContactSettingsFindUniqueArgs} args - Arguments to find a ContactSettings
+     * @example
+     * // Get one ContactSettings
+     * const contactSettings = await prisma.contactSettings.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ContactSettingsFindUniqueArgs>(args: SelectSubset<T, ContactSettingsFindUniqueArgs<ExtArgs>>): Prisma__ContactSettingsClient<$Result.GetResult<Prisma.$ContactSettingsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ContactSettings that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ContactSettingsFindUniqueOrThrowArgs} args - Arguments to find a ContactSettings
+     * @example
+     * // Get one ContactSettings
+     * const contactSettings = await prisma.contactSettings.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ContactSettingsFindUniqueOrThrowArgs>(args: SelectSubset<T, ContactSettingsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ContactSettingsClient<$Result.GetResult<Prisma.$ContactSettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContactSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactSettingsFindFirstArgs} args - Arguments to find a ContactSettings
+     * @example
+     * // Get one ContactSettings
+     * const contactSettings = await prisma.contactSettings.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ContactSettingsFindFirstArgs>(args?: SelectSubset<T, ContactSettingsFindFirstArgs<ExtArgs>>): Prisma__ContactSettingsClient<$Result.GetResult<Prisma.$ContactSettingsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContactSettings that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactSettingsFindFirstOrThrowArgs} args - Arguments to find a ContactSettings
+     * @example
+     * // Get one ContactSettings
+     * const contactSettings = await prisma.contactSettings.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ContactSettingsFindFirstOrThrowArgs>(args?: SelectSubset<T, ContactSettingsFindFirstOrThrowArgs<ExtArgs>>): Prisma__ContactSettingsClient<$Result.GetResult<Prisma.$ContactSettingsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ContactSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactSettingsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ContactSettings
+     * const contactSettings = await prisma.contactSettings.findMany()
+     * 
+     * // Get first 10 ContactSettings
+     * const contactSettings = await prisma.contactSettings.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const contactSettingsWithIdOnly = await prisma.contactSettings.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ContactSettingsFindManyArgs>(args?: SelectSubset<T, ContactSettingsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactSettingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ContactSettings.
+     * @param {ContactSettingsCreateArgs} args - Arguments to create a ContactSettings.
+     * @example
+     * // Create one ContactSettings
+     * const ContactSettings = await prisma.contactSettings.create({
+     *   data: {
+     *     // ... data to create a ContactSettings
+     *   }
+     * })
+     * 
+     */
+    create<T extends ContactSettingsCreateArgs>(args: SelectSubset<T, ContactSettingsCreateArgs<ExtArgs>>): Prisma__ContactSettingsClient<$Result.GetResult<Prisma.$ContactSettingsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ContactSettings.
+     * @param {ContactSettingsCreateManyArgs} args - Arguments to create many ContactSettings.
+     * @example
+     * // Create many ContactSettings
+     * const contactSettings = await prisma.contactSettings.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ContactSettingsCreateManyArgs>(args?: SelectSubset<T, ContactSettingsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ContactSettings and returns the data saved in the database.
+     * @param {ContactSettingsCreateManyAndReturnArgs} args - Arguments to create many ContactSettings.
+     * @example
+     * // Create many ContactSettings
+     * const contactSettings = await prisma.contactSettings.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ContactSettings and only return the `id`
+     * const contactSettingsWithIdOnly = await prisma.contactSettings.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ContactSettingsCreateManyAndReturnArgs>(args?: SelectSubset<T, ContactSettingsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactSettingsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ContactSettings.
+     * @param {ContactSettingsDeleteArgs} args - Arguments to delete one ContactSettings.
+     * @example
+     * // Delete one ContactSettings
+     * const ContactSettings = await prisma.contactSettings.delete({
+     *   where: {
+     *     // ... filter to delete one ContactSettings
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ContactSettingsDeleteArgs>(args: SelectSubset<T, ContactSettingsDeleteArgs<ExtArgs>>): Prisma__ContactSettingsClient<$Result.GetResult<Prisma.$ContactSettingsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ContactSettings.
+     * @param {ContactSettingsUpdateArgs} args - Arguments to update one ContactSettings.
+     * @example
+     * // Update one ContactSettings
+     * const contactSettings = await prisma.contactSettings.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ContactSettingsUpdateArgs>(args: SelectSubset<T, ContactSettingsUpdateArgs<ExtArgs>>): Prisma__ContactSettingsClient<$Result.GetResult<Prisma.$ContactSettingsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ContactSettings.
+     * @param {ContactSettingsDeleteManyArgs} args - Arguments to filter ContactSettings to delete.
+     * @example
+     * // Delete a few ContactSettings
+     * const { count } = await prisma.contactSettings.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ContactSettingsDeleteManyArgs>(args?: SelectSubset<T, ContactSettingsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContactSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactSettingsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ContactSettings
+     * const contactSettings = await prisma.contactSettings.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ContactSettingsUpdateManyArgs>(args: SelectSubset<T, ContactSettingsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContactSettings and returns the data updated in the database.
+     * @param {ContactSettingsUpdateManyAndReturnArgs} args - Arguments to update many ContactSettings.
+     * @example
+     * // Update many ContactSettings
+     * const contactSettings = await prisma.contactSettings.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ContactSettings and only return the `id`
+     * const contactSettingsWithIdOnly = await prisma.contactSettings.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ContactSettingsUpdateManyAndReturnArgs>(args: SelectSubset<T, ContactSettingsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactSettingsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ContactSettings.
+     * @param {ContactSettingsUpsertArgs} args - Arguments to update or create a ContactSettings.
+     * @example
+     * // Update or create a ContactSettings
+     * const contactSettings = await prisma.contactSettings.upsert({
+     *   create: {
+     *     // ... data to create a ContactSettings
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ContactSettings we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ContactSettingsUpsertArgs>(args: SelectSubset<T, ContactSettingsUpsertArgs<ExtArgs>>): Prisma__ContactSettingsClient<$Result.GetResult<Prisma.$ContactSettingsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ContactSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactSettingsCountArgs} args - Arguments to filter ContactSettings to count.
+     * @example
+     * // Count the number of ContactSettings
+     * const count = await prisma.contactSettings.count({
+     *   where: {
+     *     // ... the filter for the ContactSettings we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContactSettingsCountArgs>(
+      args?: Subset<T, ContactSettingsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContactSettingsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ContactSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactSettingsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContactSettingsAggregateArgs>(args: Subset<T, ContactSettingsAggregateArgs>): Prisma.PrismaPromise<GetContactSettingsAggregateType<T>>
+
+    /**
+     * Group by ContactSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactSettingsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContactSettingsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContactSettingsGroupByArgs['orderBy'] }
+        : { orderBy?: ContactSettingsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContactSettingsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContactSettingsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ContactSettings model
+   */
+  readonly fields: ContactSettingsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ContactSettings.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ContactSettingsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ContactSettings model
+   */
+  interface ContactSettingsFieldRefs {
+    readonly id: FieldRef<"ContactSettings", 'String'>
+    readonly phone: FieldRef<"ContactSettings", 'String'>
+    readonly email: FieldRef<"ContactSettings", 'String'>
+    readonly address: FieldRef<"ContactSettings", 'String'>
+    readonly workingHours: FieldRef<"ContactSettings", 'String'>
+    readonly facebookUrl: FieldRef<"ContactSettings", 'String'>
+    readonly instagramUrl: FieldRef<"ContactSettings", 'String'>
+    readonly updatedAt: FieldRef<"ContactSettings", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ContactSettings findUnique
+   */
+  export type ContactSettingsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactSettings
+     */
+    select?: ContactSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactSettings
+     */
+    omit?: ContactSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which ContactSettings to fetch.
+     */
+    where: ContactSettingsWhereUniqueInput
+  }
+
+  /**
+   * ContactSettings findUniqueOrThrow
+   */
+  export type ContactSettingsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactSettings
+     */
+    select?: ContactSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactSettings
+     */
+    omit?: ContactSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which ContactSettings to fetch.
+     */
+    where: ContactSettingsWhereUniqueInput
+  }
+
+  /**
+   * ContactSettings findFirst
+   */
+  export type ContactSettingsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactSettings
+     */
+    select?: ContactSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactSettings
+     */
+    omit?: ContactSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which ContactSettings to fetch.
+     */
+    where?: ContactSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactSettings to fetch.
+     */
+    orderBy?: ContactSettingsOrderByWithRelationInput | ContactSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContactSettings.
+     */
+    cursor?: ContactSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContactSettings.
+     */
+    distinct?: ContactSettingsScalarFieldEnum | ContactSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * ContactSettings findFirstOrThrow
+   */
+  export type ContactSettingsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactSettings
+     */
+    select?: ContactSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactSettings
+     */
+    omit?: ContactSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which ContactSettings to fetch.
+     */
+    where?: ContactSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactSettings to fetch.
+     */
+    orderBy?: ContactSettingsOrderByWithRelationInput | ContactSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContactSettings.
+     */
+    cursor?: ContactSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContactSettings.
+     */
+    distinct?: ContactSettingsScalarFieldEnum | ContactSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * ContactSettings findMany
+   */
+  export type ContactSettingsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactSettings
+     */
+    select?: ContactSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactSettings
+     */
+    omit?: ContactSettingsOmit<ExtArgs> | null
+    /**
+     * Filter, which ContactSettings to fetch.
+     */
+    where?: ContactSettingsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactSettings to fetch.
+     */
+    orderBy?: ContactSettingsOrderByWithRelationInput | ContactSettingsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ContactSettings.
+     */
+    cursor?: ContactSettingsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContactSettings.
+     */
+    distinct?: ContactSettingsScalarFieldEnum | ContactSettingsScalarFieldEnum[]
+  }
+
+  /**
+   * ContactSettings create
+   */
+  export type ContactSettingsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactSettings
+     */
+    select?: ContactSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactSettings
+     */
+    omit?: ContactSettingsOmit<ExtArgs> | null
+    /**
+     * The data needed to create a ContactSettings.
+     */
+    data: XOR<ContactSettingsCreateInput, ContactSettingsUncheckedCreateInput>
+  }
+
+  /**
+   * ContactSettings createMany
+   */
+  export type ContactSettingsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ContactSettings.
+     */
+    data: ContactSettingsCreateManyInput | ContactSettingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ContactSettings createManyAndReturn
+   */
+  export type ContactSettingsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactSettings
+     */
+    select?: ContactSettingsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactSettings
+     */
+    omit?: ContactSettingsOmit<ExtArgs> | null
+    /**
+     * The data used to create many ContactSettings.
+     */
+    data: ContactSettingsCreateManyInput | ContactSettingsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ContactSettings update
+   */
+  export type ContactSettingsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactSettings
+     */
+    select?: ContactSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactSettings
+     */
+    omit?: ContactSettingsOmit<ExtArgs> | null
+    /**
+     * The data needed to update a ContactSettings.
+     */
+    data: XOR<ContactSettingsUpdateInput, ContactSettingsUncheckedUpdateInput>
+    /**
+     * Choose, which ContactSettings to update.
+     */
+    where: ContactSettingsWhereUniqueInput
+  }
+
+  /**
+   * ContactSettings updateMany
+   */
+  export type ContactSettingsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ContactSettings.
+     */
+    data: XOR<ContactSettingsUpdateManyMutationInput, ContactSettingsUncheckedUpdateManyInput>
+    /**
+     * Filter which ContactSettings to update
+     */
+    where?: ContactSettingsWhereInput
+    /**
+     * Limit how many ContactSettings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContactSettings updateManyAndReturn
+   */
+  export type ContactSettingsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactSettings
+     */
+    select?: ContactSettingsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactSettings
+     */
+    omit?: ContactSettingsOmit<ExtArgs> | null
+    /**
+     * The data used to update ContactSettings.
+     */
+    data: XOR<ContactSettingsUpdateManyMutationInput, ContactSettingsUncheckedUpdateManyInput>
+    /**
+     * Filter which ContactSettings to update
+     */
+    where?: ContactSettingsWhereInput
+    /**
+     * Limit how many ContactSettings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContactSettings upsert
+   */
+  export type ContactSettingsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactSettings
+     */
+    select?: ContactSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactSettings
+     */
+    omit?: ContactSettingsOmit<ExtArgs> | null
+    /**
+     * The filter to search for the ContactSettings to update in case it exists.
+     */
+    where: ContactSettingsWhereUniqueInput
+    /**
+     * In case the ContactSettings found by the `where` argument doesn't exist, create a new ContactSettings with this data.
+     */
+    create: XOR<ContactSettingsCreateInput, ContactSettingsUncheckedCreateInput>
+    /**
+     * In case the ContactSettings was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ContactSettingsUpdateInput, ContactSettingsUncheckedUpdateInput>
+  }
+
+  /**
+   * ContactSettings delete
+   */
+  export type ContactSettingsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactSettings
+     */
+    select?: ContactSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactSettings
+     */
+    omit?: ContactSettingsOmit<ExtArgs> | null
+    /**
+     * Filter which ContactSettings to delete.
+     */
+    where: ContactSettingsWhereUniqueInput
+  }
+
+  /**
+   * ContactSettings deleteMany
+   */
+  export type ContactSettingsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContactSettings to delete
+     */
+    where?: ContactSettingsWhereInput
+    /**
+     * Limit how many ContactSettings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContactSettings without action
+   */
+  export type ContactSettingsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactSettings
+     */
+    select?: ContactSettingsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactSettings
+     */
+    omit?: ContactSettingsOmit<ExtArgs> | null
   }
 
 
@@ -7752,7 +8869,7 @@ export namespace Prisma {
     /**
      * The data needed to create a Order.
      */
-    data: XOR<OrderCreateInput, OrderUncheckedCreateInput>
+    data?: XOR<OrderCreateInput, OrderUncheckedCreateInput>
   }
 
   /**
@@ -9096,13 +10213,26 @@ export namespace Prisma {
     volume: 'volume',
     alcohol: 'alcohol',
     grapeVariety: 'grapeVariety',
-    country: 'country',
     inStock: 'inStock',
     images: 'images',
     price: 'price'
   };
 
   export type WineScalarFieldEnum = (typeof WineScalarFieldEnum)[keyof typeof WineScalarFieldEnum]
+
+
+  export const ContactSettingsScalarFieldEnum: {
+    id: 'id',
+    phone: 'phone',
+    email: 'email',
+    address: 'address',
+    workingHours: 'workingHours',
+    facebookUrl: 'facebookUrl',
+    instagramUrl: 'instagramUrl',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ContactSettingsScalarFieldEnum = (typeof ContactSettingsScalarFieldEnum)[keyof typeof ContactSettingsScalarFieldEnum]
 
 
   export const UserScalarFieldEnum: {
@@ -9282,7 +10412,6 @@ export namespace Prisma {
     volume?: FloatFilter<"Wine"> | number
     alcohol?: StringFilter<"Wine"> | string
     grapeVariety?: StringFilter<"Wine"> | string
-    country?: StringFilter<"Wine"> | string
     inStock?: BoolFilter<"Wine"> | boolean
     images?: StringNullableListFilter<"Wine">
     price?: FloatFilter<"Wine"> | number
@@ -9299,7 +10428,6 @@ export namespace Prisma {
     volume?: SortOrder
     alcohol?: SortOrder
     grapeVariety?: SortOrder
-    country?: SortOrder
     inStock?: SortOrder
     images?: SortOrder
     price?: SortOrder
@@ -9319,7 +10447,6 @@ export namespace Prisma {
     volume?: FloatFilter<"Wine"> | number
     alcohol?: StringFilter<"Wine"> | string
     grapeVariety?: StringFilter<"Wine"> | string
-    country?: StringFilter<"Wine"> | string
     inStock?: BoolFilter<"Wine"> | boolean
     images?: StringNullableListFilter<"Wine">
     price?: FloatFilter<"Wine"> | number
@@ -9336,7 +10463,6 @@ export namespace Prisma {
     volume?: SortOrder
     alcohol?: SortOrder
     grapeVariety?: SortOrder
-    country?: SortOrder
     inStock?: SortOrder
     images?: SortOrder
     price?: SortOrder
@@ -9359,10 +10485,76 @@ export namespace Prisma {
     volume?: FloatWithAggregatesFilter<"Wine"> | number
     alcohol?: StringWithAggregatesFilter<"Wine"> | string
     grapeVariety?: StringWithAggregatesFilter<"Wine"> | string
-    country?: StringWithAggregatesFilter<"Wine"> | string
     inStock?: BoolWithAggregatesFilter<"Wine"> | boolean
     images?: StringNullableListFilter<"Wine">
     price?: FloatWithAggregatesFilter<"Wine"> | number
+  }
+
+  export type ContactSettingsWhereInput = {
+    AND?: ContactSettingsWhereInput | ContactSettingsWhereInput[]
+    OR?: ContactSettingsWhereInput[]
+    NOT?: ContactSettingsWhereInput | ContactSettingsWhereInput[]
+    id?: StringFilter<"ContactSettings"> | string
+    phone?: StringFilter<"ContactSettings"> | string
+    email?: StringFilter<"ContactSettings"> | string
+    address?: StringFilter<"ContactSettings"> | string
+    workingHours?: StringFilter<"ContactSettings"> | string
+    facebookUrl?: StringFilter<"ContactSettings"> | string
+    instagramUrl?: StringFilter<"ContactSettings"> | string
+    updatedAt?: DateTimeFilter<"ContactSettings"> | Date | string
+  }
+
+  export type ContactSettingsOrderByWithRelationInput = {
+    id?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    workingHours?: SortOrder
+    facebookUrl?: SortOrder
+    instagramUrl?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ContactSettingsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ContactSettingsWhereInput | ContactSettingsWhereInput[]
+    OR?: ContactSettingsWhereInput[]
+    NOT?: ContactSettingsWhereInput | ContactSettingsWhereInput[]
+    phone?: StringFilter<"ContactSettings"> | string
+    email?: StringFilter<"ContactSettings"> | string
+    address?: StringFilter<"ContactSettings"> | string
+    workingHours?: StringFilter<"ContactSettings"> | string
+    facebookUrl?: StringFilter<"ContactSettings"> | string
+    instagramUrl?: StringFilter<"ContactSettings"> | string
+    updatedAt?: DateTimeFilter<"ContactSettings"> | Date | string
+  }, "id">
+
+  export type ContactSettingsOrderByWithAggregationInput = {
+    id?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    workingHours?: SortOrder
+    facebookUrl?: SortOrder
+    instagramUrl?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ContactSettingsCountOrderByAggregateInput
+    _max?: ContactSettingsMaxOrderByAggregateInput
+    _min?: ContactSettingsMinOrderByAggregateInput
+  }
+
+  export type ContactSettingsScalarWhereWithAggregatesInput = {
+    AND?: ContactSettingsScalarWhereWithAggregatesInput | ContactSettingsScalarWhereWithAggregatesInput[]
+    OR?: ContactSettingsScalarWhereWithAggregatesInput[]
+    NOT?: ContactSettingsScalarWhereWithAggregatesInput | ContactSettingsScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ContactSettings"> | string
+    phone?: StringWithAggregatesFilter<"ContactSettings"> | string
+    email?: StringWithAggregatesFilter<"ContactSettings"> | string
+    address?: StringWithAggregatesFilter<"ContactSettings"> | string
+    workingHours?: StringWithAggregatesFilter<"ContactSettings"> | string
+    facebookUrl?: StringWithAggregatesFilter<"ContactSettings"> | string
+    instagramUrl?: StringWithAggregatesFilter<"ContactSettings"> | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ContactSettings"> | Date | string
   }
 
   export type UserWhereInput = {
@@ -9724,7 +10916,6 @@ export namespace Prisma {
     volume: number
     alcohol: string
     grapeVariety: string
-    country: string
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
     price?: number
@@ -9741,7 +10932,6 @@ export namespace Prisma {
     volume: number
     alcohol: string
     grapeVariety: string
-    country: string
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
     price?: number
@@ -9758,7 +10948,6 @@ export namespace Prisma {
     volume?: FloatFieldUpdateOperationsInput | number
     alcohol?: StringFieldUpdateOperationsInput | string
     grapeVariety?: StringFieldUpdateOperationsInput | string
-    country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
@@ -9775,7 +10964,6 @@ export namespace Prisma {
     volume?: FloatFieldUpdateOperationsInput | number
     alcohol?: StringFieldUpdateOperationsInput | string
     grapeVariety?: StringFieldUpdateOperationsInput | string
-    country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
@@ -9792,7 +10980,6 @@ export namespace Prisma {
     volume: number
     alcohol: string
     grapeVariety: string
-    country: string
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
     price?: number
@@ -9807,7 +10994,6 @@ export namespace Prisma {
     volume?: FloatFieldUpdateOperationsInput | number
     alcohol?: StringFieldUpdateOperationsInput | string
     grapeVariety?: StringFieldUpdateOperationsInput | string
-    country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
@@ -9822,10 +11008,86 @@ export namespace Prisma {
     volume?: FloatFieldUpdateOperationsInput | number
     alcohol?: StringFieldUpdateOperationsInput | string
     grapeVariety?: StringFieldUpdateOperationsInput | string
-    country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type ContactSettingsCreateInput = {
+    id?: string
+    phone?: string
+    email?: string
+    address?: string
+    workingHours?: string
+    facebookUrl?: string
+    instagramUrl?: string
+    updatedAt?: Date | string
+  }
+
+  export type ContactSettingsUncheckedCreateInput = {
+    id?: string
+    phone?: string
+    email?: string
+    address?: string
+    workingHours?: string
+    facebookUrl?: string
+    instagramUrl?: string
+    updatedAt?: Date | string
+  }
+
+  export type ContactSettingsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    workingHours?: StringFieldUpdateOperationsInput | string
+    facebookUrl?: StringFieldUpdateOperationsInput | string
+    instagramUrl?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContactSettingsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    workingHours?: StringFieldUpdateOperationsInput | string
+    facebookUrl?: StringFieldUpdateOperationsInput | string
+    instagramUrl?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContactSettingsCreateManyInput = {
+    id?: string
+    phone?: string
+    email?: string
+    address?: string
+    workingHours?: string
+    facebookUrl?: string
+    instagramUrl?: string
+    updatedAt?: Date | string
+  }
+
+  export type ContactSettingsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    workingHours?: StringFieldUpdateOperationsInput | string
+    facebookUrl?: StringFieldUpdateOperationsInput | string
+    instagramUrl?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContactSettingsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    workingHours?: StringFieldUpdateOperationsInput | string
+    facebookUrl?: StringFieldUpdateOperationsInput | string
+    instagramUrl?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateInput = {
@@ -10046,7 +11308,7 @@ export namespace Prisma {
 
   export type OrderCreateInput = {
     id?: string
-    amount: number
+    amount?: number
     status?: string
     invoiceId?: string | null
     customerName?: string | null
@@ -10060,7 +11322,7 @@ export namespace Prisma {
 
   export type OrderUncheckedCreateInput = {
     id?: string
-    amount: number
+    amount?: number
     status?: string
     invoiceId?: string | null
     customerName?: string | null
@@ -10102,7 +11364,7 @@ export namespace Prisma {
 
   export type OrderCreateManyInput = {
     id?: string
-    amount: number
+    amount?: number
     status?: string
     invoiceId?: string | null
     customerName?: string | null
@@ -10261,7 +11523,6 @@ export namespace Prisma {
     volume?: SortOrder
     alcohol?: SortOrder
     grapeVariety?: SortOrder
-    country?: SortOrder
     inStock?: SortOrder
     images?: SortOrder
     price?: SortOrder
@@ -10281,7 +11542,6 @@ export namespace Prisma {
     volume?: SortOrder
     alcohol?: SortOrder
     grapeVariety?: SortOrder
-    country?: SortOrder
     inStock?: SortOrder
     price?: SortOrder
   }
@@ -10295,7 +11555,6 @@ export namespace Prisma {
     volume?: SortOrder
     alcohol?: SortOrder
     grapeVariety?: SortOrder
-    country?: SortOrder
     inStock?: SortOrder
     price?: SortOrder
   }
@@ -10345,6 +11604,64 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type ContactSettingsCountOrderByAggregateInput = {
+    id?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    workingHours?: SortOrder
+    facebookUrl?: SortOrder
+    instagramUrl?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ContactSettingsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    workingHours?: SortOrder
+    facebookUrl?: SortOrder
+    instagramUrl?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ContactSettingsMinOrderByAggregateInput = {
+    id?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    address?: SortOrder
+    workingHours?: SortOrder
+    facebookUrl?: SortOrder
+    instagramUrl?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -10406,17 +11723,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type PostCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
@@ -10437,20 +11743,6 @@ export namespace Prisma {
     title?: SortOrder
     content?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -10736,6 +12028,10 @@ export namespace Prisma {
     deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
   }
 
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -10747,10 +12043,6 @@ export namespace Prisma {
   export type PostUpdateimagesInput = {
     set?: string[]
     push?: string | string[]
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
   }
 
   export type WineCreateNestedOneWithoutReviewsInput = {
@@ -10927,6 +12219,31 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -10967,31 +12284,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -11127,7 +12419,6 @@ export namespace Prisma {
     volume: number
     alcohol: string
     grapeVariety: string
-    country: string
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
     price?: number
@@ -11143,7 +12434,6 @@ export namespace Prisma {
     volume: number
     alcohol: string
     grapeVariety: string
-    country: string
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
     price?: number
@@ -11175,7 +12465,6 @@ export namespace Prisma {
     volume?: FloatFieldUpdateOperationsInput | number
     alcohol?: StringFieldUpdateOperationsInput | string
     grapeVariety?: StringFieldUpdateOperationsInput | string
-    country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
@@ -11191,7 +12480,6 @@ export namespace Prisma {
     volume?: FloatFieldUpdateOperationsInput | number
     alcohol?: StringFieldUpdateOperationsInput | string
     grapeVariety?: StringFieldUpdateOperationsInput | string
-    country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
@@ -11240,7 +12528,7 @@ export namespace Prisma {
 
   export type OrderCreateWithoutItemsInput = {
     id?: string
-    amount: number
+    amount?: number
     status?: string
     invoiceId?: string | null
     customerName?: string | null
@@ -11253,7 +12541,7 @@ export namespace Prisma {
 
   export type OrderUncheckedCreateWithoutItemsInput = {
     id?: string
-    amount: number
+    amount?: number
     status?: string
     invoiceId?: string | null
     customerName?: string | null
@@ -11278,7 +12566,6 @@ export namespace Prisma {
     volume: number
     alcohol: string
     grapeVariety: string
-    country: string
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
     price?: number
@@ -11294,7 +12581,6 @@ export namespace Prisma {
     volume: number
     alcohol: string
     grapeVariety: string
-    country: string
     inStock?: boolean
     images?: WineCreateimagesInput | string[]
     price?: number
@@ -11363,7 +12649,6 @@ export namespace Prisma {
     volume?: FloatFieldUpdateOperationsInput | number
     alcohol?: StringFieldUpdateOperationsInput | string
     grapeVariety?: StringFieldUpdateOperationsInput | string
-    country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number
@@ -11379,7 +12664,6 @@ export namespace Prisma {
     volume?: FloatFieldUpdateOperationsInput | number
     alcohol?: StringFieldUpdateOperationsInput | string
     grapeVariety?: StringFieldUpdateOperationsInput | string
-    country?: StringFieldUpdateOperationsInput | string
     inStock?: BoolFieldUpdateOperationsInput | boolean
     images?: WineUpdateimagesInput | string[]
     price?: FloatFieldUpdateOperationsInput | number

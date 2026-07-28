@@ -20,7 +20,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
 
     return (
         <div className="min-h-screen bg-white text-black font-[family-name:var(--font-geist-sans)]">
-            <main className="max-w-3xl mx-auto px-8 py-16">
+            <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 sm:pt-48 md:pt-40 pb-16">
 
                 <Link href="/" className="text-blue-600 hover:underline text-sm font-medium mb-8 inline-block">
                     ← Повернутися на головну

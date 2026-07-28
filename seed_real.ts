@@ -17,7 +17,6 @@ async function main() {
                 volume: 0.75,
                 alcohol: '13.5%',
                 grapeVariety: 'Каберне Совіньйон',
-                country: 'Франція',
                 price: 1200,
                 inStock: true,
                 images: ['https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=800&auto=format&fit=crop']
@@ -30,7 +29,6 @@ async function main() {
                 volume: 0.75,
                 alcohol: '12.5%',
                 grapeVariety: 'Шардоне',
-                country: 'Італія',
                 price: 950,
                 inStock: true,
                 images: ['https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=800&auto=format&fit=crop']
@@ -43,7 +41,6 @@ async function main() {
                 volume: 0.75,
                 alcohol: '13.0%',
                 grapeVariety: 'Піно Нуар',
-                country: 'Чилі',
                 price: 1050,
                 inStock: true,
                 images: ['https://images.unsplash.com/photo-1558001373-7b93ee48ffa0?w=800&auto=format&fit=crop']

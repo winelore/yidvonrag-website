@@ -2,6 +2,7 @@ import prisma from "@/lib/prisma";
 import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "@/app/components/AddToCartButton";
+import InCartBadge from "@/app/components/InCartBadge";
 
 export const dynamic = "force-dynamic";
 
@@ -13,7 +14,7 @@ export default async function WinesCatalogPage() {
     });
 
     return (
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 md:pt-32 pb-16 min-h-screen">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-56 sm:pt-48 md:pt-40 pb-16 min-h-screen">
             <h1 className="text-4xl font-bold mb-10">Каталог Вин</h1>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -23,7 +24,8 @@ export default async function WinesCatalogPage() {
                         : null;
 
                     return (
-                        <div key={wine.id} className="group border border-black/[0.08] rounded-2xl overflow-hidden transition-all hover:shadow-lg flex flex-col bg-white">
+                        <div key={wine.id} className="group border border-black/[0.08] rounded-2xl overflow-hidden transition-all hover:shadow-lg flex flex-col bg-white relative">
+                            <InCartBadge wineId={wine.id} />
                             <Link href={`/wines/${wine.id}`} className="flex flex-col flex-grow">
                                 <div className="w-full aspect-square relative bg-gray-100 overflow-hidden">
                                     {wine.images && wine.images.length > 0 ? (
@@ -43,12 +45,12 @@ export default async function WinesCatalogPage() {
                                     ) : (
                                         <div className="mt-1 text-xs text-gray-400">Немає відгуків</div>
                                     )}
-                                    <p className="text-sm text-gray-500 mt-1">{wine.country} • {wine.color}</p>
+                                    <p className="text-sm text-gray-500 mt-1">{wine.color} • {wine.sweetness}</p>
                                 </div>
                             </Link>
-                            <div className="px-4 pb-4 pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                                <div className="font-bold text-lg text-gray-900">${wine.price}</div>
-                                <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} />
+                            <div className="px-4 pb-4 pt-2 flex flex-col justify-between gap-3 border-t border-gray-50">
+                                <div className="font-bold text-lg text-gray-900">{wine.price} ₴</div>
+                                <AddToCartButton wine={{ id: wine.id, name: wine.name, price: wine.price }} variant="card" />
                             </div>
                         </div>
                     );

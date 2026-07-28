@@ -14,7 +14,7 @@ export default function CartWidget() {
         <div className="fixed bottom-8 right-8 bg-black text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-4 z-50 hover:bg-gray-800 transition cursor-pointer border border-gray-700">
             <span className="font-bold text-lg">🛒 {totalItems} шт.</span>
             <span className="opacity-50">|</span>
-            <span className="font-bold text-lg">${totalPrice.toFixed(2)}</span>
+            <span className="font-bold text-lg">{totalPrice} ₴</span>
         </div>
     );
 }
