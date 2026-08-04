@@ -6,16 +6,17 @@ export async function POST(req: Request) {
     try {
         const body = await req.json();
 
-        // reference - це наш order.id, який ми передали при створенні інвойсу
-        const orderId = body.reference;
-        const status = body.status; // напр: 'success', 'failure', 'processing'
+        // Отримуємо orderId з payload, який ми передали при створенні
+        const orderId = body.payload?.orderId;
+        const status = body.status; // напр: 'paid', 'failed', 'cancel'
 
         if (!orderId) {
-            return NextResponse.json({ error: 'Відсутній reference замовлення' }, { status: 400 });
+            return NextResponse.json({ error: 'Відсутній ідентифікатор замовлення' }, { status: 400 });
         }
 
-        // Записуємо успішний статус
-        if (status === 'success') {
+        // Записуємо успішний статус
+        // А-Банк повертає 'paid' та resultCode 100 для успішних транзакцій
+        if (status === 'paid' && String(body.resultCode) === '100') {
             const updatedOrder = await prisma.order.update({
                 where: { id: orderId },
                 data: { status: 'SUCCESS' },
@@ -46,14 +47,13 @@ export async function POST(req: Request) {
             }).catch(err => console.error('[Order Email] Error:', err));
         }
         // Записуємо статус помилки або відмови
-        else if (status === 'failure') {
+        else if (status === 'failed' || status === 'cancel') {
             await prisma.order.update({
                 where: { id: orderId },
                 data: { status: 'FAILED' }
             });
         }
 
-        // Монобанк вимагає, щоб ми просто відповіли 200 OK
         return NextResponse.json({ status: 'ok' });
     } catch (error) {
         console.error('Webhook error:', error);

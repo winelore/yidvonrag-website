@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
-// Описуємо тип для елемента кошика
 type CartItemInput = {
     id: string;
     quantity: number;
@@ -10,7 +9,6 @@ type CartItemInput = {
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        // 1. Тепер дістаємо і кошик, і дані клієнта з запиту
         const { cartItems, customerInfo } = body;
 
         if (!cartItems || cartItems.length === 0) {
@@ -24,7 +22,6 @@ export async function POST(req: Request) {
 
         let totalAmount = 0;
         const orderItemsData = [];
-
         for (const item of cartItems) {
             const dbWine = dbWines.find(w => w.id === item.id);
             if (dbWine) {
@@ -41,7 +38,6 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Помилка розрахунку суми' }, { status: 400 });
         }
 
-        // 2. Зберігаємо замовлення РАЗОМ із даними клієнта
         const order = await prisma.order.create({
             data: {
                 amount: totalAmount,
@@ -57,39 +53,68 @@ export async function POST(req: Request) {
             }
         });
 
-        const amountInKopecks = Math.round(totalAmount * 100);
-
-        const monoResponse = await fetch('https://api.monobank.ua/api/merchant/invoice/create', {
+        // 3. Авторизація
+        const authResponse = await fetch(`${process.env.ABANK_BASE_URL}/api/v1/internet-acquiring/auth/get-token`, {
             method: 'POST',
-            headers: {
-                'X-Token': process.env.MONOBANK_TOKEN!,
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                amount: amountInKopecks,
-                ccy: 980,
-                reference: order.id,
-                redirectUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/?orderId=${order.id}`,
-                webHookUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/webhook/monobank`
+                login: process.env.ABANK_LOGIN!,
+                secret_key: process.env.ABANK_SECRET_KEY!
             })
         });
+        const authData = await authResponse.json();
 
-        const data = await monoResponse.json();
+        if (!authResponse.ok || authData.result !== 'ok') {
+            throw new Error('Помилка авторизації: ' + JSON.stringify(authData));
+        }
 
-        if (!monoResponse.ok || !data.pageUrl) {
-            throw new Error(data.errText || 'Помилка генерації інвойсу в Monobank');
+        // 4. Створюємо інвойс в А-Банк
+        const payload = {
+            order_id: order.id,
+            orderId: order.id,
+            currency: "UAH",
+            amount: totalAmount,
+            description: `Замовлення #${order.id}`,
+            callback_url: `${process.env.NEXT_PUBLIC_SITE_URL}/?orderId=${order.id}`,
+            callback_system: `${process.env.NEXT_PUBLIC_SITE_URL}/api/webhook/abank`,
+            items: orderItemsData.map(item => ({
+                message: `Товар ID: ${item.wineId}`,
+                amount: item.price,
+                count: item.quantity
+            })),
+            payload: {
+                orderId: order.id
+            }
+        };
+
+        const abankResponse = await fetch(`${process.env.ABANK_BASE_URL}/api/v1/internet-acquiring/make-invoice`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${authData.access_token}`
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await abankResponse.json();
+
+
+        // Якщо виникла помилка в банку або url містить undefined, викидаємо помилку з текстом відповіді банку
+        if (data.result === 'error' || !data.invoice_url || data.invoice_url.includes('undefined')) {
+            throw new Error(`Деталі від банку: ${JSON.stringify(data)}`);
         }
 
         await prisma.order.update({
             where: { id: order.id },
-            data: { invoiceId: data.invoiceId }
+            data: { invoiceId: String(data.invoice_id || data.invoiceId || data.id) }
         });
 
-        return NextResponse.json({ pageUrl: data.pageUrl });
+        return NextResponse.json({ pageUrl: data.invoice_url });
 
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Невідома помилка';
         console.error('Checkout Error:', errorMessage);
-        return NextResponse.json({ error: 'Помилка обробки платежу' }, { status: 500 });
+        // Повертаємо справжню помилку на фронтенд, щоб ви її побачили у alert()
+        return NextResponse.json({ error: errorMessage }, { status: 400 });
     }
 }

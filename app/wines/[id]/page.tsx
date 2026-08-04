@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
 import ReviewForm from "@/app/wines/[id]/ReviewForm";
 import AddToCartButton from "@/app/components/AddToCartButton";
-import MonoPayButton from "@/app/components/MonoPayButton";
+import ABankPayButton from "@/app/components/ABankPayButton";
 
 import ImageCarousel from "@/app/components/ImageCarousel";
 import RecentBeverageTracker from "@/app/components/RecentBeverageTracker";
