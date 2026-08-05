@@ -2,19 +2,19 @@
 
 import { useState } from "react";
 
-interface MonoPayButtonProps {
+interface ABankPayButtonProps {
     wineId: string;
     price: number;
 }
 
-export default function MonoPayButton({ wineId, price }: MonoPayButtonProps) {
+export default function ABankPayButton({ wineId, price }: ABankPayButtonProps) {
     const [loading, setLoading] = useState(false);
 
     const handlePayment = async () => {
         try {
             setLoading(true);
 
-            // ОНОВЛЕНО: Відправляємо товар як масив cartItems
+            // Відправляємо товар як масив cartItems
             const res = await fetch('/api/checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -26,7 +26,7 @@ export default function MonoPayButton({ wineId, price }: MonoPayButtonProps) {
             const data = await res.json();
 
             if (data.pageUrl) {
-                // Переходимо на сторінку оплати
+                // Переходимо на сторінку оплати А-Банк
                 window.location.href = data.pageUrl;
             } else {
                 alert(data.error || "Помилка створення платежу");
